@@ -1,0 +1,21 @@
+type: "object"
+properties:
+  macaddr:
+    type: "string"
+  ipv4:
+    $ref: "wanipv4.yaml"
+additionalProperties: true
+required:
+  - "ipv4"
+  - "macaddr"
+example:
+  {
+    "macaddr": "90:A7:C1:97:BA:4A",
+    "ipv4": {
+      "proto": "dhcp",
+      "dns": [
+        "10.11.11.11",
+        "10.51.0.14"
+      ]
+    }
+  }

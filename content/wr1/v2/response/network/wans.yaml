@@ -1,0 +1,66 @@
+---
+  $schema: "http://json-schema.org/draft-04/schema#"
+  type: "object"
+  properties:
+    status:
+      type: "string"
+      default: "success"
+      enum:
+        - "success"
+        - "error"
+      uniqueItems: true
+      description: "standard Pakedge status code"
+    msg:
+      type: "string"
+      default: ""
+      description: "standard Pakedge msg"
+    response:
+      type: "array"
+      items:
+        $ref: 'wan.yaml#/properties/response'
+      additionalProperties: false
+  additionalProperties: false
+  required:
+    - "status"
+    - "msg"
+    - "response"
+  example:
+    {
+      "status": "success",
+      "msg": "",
+      "response": [
+        {
+          "index": 1,
+          "status": true,
+          "ipv4": {
+            "ip_address": "78.24.109.219",
+            "proto": "static",
+            "dns": [
+              "8.8.8.8",
+              "8.8.4.4"
+            ],
+            "gateway": "78.24.109.209",
+            "netmask": "255.255.255.240"
+          },
+          "rx_data": 59435363,
+          "up": true,
+          "tx_data": 10162681,
+          "uptime": 85178,
+          "macaddr": "90:A7:C1:56:02:90",
+          "name": "wan"
+        },
+        {
+          "index": 2,
+          "status": true,
+          "ipv4": {
+            "proto": "dhcp"
+          },
+          "rx_data": 0,
+          "up": false,
+          "tx_data": 0,
+          "uptime": 0,
+          "macaddr": "92:A7:C1:56:02:90",
+          "name": "mdu"
+        }
+      ]
+    }
