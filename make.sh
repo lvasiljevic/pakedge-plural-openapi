@@ -18,7 +18,7 @@ HTML_DOC="bin/index_"${PLATFORM}".html"
 YAML_FILE=index.yaml
 HTML_FILE=bin/index.html
 #generate html
-openapi-generator generate -g html2 -i ${YAML_FILE} -o bin/
+./node_modules/@openapitools/openapi-generator-cli/bin/openapi-generator generate -g html2 -i ${YAML_FILE} -o bin/
 if [ $? -ne 0 ]; then
     exit 1
 fi
