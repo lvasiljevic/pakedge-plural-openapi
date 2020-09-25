@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title:  PLURAL
   description: Pakedge LUa Rest Api Library
-  version: "1"
+  version: "2"
   contact:
     name: API Support
     email: lvasiljevic@control4.com

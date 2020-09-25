@@ -3,7 +3,7 @@ properties:
   macaddr:
     type: "string"
   ipv4:
-    $ref: "wanipv4.yaml"
+    $ref: "wanipv4.yaml#/properties/ipv4"
 additionalProperties: true
 required:
   - "ipv4"

@@ -879,6 +879,16 @@ ul.nav-tabs {
     "response" : ""
   }
 };
+    defs["ipv4"] = {
+  "type" : "object",
+  "oneOf" : [ {
+    "$ref" : "#/components/schemas/option1_2"
+  }, {
+    "$ref" : "#/components/schemas/option2_2"
+  }, {
+    "$ref" : "#/components/schemas/option3_2"
+  } ]
+};
     defs["network"] = {
   "required" : [ "msg", "response", "status" ],
   "type" : "object",
@@ -1331,7 +1341,7 @@ ul.nav-tabs {
       "type" : "string"
     },
     "ipv4" : {
-      "$ref" : "#/components/schemas/wanipv4_2"
+      "$ref" : "#/components/schemas/ipv4"
     }
   },
   "additionalProperties" : true,
@@ -1501,7 +1511,7 @@ ul.nav-tabs {
         <div id="header">
           <div id="api-_">
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
-              <div class="app-desc">Version: 1</div>
+              <div class="app-desc">Version: 2</div>
             <hr>
             <div id="app-description" class="app-desc">
                 Pakedge LUa Rest Api Library
