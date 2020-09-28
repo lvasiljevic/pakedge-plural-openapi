@@ -6,7 +6,7 @@ info:
   contact:
     name: API Support
     email: lvasiljevic@control4.com
-    url: http://control4.com/support
+    url: https://www.control4.com/
 servers:
   # Added by API Auto Mocking Plugin
   - description: SwaggerHub API Auto Mocking

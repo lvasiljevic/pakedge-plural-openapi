@@ -6,5 +6,5 @@ REPO_NAME=pakedge-plural-openapi
 
 git clone --depth 1   --filter=blob:none   --no-checkout $REPO
 cd $REPO_NAME
-git checkout develop -- bin/ content/${PLATFORM}/ make.sh README index.yaml make_platform.sh version node_modules/
-./make.sh ${PLATFORM}
+git checkout develop -- bin/ content/${PLATFORM}/ make.sh README index_${PLATFORM}_* make_platform.sh version node_modules/
+./make.sh ${PLATFORM} 2

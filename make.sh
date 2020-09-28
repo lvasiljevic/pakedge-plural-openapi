@@ -9,9 +9,9 @@ generate_openapi() {
 }
 
 #check input argumennts
-if [[ $# -eq 0 ]] ; then
+if [[ $# -le 1 ]] ; then
     echo 'Error - platform not defined!'
-    echo 'Valid platform is wr1'
+    echo 'Valid platform is [wr1]'
     echo 'start with ./make.sh <platform> <version>'
     echo 'eg. ./make.sh wr1 2'
     exit 1
@@ -25,14 +25,11 @@ if [ "${PLATFORM}" != "wr1" ]; then
     exit 1
 fi
 HTML_DOC="bin/index_"${PLATFORM}_v${VERSION}".html"
-YAML_FILE_V1=index_v1.yaml
-YAML_FILE_V2=index_v2.yaml
+YAML_FILE_V1=index_${PLATFORM}_v1.yaml
+YAML_FILE_V2=index_${PLATFORM}_v2.yaml
 HTML_FILE=bin/index.html
 
-if [ "${VERSION}" == "all" ]; then
-    generate_openapi ${YAML_FILE_V1}
-    generate_openapi ${YAML_FILE_V2}
-elif [ "${VERSION}" == "1" ]; then
+if [ "${VERSION}" == "1" ]; then
     #print 1 in yaml
     generate_openapi ${YAML_FILE_V1}
 elif [ "${VERSION}" == "2" ]; then

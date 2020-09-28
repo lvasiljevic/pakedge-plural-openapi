@@ -1,0 +1,14 @@
+type: object
+properties:
+  response:
+    type: "string"
+  msg:
+    type: "string"
+  status:
+    type: "string"
+example:
+  {
+    "status": "success",
+    "msg": "",
+    "response":""
+  }

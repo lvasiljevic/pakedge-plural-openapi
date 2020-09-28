@@ -1,4 +1,5 @@
-git 2.17.1
-openapi-generator
-json2yaml
-swagger-cli
+For this package you need git (2.17.1)
+Package openapi-generator-cli is installed locally so you'll get it.
+Useful packages are:
+    -json2yaml
+    -swagger-cli
