@@ -1,0 +1,22 @@
+description: |
+  Configure the ipv4 settings.
+operationId: PUT_network-wans-wanId-ipv4
+tags:
+  - network
+security:
+  - bearerAuth: []
+parameters:
+  - $ref: "../../parameters/path/wanid.yaml"
+requestBody:
+  $ref : "../../request/network/wans-wanid-ipv4-PUT.yaml"
+responses:
+  '200':
+    $ref : "../../response/network/wans-wanid-ipv4-200-PUT.yaml"
+  '400':
+    $ref : "../../response/network/wans-wanid-ipv4-400-PUT.yaml"
+  '401':
+    $ref : "../../response/errors/401.yaml"
+  '404':
+    $ref : "../../response/errors/404.yaml"
+  '503':
+    $ref : "../../response/errors/503.yaml"

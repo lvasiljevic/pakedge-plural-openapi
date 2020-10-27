@@ -1,7 +1,10 @@
-For this package you need git (2.17.1)
-Package openapi-generator-cli and swagger-cli are installed locally so you'll get it.
-Useful packages are:
-    -json2yaml
+## Setup Directions
+1. Clone repo
+2. Install node dependencies `npm install`
+
+## Generate template
+./tools/doc_gen.sh <platform> <apiv[n].lua>
+    This script will parse apiv[n].lua and find new endpoints that are not yet implemented. Next, this script will generate templates in documentation. Script is capable of generating complete file structure from scratch in case of new platform or API version.
 
 -make.sh
     is script which made API representation in html(to be honest ugly)of selected platform and version
@@ -15,7 +18,4 @@ Useful packages are:
     How to use:
         ./make_platform.sh <platform>
         ./make_platform.sh wr1
--make_flat_yaml.sh
-    is script which read all reference and make one yaml file. This big(ugly) file is neccessery for:
-    https://app.swaggerhub.com/home?type=API , where API representation is bit prettier.
 

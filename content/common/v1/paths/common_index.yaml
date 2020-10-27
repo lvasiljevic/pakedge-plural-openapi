@@ -1,0 +1,20 @@
+/auth/login:
+  post:
+    tags:
+      - auth
+    $ref: "./auth/login-POST.yaml"
+/auth/logout:
+  post:
+    tags:
+      - auth
+    $ref: "./auth/logout-POST.yaml"
+/auth/refresh:
+  post:
+    tags:
+      - auth
+    $ref: "./auth/refresh-POST.yaml"
+/auth/update:
+  post:
+    tags:
+      - auth
+    $ref: "./auth/update-POST.yaml"

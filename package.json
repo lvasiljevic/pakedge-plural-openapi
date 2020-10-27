@@ -1,0 +1,32 @@
+{
+  "name": "pakedge-plural-openapi",
+  "version": "0.0.1",
+  "description": "PLURAL Open API documentation.",
+  "main": "make.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lvasiljevic/pakedge-plural-openapi.git"
+  },
+  "keywords": [
+    "PLURAL",
+    "OpenAPI"
+  ],
+  "author": "Lazar Vasiljevic",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lvasiljevic/pakedge-plural-openapi/issues"
+  },
+  "homepage": "https://github.com/lvasiljevic/pakedge-plural-openapi#readme",
+  "dependencies": {
+    "@openapitools/openapi-generator-cli": "^2.0.3",
+    "bootprint": "^4.0.4",
+    "bootprint-openapi": "^4.0.4",
+    "html-inline": "^1.2.0",
+    "json2yaml": "^1.1.0",
+    "merge-yaml-cli": "^1.1.2",
+    "swagger-cli": "^4.0.4"
+  }
+}

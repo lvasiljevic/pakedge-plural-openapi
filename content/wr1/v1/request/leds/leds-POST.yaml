@@ -1,0 +1,6 @@
+description: 'Change leds status'
+required: true
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/leds/leds-POST.yaml'

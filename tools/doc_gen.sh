@@ -1,0 +1,664 @@
+#!/bin/bash
+
+#check input argumennts
+if [[ $# -lt 2 ]] ; then
+    echo 'Error - platform and apiv[n].lua file not defined!'
+    exit 1
+fi
+
+PLATFORM=${1}
+AVAILABLE_API=${2}
+
+METHOD_LIST="GET POST PUT DELETE"
+
+declare -A METHODS_YAML
+METHODS_YAML=(
+	["GET"]="get:"
+	["POST"]="post:"
+	["DELETE"]="delete:"
+	["PUT"]="put:"
+)
+
+get_api(){
+
+	for METHOD in ${METHOD_LIST}; do
+		ENDPOINTS_LIST=$(sed -nr '
+		/'${METHOD}' = / {
+		    :ending
+		    /\},|\}\}$/! {
+		        N   
+		        b ending 
+		    }
+		    s/'${METHOD}' = (\{)(.*)(\}\,|\}\})/\2/p
+		}
+		' ${AVAILABLE_API})
+
+		if [ ! -z "${ENDPOINTS_LIST}" ]; then
+			ENDPOINTS=$(echo "${ENDPOINTS_LIST}" | grep -o -P '(?<=(\[")).*(?="\])')
+			for ENDPOINT in ${ENDPOINTS}; do
+				process_api ${METHOD} ${ENDPOINT}
+			done
+		fi
+	done
+}
+
+process_api(){
+	METHOD=${1}
+	IFS='/' read -r -a ENDPOINT_SEG <<< ${2}
+
+	ENDPOINT_YAML=""
+	ENDPOINT_MATCH_YAML=""
+	API_FILE=""
+	ID_PARAMETER=false
+
+	if [[ ${#ENDPOINT_SEG[@]} -lt 4 ]]; then
+		SHORT_ENDPOINT=true
+	else
+		SHORT_ENDPOINT=false
+	fi
+
+	for INDEX in ${!ENDPOINT_SEG[@]}; do
+		if [[ ${INDEX} -gt 0 ]]; then
+
+			if [[ ${INDEX} -eq 1 ]]; then
+				API_VERSION=${ENDPOINT_SEG[INDEX]}
+			else
+				if [[ ${ENDPOINT_SEG[INDEX]} == ":"* ]]; then
+					TMP=$(echo ${ENDPOINT_SEG[INDEX]}| cut -d ':' -f2)
+					API_FILE_SEG=${ENDPOINT_SEG[INDEX - 1]::-1}${TMP}
+					ENDPOINT_SEG[INDEX]='{'${API_FILE_SEG}'}'
+					ID_PARAMETER=true
+					ID_PARAMETER_NAME=${API_FILE_SEG}
+				else
+					API_FILE_SEG=${ENDPOINT_SEG[INDEX]}
+				fi
+				ENDPOINT_YAML=${ENDPOINT_YAML}/${ENDPOINT_SEG[INDEX]}
+				ENDPOINT_MATCH_YAML=${ENDPOINT_MATCH_YAML}"\/"${ENDPOINT_SEG[INDEX]}
+			fi
+
+			if [[ ${INDEX} -eq 3 ]] ; then
+				API_FILE=${API_FILE_SEG}
+			fi
+
+			if [[ ${INDEX} -gt 3 ]] ; then
+				API_FILE=${API_FILE}-${API_FILE_SEG}
+			fi
+
+			if [[ ${INDEX} -eq 2 ]]; then
+				API_FOLDER=${ENDPOINT_SEG[INDEX]}
+
+				if [ "${SHORT_ENDPOINT}" = true ]; then
+					API_FILE=${ENDPOINT_SEG[INDEX]}
+				fi
+			fi
+		fi
+	done
+	if [ -f "content/common/${API_VERSION}/paths/common_index.yaml" ]; then
+		COMMON_ENDPINT_EXISTS=$(cat "content/common/${API_VERSION}/paths/common_index.yaml" | grep -F -- ${ENDPOINT_YAML}:)
+	fi
+	if [ -z "${COMMON_ENDPINT_EXISTS}" ]; then
+		gen_tamplate_files ${ENDPOINT_YAML} ${API_VERSION} ${METHOD} ${API_FOLDER} ${API_FILE} ${ID_PARAMETER} ${ENDPOINT_MATCH_YAML} ${ID_PARAMETER_NAME}
+	fi
+}
+
+gen_tamplate_files(){
+	ENDPOINT_YAML=${1}
+	API_VERSION=${2}
+	METHOD=${3}
+	API_FOLDER=${4}
+	API_FILE=${5}
+	ID_PARAMETER=${6}
+	ENDPOINT_MATCH_YAML=${7}
+	ID_PARAMETER_NAME=${8}
+
+	GENERATE_TAMPLATE=false
+
+	FOLDER_PATHS="content/${PLATFORM}/${API_VERSION}/paths/${API_FOLDER}"
+	mkdir -p "${FOLDER_PATHS}"
+
+	INDEX_PATHS_YAML="content/${PLATFORM}/${API_VERSION}/paths/${PLATFORM}_index.yaml"
+	if [ ! -f "${INDEX_PATHS_YAML}" ]; then
+		touch "${INDEX_PATHS_YAML}"
+	fi
+
+	ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ${ENDPOINT_YAML}:)
+	if [ ! -z "${ENDPOINT_EXISTS}" ]; then
+		ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ./${API_FOLDER}/${API_FILE}-${METHOD}.yaml)
+		if [ -z "${ENDPOINT_EXISTS}" ]; then
+			TMP=${ENDPOINT_MATCH_YAML}:
+			sed "/^${TMP}$/r"<(
+			    echo "  ${METHODS_YAML[${METHOD}]}"
+			    echo "    tags:"
+			    echo "      - ${API_FOLDER}"
+			    echo '    $ref: "./'${API_FOLDER}'/'${API_FILE}'-'${METHOD}'.yaml"'
+			) -i -- ${INDEX_PATHS_YAML}
+			GENERATE_TAMPLATE=true
+		fi
+	else
+			echo "${ENDPOINT_YAML}:" 							>> ${INDEX_PATHS_YAML}
+		    echo "  ${METHODS_YAML[${METHOD}]}" 	>> ${INDEX_PATHS_YAML}
+		    echo "    tags:" 						>> ${INDEX_PATHS_YAML}
+		    echo "      - ${API_FOLDER}"			>> ${INDEX_PATHS_YAML}
+		    echo '    $ref: "./'${API_FOLDER}'/'${API_FILE}'-'${METHOD}'.yaml"' >> ${INDEX_PATHS_YAML}
+		    GENERATE_TAMPLATE=true
+	fi
+
+	if [ "${GENERATE_TAMPLATE}" = true ]; then
+
+		echo "New endpoint detected: ${ENDPOINT_YAML}"
+
+		FOLDER_REQUEST="content/${PLATFORM}/${API_VERSION}/request/${API_FOLDER}"
+		FOLDER_RESPONSE="content/${PLATFORM}/${API_VERSION}/response/${API_FOLDER}"
+		FOLDER_SCHEMAS="content/${PLATFORM}/${API_VERSION}/schemas/${API_FOLDER}"
+		FOLDER_PARAMETERS="content/${PLATFORM}/${API_VERSION}/parameters/path"
+		FOLDER_HEADERS="content/${PLATFORM}/${API_VERSION}/headers"
+		FOLDER_ROUTERS="routers/${PLATFORM}"
+
+		API_FILE_BASE=${API_FILE}-${METHOD}.yaml
+		API_FILE_200=${API_FILE}-200-${METHOD}.yaml
+		API_FILE_400=${API_FILE}-400-${METHOD}.yaml
+		API_FILE_PARAMETER=${ID_PARAMETER_NAME}.yaml
+		API_FILE_ROUTER=${PLATFORM}_${API_VERSION}.yaml
+		MERGE_FILE_ROUTER=${PLATFORM}_${API_VERSION}.txt
+
+		mkdir -p "${FOLDER_REQUEST}"
+		mkdir -p "${FOLDER_RESPONSE}"
+		mkdir -p "${FOLDER_SCHEMAS}"
+		mkdir -p "${FOLDER_PARAMETERS}"
+		mkdir -p "${FOLDER_ROUTERS}"
+
+		VERSION=$(echo ${API_VERSION}| cut -d 'v' -f 2)
+
+		if [ ! -f "${FOLDER_ROUTERS}/${API_FILE_ROUTER}" ]; then
+			cat > "${FOLDER_ROUTERS}/${API_FILE_ROUTER}" <<-END
+				### This file is automatically generated and it should be verified! ###
+				openapi: 3.0.0
+				info:
+				  title:  PLURAL
+				  description: Pakedge Lua Rest Api Library
+				  version: "${VERSION}"
+				  contact:
+				    name: API Support
+				    email: hredzovic@control4.com
+				    url: https://www.control4.com/
+				servers:
+				  - description: SwaggerHub API Auto Mocking
+				    url: https://localhost:3001/api/${API_VERSION}
+				tags:
+				paths:
+				  \$ref: "./${INDEX_PATHS_YAML}"
+				components:
+				  securitySchemes:
+				    \$ref: "./content/common/v1/security/bearer-auth.yaml"
+				  schemas:
+				    \$ref: "./content/${PLATFORM}/${API_VERSION}/schemas/${PLATFORM}_index.yaml"
+				  responses:
+				    \$ref: "./content/${PLATFORM}/${API_VERSION}/response/${PLATFORM}_index.yaml"
+				x-basePath: '{domain}/api/v{version}'
+			END
+		fi
+
+		if [ ! -f "${FOLDER_ROUTERS}/${MERGE_FILE_ROUTER}" ]; then
+			if [ -d "content/common/${API_VERSION}" ]; then
+				echo "${PLATFORM} common" > "${FOLDER_ROUTERS}/${MERGE_FILE_ROUTER}"
+			else
+				echo "${PLATFORM}" > "${FOLDER_ROUTERS}/${MERGE_FILE_ROUTER}"
+			fi
+		fi
+
+		TAGS_EXISTS=$(cat ${FOLDER_ROUTERS}/${API_FILE_ROUTER} | grep -F -- "- name: ${API_FOLDER}")
+		if [ -z "${TAGS_EXISTS}" ]; then
+			sed "/^tags:$/r"<(
+			    echo "  - name: ${API_FOLDER}"
+			    echo "    description: API for ${API_FOLDER}"
+			) -i -- ${FOLDER_ROUTERS}/${API_FILE_ROUTER}
+		fi
+
+		if [ ! -d "content/${PLATFORM}/${API_VERSION}/response/errors" ]; then
+			cp -rf content/wr1/${API_VERSION}/response/errors content/${PLATFORM}/${API_VERSION}/response/errors
+		fi
+
+		if [ ! -d "content/${PLATFORM}/${API_VERSION}/schemas/errors" ]; then
+			cp -rf content/wr1/${API_VERSION}/schemas/errors content/${PLATFORM}/${API_VERSION}/schemas/errors
+		fi
+
+		if [ ! -d "${FOLDER_HEADERS}" ]; then
+			cp -rf content/wr1/${API_VERSION}/headers "${FOLDER_HEADERS}"
+			rm "${FOLDER_HEADERS}/wr1_index.yaml"
+		fi
+
+		if [ "${METHOD}" = "GET" ]; then
+			if [ ! -f "${FOLDER_PATHS}/${API_FILE_BASE}" ]; then
+				if [ "${ID_PARAMETER}" = true ]; then
+
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						parameters:
+						  - \$ref: "../../parameters/path/${API_FILE_PARAMETER}"
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+
+				else
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+				fi
+			fi
+
+			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_RESPONSE}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: OK
+					content:
+					  application/json:
+					    schema:
+					      \$ref: "../../schemas/${API_FOLDER}/${API_FILE_200}"
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					example:
+					  msg: ''
+					  response: ${ENDPOINT_YAML}
+					  status: success
+					properties:
+					  msg:
+					    default: ''
+					    description: standard Pakedge msg
+					    type: string
+					  response:
+					    description: Tamplate schema for endpoint ${ENDPOINT_YAML}.
+					    type: string
+					  status:
+					    default: success
+					    description: standard Pakedge status code
+					    enum:
+					      - success
+					      - error
+					    type: string
+					    uniqueItems: true
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+		elif [ "${METHOD}" = "DELETE" ]; then
+
+			if [ ! -f "${FOLDER_PATHS}/${API_FILE_BASE}" ]; then
+				if [ "${ID_PARAMETER}" = true ]; then
+
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						parameters:
+						  - \$ref: "../../parameters/path/${API_FILE_PARAMETER}"
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '400':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_400}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+
+				else
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '400':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_400}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+				fi
+			fi
+
+			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_RESPONSE}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: Successful response for ${ENDPOINT_YAML}
+					content:
+					  application/json:
+					    schema:
+					      \$ref: "../../schemas/${API_FOLDER}/${API_FILE_200}"
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					example:
+					  msg: ''
+					  response: ${ENDPOINT_YAML}
+					  status: success
+					properties:
+					  msg:
+					    default: ''
+					    description: standard Pakedge msg
+					    type: string
+					  response:
+					    description: Tamplate schema for endpoint ${ENDPOINT_YAML}.
+					    type: string
+					  status:
+					    default: success
+					    description: standard Pakedge status code
+					    enum:
+					      - success
+					      - error
+					    type: string
+					    uniqueItems: true
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_400}" ]; then
+				cat > "${FOLDER_RESPONSE}/${API_FILE_400}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: Bad request for ${ENDPOINT_YAML}
+					content:
+					  application/json:
+					    schema:
+					      \$ref: "../../schemas/${API_FOLDER}/${API_FILE_400}"
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_400}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_400}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					example:
+					  msg: Can't do ${ENDPOINT_YAML}
+					  response: ''
+					  status: error
+					properties:
+					  msg:
+					    description: Error in setting ${ENDPOINT_YAML}.
+					    enum:
+					      - ''
+					      - Add here list of error messages!
+					    type: string
+					  response:
+					    type: string
+					  status:
+					    default: error
+					    description: standard Pakedge status code
+					    type: string
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+		else
+			REQUEST_EXISTS=$(cat ${FOLDER_ROUTERS}/${API_FILE_ROUTER} | grep -F -- "requestBodies:")
+			if [ -z "${REQUEST_EXISTS}" ]; then
+				sed "/^components:$/r"<(
+				    echo "  requestBodies:"
+				    echo '    $ref: "./content/'${PLATFORM}'/'${API_VERSION}'/request/'${PLATFORM}'_index.yaml"'
+				) -i -- ${FOLDER_ROUTERS}/${API_FILE_ROUTER}
+			fi
+
+			if [ ! -f "${FOLDER_PATHS}/${API_FILE_BASE}" ]; then
+				if [ "${ID_PARAMETER}" = true ]; then
+
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						parameters:
+						  - \$ref: "../../parameters/path/${API_FILE_PARAMETER}"
+						requestBody:
+						   \$ref : "../../request/${API_FOLDER}/${API_FILE_BASE}"
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '400':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_400}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+
+				else
+					cat > "${FOLDER_PATHS}/${API_FILE_BASE}" <<-END
+						### This file is automatically generated and it should be verified! ###
+						description: ${METHOD} the ${ENDPOINT_YAML} configuration.
+						operationId: ${API_FILE_BASE}
+						tags:
+						  - ${API_FOLDER}
+						security:
+						  - bearerAuth: []
+						requestBody:
+						   \$ref : "../../request/${API_FOLDER}/${API_FILE_BASE}"
+						responses:
+						  '200':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_200}"
+						  '400':
+						    \$ref: "../../response/${API_FOLDER}/${API_FILE_400}"
+						  '401':
+						    \$ref : "../../response/errors/401.yaml"
+						  '404':
+						    \$ref : "../../response/errors/404.yaml"
+						  '503':
+						    \$ref : "../../response/errors/503.yaml"
+					END
+				fi
+			fi
+
+			if [ ! -f "${FOLDER_REQUEST}/${API_FILE_BASE}" ]; then
+				cat > "${FOLDER_REQUEST}/${API_FILE_BASE}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: 'Request for ${ENDPOINT_YAML}'
+					required: true
+					content:
+					  application/json:
+					    schema:
+					      \$ref: '../../schemas/${API_FOLDER}/${API_FILE_BASE}'
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_BASE}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_BASE}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					additionalProperties: false
+					example:
+					  msg: ''
+					  response: ''
+					  status: success
+					properties:
+					  msg:
+					    default: ''
+					    description: Place holder for error message
+					    type: string
+					  response:
+					    default: ''
+					    type: string
+					  status:
+					    default: success
+					    description: Standard Success status code
+					    enum:
+					      - success
+					    type: string
+					    uniqueItems: true
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_RESPONSE}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: Successful response for ${ENDPOINT_YAML}
+					content:
+					  application/json:
+					    schema:
+					      \$ref: "../../schemas/${API_FOLDER}/${API_FILE_200}"
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_200}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					example:
+					  msg: ''
+					  response: ${ENDPOINT_YAML}
+					  status: success
+					properties:
+					  msg:
+					    default: ''
+					    description: standard Pakedge msg
+					    type: string
+					  response:
+					    description: Tamplate schema for endpoint ${ENDPOINT_YAML}.
+					    type: string
+					  status:
+					    default: success
+					    description: standard Pakedge status code
+					    enum:
+					      - success
+					      - error
+					    type: string
+					    uniqueItems: true
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_400}" ]; then
+				cat > "${FOLDER_RESPONSE}/${API_FILE_400}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					description: Bad request for ${ENDPOINT_YAML}
+					content:
+					  application/json:
+					    schema:
+					      \$ref: "../../schemas/${API_FOLDER}/${API_FILE_400}"
+				END
+			fi
+
+			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_400}" ]; then
+				cat > "${FOLDER_SCHEMAS}/${API_FILE_400}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					type: object
+					example:
+					  msg: Can't do ${ENDPOINT_YAML}
+					  response: ''
+					  status: error
+					properties:
+					  msg:
+					    description: Error in setting ${ENDPOINT_YAML}.
+					    enum:
+					      - ''
+					      - Add here list of error messages!
+					    type: string
+					  response:
+					    type: string
+					  status:
+					    default: error
+					    description: standard Pakedge status code
+					    type: string
+					required:
+					  - status
+					  - msg
+					  - response
+				END
+			fi
+
+		fi
+
+		if [ "${ID_PARAMETER}" = true ]; then
+			PARAMETERS_EXISTS=$(cat ${FOLDER_ROUTERS}/${API_FILE_ROUTER} | grep -F -- "parameters:")
+			if [ -z "${PARAMETERS_EXISTS}" ]; then
+				sed "/^components:$/r"<(
+				    echo "  parameters:"
+				    echo '    $ref: "./content/'${PLATFORM}'/'${API_VERSION}'/parameters/'${PLATFORM}'_index.yaml"'
+				) -i -- ${FOLDER_ROUTERS}/${API_FILE_ROUTER}
+			fi
+
+			if [ ! -f "${FOLDER_PARAMETERS}/${API_FILE_PARAMETER}" ]; then
+				cat > "${FOLDER_PARAMETERS}/${API_FILE_PARAMETER}" <<-END
+					### This file is automatically generated and it should be verified! ###
+					in: path
+					name: ${ID_PARAMETER_NAME}
+					required: true
+					schema:
+					  type: string
+				END
+			fi
+		fi	
+	fi
+}
+
+get_api

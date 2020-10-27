@@ -1,0 +1,5 @@
+description: |
+  Used for web based frontend over HTTPS. Clear cookies.
+schema:
+  pattern: ^(access_token|refresh_token)= ; Path=\/api;$
+  type: string

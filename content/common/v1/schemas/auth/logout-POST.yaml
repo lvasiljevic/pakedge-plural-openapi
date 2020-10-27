@@ -1,0 +1,35 @@
+type: object
+additionalProperties: false
+example:
+  access_token: >-
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSRS0zIiwic3ViIjoid2ViIiwiZXhwIjoxNTM0NDE0NjQ4LCJpYXQiOjE1MzQ0MTQzNDgsImp0aSI6IjMxM2ZlMDgyLWZjMjQtNDQ3Zi1hZGU3LTk2NTlkNGQ1NzBjMyIsInJvbGUiOiJhY2Nlc3NfdG9rZW4ifQ.Nv_3FySeORY1lf5eWGHHnXXksd38TqWkPzAtq6w2UqA
+  client_id: web
+  expires: 0
+  refresh_token: >-
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSRS0zIiwic3ViIjoid2ViIiwiZXhwIjoxNTM0NTAwNzQ4LCJpYXQiOjE1MzQ0MTQzNDgsImp0aSI6IjMxM2ZlMDgyLWZjMjQtNDQ3Zi1hZGU3LTk2NTlkNGQ1NzBjMyIsInJvbGUiOiJyZWZyZXNoX3Rva2VuIn0.qhawr_Z55WKREw7zUepnD7Syq-KLb9sXkLuytLjHG04
+properties:
+  access_token:
+    description: >-
+      request must contain access_token, and refresh_token if
+      access_token is expired
+    pattern: '([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?$'
+    type: string
+  client_id:
+    description: optional api client identifier
+    pattern: '^[A-Za-z0-9._-]{0,30}$'
+    type: string
+  expires:
+    description: time in seconds
+    maximum: 0
+    type: number
+  refresh_token:
+    description: >-
+      request must contain access_token, and refresh_token if
+      access_token is expired
+    pattern: '([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?$'
+    type: string
+required:
+  - access_token
+  - expires
+  - refresh_token
+  - client_id

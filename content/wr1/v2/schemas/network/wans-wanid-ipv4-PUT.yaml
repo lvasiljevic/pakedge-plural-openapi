@@ -1,0 +1,12 @@
+type: object
+example:
+  dns:
+    - 8.8.8.8
+    - 8.8.4.4
+  gateway: 78.24.109.209
+  ip_address: 78.24.109.219
+  netmask: 255.255.255.240
+  proto: static
+properties:
+  ipv4:
+    type: string

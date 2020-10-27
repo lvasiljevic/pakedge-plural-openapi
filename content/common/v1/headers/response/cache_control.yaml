@@ -1,0 +1,7 @@
+required: true
+schema:
+  enum:
+    - no-store
+  type: string
+description: >
+  example: no-store

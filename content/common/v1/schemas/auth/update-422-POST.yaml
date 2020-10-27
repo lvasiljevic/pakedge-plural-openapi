@@ -1,0 +1,25 @@
+type: object
+properties:
+  msg:
+    description: invalid_request error
+    enum:
+      - invalid_request
+    type: string
+  response:
+    description: >-
+      Parameter can only include ASCII characters, and should be
+      a sentence or two at most describing the circumstance of
+      the error.
+    type: string
+  status:
+    description: HTTP 422 status code
+    pattern: ^success$|^error$
+    type: string
+required:
+  - status
+  - msg
+  - response
+example:
+  msg: invalid_request
+  response: ''
+  status: success

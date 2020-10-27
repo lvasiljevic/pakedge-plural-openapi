@@ -1,0 +1,6 @@
+bearerAuth:            # arbitrary name for the security scheme
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |
+    Pakedge devices require using JWT for authenticating all API requests.

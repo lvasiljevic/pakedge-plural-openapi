@@ -1,0 +1,49 @@
+type: object
+additionalProperties: false
+example:
+  msg: Miss requred argument
+  response: ''
+  status: error
+properties:
+  msg:
+    description: >-
+      Message which explains why command is not executed
+      successfully!
+    enum:
+      - ''
+      - Invalid type
+      - Invalid ip address
+      - Invalid netmask address
+      - Invalid proto
+      - Invalid dns address
+      - Miss requred argument
+      - Invalid wan id
+      - Invalid mac address
+      - Invalid gateway
+      - Invalid mtu
+      - Could not set proto
+      - Could not set IP address
+      - Could not set netmask
+      - Could not set gateway
+      - Could not set username
+      - Could not set password
+      - Could not set mtu path
+      - Could not set dns
+      - Could not set mtu
+      - Could not apply changes
+      - Could not set mac address
+    type: string
+    uniqueItems: true
+  response:
+    type: string
+  status:
+    default: error
+    description: standard Pakedge status code
+    enum:
+      - error
+    type: string
+required:
+  - status
+  - msg
+  - response
+                

@@ -1,0 +1,5 @@
+in: path
+name: wanId
+required: true
+schema:
+  type: string

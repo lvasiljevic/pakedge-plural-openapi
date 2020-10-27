@@ -1,0 +1,12 @@
+description: |
+  Get new token using given refresh token.
+operationId: POST_auth-refresh
+security:
+  - bearerAuth: []
+requestBody:
+  $ref : "../../request/auth/refresh-POST.yaml"
+responses:
+  '200':
+    $ref : "../../response/auth/refresh-200-POST.yaml"
+  '401':
+    $ref : "../../response/auth/refresh-401-POST.yaml"

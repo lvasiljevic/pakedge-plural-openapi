@@ -1,0 +1,13 @@
+description: Get the leds configuration.
+operationId: GET_leds
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    $ref : "../../response/leds/leds-200-GET.yaml"
+  '401':
+    $ref : "../../response/errors/404.yaml"
+  '404':
+    $ref : "../../response/errors/404.yaml"
+  '503':
+    $ref : "../../response/errors/503.yaml"

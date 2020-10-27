@@ -1,0 +1,27 @@
+type: object
+example:
+  msg: ''
+  response:
+    dns:
+      - 8.8.8.8
+      - 8.8.4.4
+    gateway: 78.24.109.209
+    ip_address: 78.24.109.219
+    netmask: 255.255.255.240
+    proto: static
+  status: success
+properties:
+  msg:
+    default: ''
+    description: standard Pakedge msg
+    type: string
+  response:
+    type: string
+  status:
+    default: success
+    description: standard Pakedge status code
+    enum:
+      - success
+      - error
+    type: string
+    uniqueItems: true

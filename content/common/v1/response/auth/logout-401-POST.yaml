@@ -1,0 +1,11 @@
+headers:
+  Cache-Control:
+    $ref: '../../headers/response/cache_control.yaml'
+  Pragma:
+    $ref: '../../headers/response/pragma.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/auth/logout-401-POST.yaml'
+description: |
+  Bad request.

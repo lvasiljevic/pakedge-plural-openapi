@@ -1,0 +1,23 @@
+type: object
+example:
+  client_id: web
+  grant_type: refresh_token
+  refresh_token: >-
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSRS0zIiwic3ViIjoid2ViIiwiZXhwIjoxNTM0NTAwNzQ4LCJpYXQiOjE1MzQ0MTQzNDgsImp0aSI6IjMxM2ZlMDgyLWZjMjQtNDQ3Zi1hZGU3LTk2NTlkNGQ1NzBjMyIsInJvbGUiOiJyZWZyZXNoX3Rva2VuIn0.qhawr_Z55WKREw7zUepnD7Syq-KLb9sXkLuytLjHG04
+properties:
+  client_id:
+    description: optional api client identifier
+    pattern: '^[A-Za-z0-9._-]{0,30}$'
+    type: string
+  grant_type:
+    description: grant_type refresh_token
+    enum:
+      - refresh_token
+    type: string
+  refresh_token:
+    description: request must contain valid refresh_token
+    pattern: '([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?\.([a-zA-Z0-9\-_]+)?$'
+    type: string
+required:
+  - grant_type
+  - refresh_token

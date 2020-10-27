@@ -1,0 +1,10 @@
+headers:
+  Cache-Control:
+    $ref: '../../headers/response/cache_control.yaml'
+  Pragma:
+    $ref: '../../headers/response/pragma.yaml'
+description: Bad request.
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/auth/login-400-POST.yaml'

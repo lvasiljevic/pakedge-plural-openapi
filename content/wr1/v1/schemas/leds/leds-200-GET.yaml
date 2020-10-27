@@ -1,0 +1,25 @@
+type: object
+example:
+  msg: ''
+  response: false
+  status: success
+properties:
+  msg:
+    default: ''
+    description: standard Pakedge msg
+    type: string
+  response:
+    description: Current status of leds on device.
+    type: boolean
+  status:
+    default: success
+    description: standard Pakedge status code
+    enum:
+      - success
+      - error
+    type: string
+    uniqueItems: true
+required:
+  - status
+  - msg
+  - response

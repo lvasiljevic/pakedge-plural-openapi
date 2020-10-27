@@ -1,0 +1,9 @@
+description: Get a new access token.
+operationId: POST_auth_login
+requestBody:
+  $ref : "../../request/auth/login-POST.yaml"
+responses:
+  '200':
+    $ref : "../../response/auth/login-200-POST.yaml"
+  '400':
+    $ref : "../../response/auth/login-400-POST.yaml"

@@ -1,0 +1,46 @@
+example:
+  msg: ''
+  response:
+    access_token: >-
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSRS0zIiwic3ViIjoid2ViIiwiZXhwIjoxNTM0NDE0NjQ4LCJpYXQiOjE1MzQ0MTQzNDgsImp0aSI6IjMxM2ZlMDgyLWZjMjQtNDQ3Zi1hZGU3LTk2NTlkNGQ1NzBjMyIsInJvbGUiOiJhY2Nlc3NfdG9rZW4ifQ.Nv_3FySeORY1lf5eWGHHnXXksd38TqWkPzAtq6w2UqA
+    client_id: web
+    expires: 300
+    refresh_token: >-
+      eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJSRS0zIiwic3ViIjoid2ViIiwiZXhwIjoxNTM0NTAwNzQ4LCJpYXQiOjE1MzQ0MTQzNDgsImp0aSI6IjMxM2ZlMDgyLWZjMjQtNDQ3Zi1hZGU3LTk2NTlkNGQ1NzBjMyIsInJvbGUiOiJyZWZyZXNoX3Rva2VuIn0.qhawr_Z55WKREw7zUepnD7Syq-KLb9sXkLuytLjHG04
+    token_type: bearer
+  status: success
+properties:
+  msg:
+    description: >-
+      Message which explains why command is not executed
+      successfully!
+    enum:
+      - ''
+      - Wrong  arguments - missing "grant_type" key!
+      - Wrong  arguments - missing "username" key!
+      - Wrong  arguments - missing "password" key!
+      - Grant type not supported!
+      - Password does not match corresponding pattern!
+      - Username does not match corresponding pattern!
+      - Client_id does not match corresponding pattern!
+      - Login failed!
+      - Max number of tokens exceeded for this user!
+      - Must be one argument
+      - Invalid JSON
+    type: string
+    uniqueItems: true
+  response:
+    oneOf:
+      - $ref: './res-opt-1.yaml'
+      - $ref: './res-opt-empty.yaml'
+  status:
+    default: success
+    description: standard Pakedge status code
+    pattern: ^success$|^error$
+    type: string
+required:
+  - status
+  - msg
+  - response
+title: Access Token Schema
+type: object

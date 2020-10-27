@@ -1,0 +1,11 @@
+description: Revoke issued access token.
+operationId: POST_auth_logout
+security:
+  - bearerAuth: []
+requestBody:
+  $ref : "../../request/auth/logout-POST.yaml"
+responses:
+  '200':
+    $ref : "../../response/auth/logout-200-POST.yaml"
+  '401':
+    $ref : "../../response/auth/logout-401-POST.yaml"

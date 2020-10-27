@@ -1,0 +1,10 @@
+type: object
+additionalProperties: false
+example:
+  status: true
+properties:
+  status:
+    description: Set true/false leds status on device
+    type: boolean
+required:
+  - status

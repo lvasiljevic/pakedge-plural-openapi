@@ -1,0 +1,29 @@
+openapi: 3.0.0
+info:
+  title:  PLURAL
+  description: Pakedge LUa Rest Api Library
+  version: "1"
+  contact:
+    name: API Support
+    email: lvasiljevic@control4.com
+    url: https://www.control4.com/
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://localhost:3001/api/v1
+tags:
+  - name: auth
+    description: API for authentication
+paths:
+  $ref: "./content/common/v1/paths/common_index.yaml"
+components:
+  securitySchemes:
+    $ref: "./content/common/v1/security/bearer-auth.yaml"
+  schemas:
+    $ref: "./content/common/v1/schemas/common_index.yaml"
+  responses:
+    $ref: "./content/common/v1/response/common_index.yaml"
+  requestBodies:
+    $ref: "./content/common/v1/request/common_index.yaml"
+  headers:
+    $ref: "./content/common/v1/headers/common_index.yaml"

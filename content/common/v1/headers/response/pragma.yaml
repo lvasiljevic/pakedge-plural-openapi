@@ -1,0 +1,6 @@
+schema:
+  enum:
+    - no-cache
+  type: string
+description: >
+  example: no-cache

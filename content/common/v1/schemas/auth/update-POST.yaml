@@ -1,0 +1,51 @@
+type: object
+properties:
+  client_id:
+    description: optional api client identifier
+    pattern: '^[A-Za-z0-9._-]{0,30}$'
+    type: string
+  grant_type:
+    description: grant_type password
+    enum:
+      - password
+    type: string
+  newPassword:
+    description: 'new password, from 5 to 126 printable regular characters'
+    pattern: '^[\x20-\x7F]{5,126}$'
+    type: string
+  newPasswordCpy:
+    description: >-
+      retyped copy of new password, from 5 to 126 printable
+      regular characters
+    pattern: '^[\x20-\x7F]{5,126}$'
+    type: string
+  newUsername:
+    description: >-
+      valid, non reserved linux username, if we want to change
+      username
+    pattern: >-
+      (?!root$|support$|daemon$|ftp$|network$|nobody$|factory$|alpha$)(^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$)
+    type: string
+  password:
+    description: 'valid password, from 5 to 126 printable regular characters'
+    pattern: '^[\x20-\x7F]{5,126}$'
+    type: string
+  username:
+    description: 'valid, non reserved linux username'
+    pattern: >-
+      (?!root$|support$|daemon$|ftp$|network$|nobody$|factory$|alpha$)(^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$)
+    type: string
+required:
+  - grant_type
+  - username
+  - password
+  - newPassword
+  - newPasswordCpy
+example:
+  client_id: web
+  grant_type: password
+  newPassword: pakedger
+  newPasswordCpy: pakedger
+  newUsername: pakedge
+  password: pakedger
+  username: pakedge

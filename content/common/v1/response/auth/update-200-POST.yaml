@@ -1,0 +1,13 @@
+headers:
+  Cache-Control:
+    $ref: '../../headers/response/cache_control.yaml'
+  Pragma:
+    $ref: '../../headers/response/pragma.yaml'
+  Set-Cookie:
+    $ref: '../../headers/response/set_cookie_1.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/auth/update-200-POST.yaml'
+description: |
+  Successful update.

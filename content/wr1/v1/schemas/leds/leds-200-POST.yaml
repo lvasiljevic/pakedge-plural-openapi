@@ -1,0 +1,25 @@
+type: object
+additionalProperties: false
+example:
+  msg: ''
+  response: ''
+  status: success
+properties:
+  msg:
+    default: ''
+    description: Place holder for error message
+    type: string
+  response:
+    default: ''
+    type: string
+  status:
+    default: success
+    description: Standard Success status code
+    enum:
+      - success
+    type: string
+    uniqueItems: true
+required:
+  - status
+  - msg
+  - response

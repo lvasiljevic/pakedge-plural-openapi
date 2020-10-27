@@ -1,0 +1,4 @@
+example:
+  msg: Not Found
+  response: ''
+  status: error

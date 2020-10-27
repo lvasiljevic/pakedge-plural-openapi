@@ -1,0 +1,5 @@
+description: Successful set new state of leds
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/leds/leds-200-POST.yaml'

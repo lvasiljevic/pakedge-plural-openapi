@@ -1,0 +1,28 @@
+type: "object"
+properties: 
+  access_token: 
+    type: "string"
+    pattern: "([a-zA-Z0-9\\-_]+)?\\.([a-zA-Z0-9\\-_]+)?\\.([a-zA-Z0-9\\-_]+)?$"
+    description: "jwt.json JWT self-encoded access token https://tools.ietf.org/html/rfc7519"
+  refresh_token: 
+    type: "string"
+    pattern: "([a-zA-Z0-9\\-_]+)?\\.([a-zA-Z0-9\\-_]+)?\\.([a-zA-Z0-9\\-_]+)?$"
+    description: "jwt.json JWT self-encoded access token https://tools.ietf.org/html/rfc7519"
+  token_type: 
+    type: "string"
+    enum: 
+      - "bearer"
+    description: "Token type hint for clients"
+  expires: 
+    type: "number"
+    maximum: 86400
+    description: "Time in seconds"
+  client_id: 
+    type: "string"
+    pattern: "^[A-Za-z0-9._-]{0,30}$"
+    description: "Optional api client identifier"
+required: 
+  - "grant_type"
+  - "username"
+  - "password"
+  - "client_id"

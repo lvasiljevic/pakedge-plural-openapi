@@ -1,0 +1,12 @@
+description: |
+  Self-update existing credentials, and get new token.
+operationId: auth-update-POST
+security:
+  - bearerAuth: []
+requestBody:
+  $ref : "../../request/auth/update-POST.yaml"
+responses:
+  '200':
+    $ref : "../../response/auth/update-200-POST.yaml"
+  '401':
+    $ref : "../../response/auth/update-401-POST.yaml"

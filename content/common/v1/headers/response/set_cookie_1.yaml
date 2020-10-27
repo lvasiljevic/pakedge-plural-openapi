@@ -1,0 +1,5 @@
+description: >
+  Used for web based frontend over HTTPS. Send both access_token
+  and refresh_token. Web storage is preffered to cookies.
+schema:
+  type: string
