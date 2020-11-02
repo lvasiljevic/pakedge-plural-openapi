@@ -7,12 +7,12 @@ security:
 requestBody:
 responses:
   '201':
-    $ref : "../../response/errors/201.yaml"
+    $ref : "../../response/generic/201.yaml"
   '401':
-    $ref : "../../response/errors/401.yaml"
+    $ref : "../../response/generic/401.yaml"
   '404':
-    $ref : "../../response/errors/404.yaml"
+    $ref : "../../response/generic/404.yaml"
   '500':
-    $ref : "../../response/errors/500.yaml"
+    $ref : "../../response/generic/500.yaml"
   '503':
-    $ref : "../../response/errors/503.yaml"
+    $ref : "../../response/generic/503.yaml"

@@ -8,5 +8,5 @@ headers:
 content:
   application/json:
     schema:
-      $ref: '../../schemas/errors/401.yaml'
+      $ref: '../../schemas/generic/401.yaml'
 description: Access denied. Response sent in case of missing, bad or expired token. Try again with new token.

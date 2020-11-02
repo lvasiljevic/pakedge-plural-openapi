@@ -1,5 +1,5 @@
 content:
   application/json:
     schema:
-      $ref: '../../schemas/errors/503.yaml'
+      $ref: '../../schemas/generic/503.yaml'
 description: Service Unavailable

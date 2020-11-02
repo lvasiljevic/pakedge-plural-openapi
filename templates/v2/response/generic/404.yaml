@@ -6,5 +6,5 @@ headers:
 content:
   application/json:
     schema:
-      $ref: '../../schemas/errors/404.yaml'
+      $ref: '../../schemas/generic/404.yaml'
 description: Not Found

@@ -214,13 +214,13 @@ gen_tamplate_files(){
 		fi
 
 		# Add generic response messagges
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/response/errors" ]; then
-			cp -rf templates/${API_VERSION}/response/errors content/${PLATFORM}/${API_VERSION}/response/errors
+		if [ ! -d "content/${PLATFORM}/${API_VERSION}/response/generic" ]; then
+			cp -rf templates/${API_VERSION}/response/generic content/${PLATFORM}/${API_VERSION}/response/generic
 		fi
 
 		# Add generic schemas
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/schemas/errors" ]; then
-			cp -rf templates/${API_VERSION}/schemas/errors content/${PLATFORM}/${API_VERSION}/schemas/errors
+		if [ ! -d "content/${PLATFORM}/${API_VERSION}/schemas/generic" ]; then
+			cp -rf templates/${API_VERSION}/schemas/generic content/${PLATFORM}/${API_VERSION}/schemas/generic
 		fi
 
 		# Add generic headers

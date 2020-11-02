@@ -4,5 +4,5 @@ headers:
 content:
   application/json:
     schema:
-      $ref: '../../schemas/errors/201.yaml'
+      $ref: '../../schemas/generic/201.yaml'
 description: Created
