@@ -1,0 +1,5 @@
+in: path
+name: VARABLE-1
+required: true
+schema:
+  type: string

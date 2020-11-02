@@ -1,0 +1,5 @@
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/errors/204.yaml'
+description: No Content

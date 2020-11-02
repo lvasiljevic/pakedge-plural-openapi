@@ -1,9 +1,0 @@
-/leds:
-  post:
-    tags:
-      - leds
-    $ref: "./leds/leds-POST.yaml"
-  get:
-    tags:
-      - leds
-    $ref: "./leds/leds-GET.yaml"

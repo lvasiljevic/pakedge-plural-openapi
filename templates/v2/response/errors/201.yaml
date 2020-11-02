@@ -1,0 +1,8 @@
+headers:
+  Location:
+    $ref: '../../headers/response/location.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/errors/201.yaml'
+description: Created

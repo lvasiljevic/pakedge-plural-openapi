@@ -1,21 +1,15 @@
 ## Setup Directions
 1. Clone repo
 2. Install node dependencies `npm install`
+3. sudo apt-get install python-yaml
 
 ## Generate template
 ./tools/doc_gen.sh <platform> <apiv[n].lua>
+    Example: ./tools/doc_gen.sh rk1 ../pakedge-plural/apiv2.lua
     This script will parse apiv[n].lua and find new endpoints that are not yet implemented. Next, this script will generate templates in documentation. Script is capable of generating complete file structure from scratch in case of new platform or API version.
 
 -make.sh
-    is script which made API representation in html(to be honest ugly)of selected platform and version
+    is script which made API representation in html of selected platform and version
     How to use:
         ./make.sh <platform> <api version>
         ./make.sh wr1 1
-
--make_platform.sh
-    is script for first run. Just to represent how it is possible to get just selected git files.
-    So, just files which selected platform need will be downloaded. It would be useful in testing, jenkins...
-    How to use:
-        ./make_platform.sh <platform>
-        ./make_platform.sh wr1
-

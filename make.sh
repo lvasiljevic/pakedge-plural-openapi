@@ -55,7 +55,7 @@ generate_html(){
 
 #check input argumennts
 if [[ $# -le 1 ]] ; then
-    echo 'Error - platform not defined!'
+    echo 'ERROR - platform not defined!'
     echo 'Valid platform is [wr1]'
     echo 'start with ./make.sh <platform> <version>'
     echo 'eg. ./make.sh wr1 2'
@@ -63,14 +63,18 @@ if [[ $# -le 1 ]] ; then
 fi
 
 
-PLATFORM="${1,,}"
-VERSION="${2:-all}"
+PLATFORM="${1}"
+VERSION="${2}"
 
-#checkplatform
-if [ "${PLATFORM}" != "wr1" ] &&
-   [ "${PLATFORM}" != "rk1" ] &&
-   [ "${PLATFORM}" != "common" ]; then
-    echo "Error - bad platform. Valid platforms are wr1, common and rk1!"
+if [ ! -f "routers/${PLATFORM}/${PLATFORM}_v${VERSION}.txt" ]; then
+    echo "NO FILE: routers/${PLATFORM}/${PLATFORM}_v${VERSION}.txt"
+    echo "TRY: ./tools/doc_gen.sh ${PLATFORM} apiv[n].lua"
+    exit 1
+fi
+
+if [ ! -d "content/${PLATFORM}/v${VERSION}" ]; then
+    echo "NO FOLDER: content/${PLATFORM}/v${VERSION}"
+    echo "TRY: ./tools/doc_gen.sh ${PLATFORM} apiv[n].lua"
     exit 1
 fi
 

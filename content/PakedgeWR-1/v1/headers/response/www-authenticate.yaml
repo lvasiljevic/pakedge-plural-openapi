@@ -1,0 +1,7 @@
+required: true
+schema:
+  enum:
+    - Bearer realm="Pakedge"
+  type: string
+description: >
+  example: Bearer realm="Pakedge"
