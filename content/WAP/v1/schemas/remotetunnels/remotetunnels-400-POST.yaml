@@ -1,0 +1,34 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Wrong  arguments - missing \"remotePort\" key/value!"
+      - "Wrong  arguments - missing \"remoteHost\" key/value!"
+      - "Wrong  arguments - missing \"user\" key/value!"
+      - "Wrong  arguments - missing \"pass\" key/value!"
+      - "Wrong  arguments - missing \"deviceAddress\" key/value!"
+      - "Wrong  arguments - missing \"devicePort\" key/value!"
+      - "Wrong  arguments - bad value for  \"pass\" key!"
+      - "Maximum number of tunnels already created!"
+      - "Unable to establish tunnel!"
+    uniqueItems: true
+  response:
+    type: "string"
+    default: ""
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Wrong  arguments - missing \"remotePort\" key/value!"
+   response: ""
+   

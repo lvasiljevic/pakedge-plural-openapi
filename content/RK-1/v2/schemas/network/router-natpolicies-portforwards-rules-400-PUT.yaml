@@ -1,0 +1,38 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    enum:
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - ""
+      - "Failed to set port forwarding rules!"
+      - "Invalid type"
+      - "Wrong arguments - missing or bad value for \"enabled\" key!"
+      - "Wrong arguments - missing or bad value for \"name\" key!"
+      - "Wrong arguments - missing or bad value for \"protocol\" key!"
+      - "Wrong arguments - missing or bad value for 'ext_port' key!"
+      - "Wrong arguments - missing or bad value for \"int_port\" key!"
+      - "Wrong arguments - missing or bad value for \"int_ipv4\" key!"
+      - "Wrong arguments - missing or bad value for \"ext_iface\" key!"
+      - "Wrong arguments - missing or bad value for \"int_iface\" key!"
+      - "Wrong arguments - missing or bad value for \"reflect\" key!"
+      - "Wrong arguments - missing or bad value for \"snat_ip\" key!"
+    description: "standard Pakedge msg"
+  response:
+    type: "string"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Wrong arguments - missing or bad value for \"enabled\" key!"
+   response: ""
+   

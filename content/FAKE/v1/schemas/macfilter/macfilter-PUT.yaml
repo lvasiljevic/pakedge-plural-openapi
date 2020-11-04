@@ -1,0 +1,17 @@
+type: "object"
+properties:
+  macaddrs:
+    type: "array"
+    items:
+      type: "string"
+      pattern: "^([a-fA-F0-9]{2}:){5}[a-fA-F0-9]{2}$"
+      description: "mac address of wireless network"
+required:
+  - "macaddrs"
+
+example:
+   macaddrs:
+     - "AA:BB:CC:DD:EE:FF"
+     - "AA:BB:CC:DD:EE:FE"
+     - "AA:BB:CC:DD:EE:FD"
+   

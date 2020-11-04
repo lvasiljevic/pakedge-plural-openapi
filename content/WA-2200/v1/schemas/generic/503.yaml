@@ -1,0 +1,4 @@
+example:
+  msg: Server Unavailable
+  response: ''
+  status: error

@@ -1,0 +1,80 @@
+type: "object"
+properties:
+  ipv4:
+    anyOf:
+      - type: "object"
+        properties:
+          dns:
+            type: "array"
+            items:
+              type: "string"
+              format: "ipv4"
+          proto:
+            type: "string"
+            enum:
+              - "static"
+            description: "type of networking"
+          netmask:
+            type: "string"
+            format: "ipv4"
+          ip_address:
+            type: "string"
+            format: "ipv4"
+          gateway:
+            type: "string"
+            format: "ipv4"
+        additionalProperties: false
+        required:
+          - "proto"
+      - type: "object"
+        properties:
+          dns:
+            type: "array"
+            items:
+              type: "string"
+              format: "ipv4"
+          proto:
+            type: "string"
+            enum:
+              - "dhcp"
+            description: "type of networking"
+        additionalProperties: false
+        required:
+          - "proto"
+      - type: "object"
+        properties:
+          mtu:
+            type: "number"
+            minimum: 576
+            maximum: 1500
+          dns:
+            type: "array"
+            items:
+              type: "string"
+              format: "ipv4"
+          proto:
+            type: "string"
+            enum:
+              - "pppoe"
+            description: "type of networking"
+          username:
+            type: "string"
+          password:
+            type: "string"
+          mtu_path:
+            type: "boolean"
+        additionalProperties: false
+        required:
+          - "mtu"
+          - "proto"
+          - "mtu_path"
+
+example:
+   ip_address: "78.24.109.219"
+   proto: "static"
+   dns:
+     - "8.8.8.8"
+     - "8.8.4.4"
+   gateway: "78.24.109.209"
+   netmask: "255.255.255.240"
+   

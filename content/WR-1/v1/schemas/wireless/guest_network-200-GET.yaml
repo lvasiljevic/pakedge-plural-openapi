@@ -1,0 +1,130 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      band24:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            status:
+              type: "string"
+              default: "off"
+              enum:
+                - "on"
+                - "off"
+              uniqueItems: true
+            ssid:
+              type: "string"
+              default: "PakedgeGuest2.4"
+              description: "name of the corresponding SSID (WiFi Name)"
+            bssid:
+              type: "string"
+              pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+              description: "mac address of wireless network"
+            security_profile:
+              type: "string"
+              default: "Pakedge Default"
+              description: "security profile used for this SSID. Sees /wifi/sec_profiles for more information"
+            network_index:
+              type: "integer"
+              enum:
+                - 0
+          required:
+            - "ssid"
+            - "security_profile"
+            - "status"
+        minItems: 1
+        maxItems: 1
+      band5:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            status:
+              type: "string"
+              default: "off"
+              enum:
+                - "on"
+                - "off"
+              uniqueItems: true
+            ssid:
+              type: "string"
+              default: "PakedgeGuest5"
+              description: "name of the corresponding SSID (WiFi Name)"
+            bssid:
+              type: "string"
+              pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+              description: "mac address of wireless network"
+            security_profile:
+              type: "string"
+              default: "Pakedge Default"
+              description: "security profile used for this SSID. Sees /wifi/sec_profiles for more information"
+            network_index:
+              type: "integer"
+              enum:
+                - 50
+          required:
+            - "ssid"
+            - "security_profile"
+            - "status"
+        minItems: 1
+        maxItems: 1
+      dns:
+        type: "string"
+        default: "8.8.8.8"
+        format: "ipv4"
+      netmask:
+        type: "string"
+        default: "255.255.255.0"
+        format: "ipv4"
+      ip:
+        type: "string"
+        default: "192.168.200.1"
+        format: "ipv4"
+      dhcp_end:
+        type: "string"
+        default: "192.168.200.250"
+        format: "ipv4"
+      dhcp_start:
+        type: "string"
+        default: "192.168.200.100"
+        format: "ipv4"
+    required:
+      - "band24"
+      - "band5"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     band24:
+       - security_profile: "Guest Default"
+         ssid: "PakedgeGuest2.4"
+         status: "off"
+         network_index: 0
+     band5:
+       - security_profile: "Guest Default"
+         ssid: "PakedgeGuest5"
+         status: "off"
+         network_index: 50
+     netmask: "255.255.255.0"
+     dhcp_end: "192.168.200.150"
+     dhcp_start: "192.168.200.100"
+     ip: "192.168.200.2"
+     dns: "8.8.8.8"
+   

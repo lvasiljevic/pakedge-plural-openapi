@@ -1,0 +1,26 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - ""
+      - "Key 'configuration' is missing!"
+      - "Wrong arguments - bad configuration!"
+      - "Wrong arguments - failed to perform restore procedure due to bad configuration!"
+    description: "Error in setting configuration."
+  response:
+    type: "string"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Key 'configuration' is missing!"
+   response: ""
+   

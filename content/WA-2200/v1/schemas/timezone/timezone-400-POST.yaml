@@ -1,0 +1,30 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Invalid JSON"
+      - "Couldn't find this Timezone"
+      - "Wrong  arguments - missing \"zonename\" key!"
+      - "Could not set timezone."
+      - "Must be one argument"
+    uniqueItems: true
+  response:
+    type: "string"
+    default: ""
+required:
+  - "response"
+  - "status"
+  - "msg"
+
+example:
+   status: "error"
+   msg: "Could not set timezone."
+   response: ""
+   

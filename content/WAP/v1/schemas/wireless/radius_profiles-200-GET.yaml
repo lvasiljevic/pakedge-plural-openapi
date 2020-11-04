@@ -1,0 +1,120 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "array"
+    items:
+      type: "object"
+      properties:
+        profile_name:
+          type: "string"
+          default: "Radius Profile"
+          minLength: 1
+          maxLength: 64
+          description: "name of the corresponding RADIUS profile"
+        profile_id:
+          type: "string"
+          default: "1"
+          description: "unique collection item id"
+          pattern: "\\b([1-2])\\b"
+        in_use:
+          type: "boolean"
+          default: true
+          description: "true: one or more security profiles are using this radius profile; false: this security profile is not used by any of the security profiles"
+        auth_servers:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+                default: "1"
+                description: "unique collection item id"
+                pattern: "\\b([1-6])\\b"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              port:
+                type: "integer"
+                default: 1812
+                minimum: 1
+                maximum: 65535
+              shared_secret:
+                type: "string"
+                minLength: 8
+                maxLength: 64
+                default: "secret_passphrase"
+                pattern: "[_a-z][_-a-zA-Z0-9]*"
+            additionalProperties: false
+            required:
+              - "id"
+              - "ip_address"
+              - "shared_secret"
+          minItems: 0
+          maxItems: 3
+        account_servers:
+          type: "array"
+          items:
+            type: "object"
+            properties:
+              id:
+                type: "string"
+                default: "1"
+                description: "unique collection item id"
+                pattern: "\\b([1-6])\\b"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              port:
+                type: "integer"
+                default: 1813
+                minimum: 1
+                maximum: 65535
+              shared_secret:
+                type: "string"
+                minLength: 8
+                maxLength: 64
+                default: "secret_passphrase"
+                pattern: "[_a-z][_-a-zA-Z0-9]*"
+            additionalProperties: false
+            required:
+              - "id"
+              - "ip_address"
+              - "shared_secret"
+          uniqueItems: true
+          minItems: 0
+          maxItems: 3
+      additionalProperties: false
+      required:
+        - "profile_name"
+        - "auth_servers"
+    uniqueItems: true
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     - profile_name: "Radius profile"
+       profile_id: "1"
+       in_use: true
+       auth_servers:
+         - id: "1"
+           ip_address: "192.168.1.99"
+           shared_secret: "secret_passphrase"
+       account_servers:
+         - id: "1"
+           ip_address: "192.168.1.99"
+           shared_secret: "secret_passphrase"
+   

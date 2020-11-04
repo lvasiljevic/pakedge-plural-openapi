@@ -7,3 +7,298 @@
     tags:
       - leds
     $ref: "./leds/leds-GET.yaml"
+/wireless:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/wireless-GET.yaml"
+/wireless/radio:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/radio-GET.yaml"
+/wireless/advanced:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/advanced-GET.yaml"
+/wireless/private_network:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/private_network-GET.yaml"
+/wireless/guest_network:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/guest_network-GET.yaml"
+/wireless/security_profiles:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/security_profiles-GET.yaml"
+/wireless/statistics:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/statistics-GET.yaml"
+/wireless/restrictions:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/restrictions-GET.yaml"
+/macfilter:
+  put:
+    tags:
+      - macfilter
+    $ref: "./macfilter/macfilter-PUT.yaml"
+  get:
+    tags:
+      - macfilter
+    $ref: "./macfilter/macfilter-GET.yaml"
+/wlanclients:
+  get:
+    tags:
+      - wlanclients
+    $ref: "./wlanclients/wlanclients-GET.yaml"
+/qos:
+  post:
+    tags:
+      - qos
+    $ref: "./qos/qos-POST.yaml"
+  get:
+    tags:
+      - qos
+    $ref: "./qos/qos-GET.yaml"
+/speed:
+  post:
+    tags:
+      - speed
+    $ref: "./speed/speed-POST.yaml"
+  get:
+    tags:
+      - speed
+    $ref: "./speed/speed-GET.yaml"
+/status:
+  post:
+    tags:
+      - status
+    $ref: "./status/status-POST.yaml"
+  get:
+    tags:
+      - status
+    $ref: "./status/status-GET.yaml"
+/rules:
+  post:
+    tags:
+      - rules
+    $ref: "./rules/rules-POST.yaml"
+  get:
+    tags:
+      - rules
+    $ref: "./rules/rules-GET.yaml"
+/nat:
+  post:
+    tags:
+      - nat
+    $ref: "./nat/nat-POST.yaml"
+  get:
+    tags:
+      - nat
+    $ref: "./nat/nat-GET.yaml"
+/dhcpreservation:
+  post:
+    tags:
+      - dhcpreservation
+    $ref: "./dhcpreservation/dhcpreservation-POST.yaml"
+  get:
+    tags:
+      - dhcpreservation
+    $ref: "./dhcpreservation/dhcpreservation-GET.yaml"
+/staticroutes:
+  post:
+    tags:
+      - staticroutes
+    $ref: "./staticroutes/staticroutes-POST.yaml"
+  get:
+    tags:
+      - staticroutes
+    $ref: "./staticroutes/staticroutes-GET.yaml"
+/location:
+  post:
+    tags:
+      - location
+    $ref: "./location/location-POST.yaml"
+  get:
+    tags:
+      - location
+    $ref: "./location/location-GET.yaml"
+/timezone:
+  post:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-POST.yaml"
+  get:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-GET.yaml"
+/configuration:
+  post:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-POST.yaml"
+  get:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-GET.yaml"
+/deviceinfo:
+  get:
+    tags:
+      - deviceinfo
+    $ref: "./deviceinfo/deviceinfo-GET.yaml"
+/metrics:
+  get:
+    tags:
+      - metrics
+    $ref: "./metrics/metrics-GET.yaml"
+/access:
+  get:
+    tags:
+      - access
+    $ref: "./access/access-GET.yaml"
+/remoteaccess:
+  post:
+    tags:
+      - remoteaccess
+    $ref: "./remoteaccess/remoteaccess-POST.yaml"
+  get:
+    tags:
+      - remoteaccess
+    $ref: "./remoteaccess/remoteaccess-GET.yaml"
+/firmwareversion:
+  get:
+    tags:
+      - firmwareversion
+    $ref: "./firmwareversion/firmwareversion-GET.yaml"
+/onlineupgrade:
+  post:
+    tags:
+      - onlineupgrade
+    $ref: "./onlineupgrade/onlineupgrade-POST.yaml"
+  get:
+    tags:
+      - onlineupgrade
+    $ref: "./onlineupgrade/onlineupgrade-GET.yaml"
+/speedtest:
+  get:
+    tags:
+      - speedtest
+    $ref: "./speedtest/speedtest-GET.yaml"
+/deviceportal:
+  post:
+    tags:
+      - deviceportal
+    $ref: "./deviceportal/deviceportal-POST.yaml"
+  get:
+    tags:
+      - deviceportal
+    $ref: "./deviceportal/deviceportal-GET.yaml"
+/remotetunnels:
+  post:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-POST.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-GET.yaml"
+/remotetunnels/{remotetunnelId}:
+  delete:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-DELETE.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-GET.yaml"
+/dyndns:
+  post:
+    tags:
+      - dyndns
+    $ref: "./dyndns/dyndns-POST.yaml"
+  get:
+    tags:
+      - dyndns
+    $ref: "./dyndns/dyndns-GET.yaml"
+/filesharing:
+  post:
+    tags:
+      - filesharing
+    $ref: "./filesharing/filesharing-POST.yaml"
+  get:
+    tags:
+      - filesharing
+    $ref: "./filesharing/filesharing-GET.yaml"
+/upnp:
+  post:
+    tags:
+      - upnp
+    $ref: "./upnp/upnp-POST.yaml"
+  get:
+    tags:
+      - upnp
+    $ref: "./upnp/upnp-GET.yaml"
+/vpn:
+  post:
+    tags:
+      - vpn
+    $ref: "./vpn/vpn-POST.yaml"
+  get:
+    tags:
+      - vpn
+    $ref: "./vpn/vpn-GET.yaml"
+/vpncertificate:
+  get:
+    tags:
+      - vpncertificate
+    $ref: "./vpncertificate/vpncertificate-GET.yaml"
+/availablechannels:
+  post:
+    tags:
+      - availablechannels
+    $ref: "./availablechannels/availablechannels-POST.yaml"
+/ping:
+  post:
+    tags:
+      - ping
+    $ref: "./ping/ping-POST.yaml"
+/nslookup:
+  post:
+    tags:
+      - nslookup
+    $ref: "./nslookup/nslookup-POST.yaml"
+/traceroute:
+  post:
+    tags:
+      - traceroute
+    $ref: "./traceroute/traceroute-POST.yaml"
+/firmware:
+  put:
+    tags:
+      - firmware
+    $ref: "./firmware/firmware-PUT.yaml"
+/nat/{natId}:
+  delete:
+    tags:
+      - nat
+    $ref: "./nat/natId-DELETE.yaml"
+/dhcpreservation/{dhcpreservationId}:
+  delete:
+    tags:
+      - dhcpreservation
+    $ref: "./dhcpreservation/dhcpreservationId-DELETE.yaml"
+/staticroutes/{staticrouteId}:
+  delete:
+    tags:
+      - staticroutes
+    $ref: "./staticroutes/staticrouteId-DELETE.yaml"

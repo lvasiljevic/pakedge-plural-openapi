@@ -1,0 +1,27 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+    uniqueItems: true
+    description: "Standard Success status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "Place holder for error message"
+  response:
+    type: "string"
+    default: ""
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response: ""
+   

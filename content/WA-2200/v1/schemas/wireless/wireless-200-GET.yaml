@@ -1,0 +1,1668 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      guest_network:
+        type: "object"
+        properties:
+          band24:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                status:
+                  type: "string"
+                  default: "off"
+                  enum:
+                    - "on"
+                    - "off"
+                  uniqueItems: true
+                ssid:
+                  type: "string"
+                  default: "Pakedgeguest_Alt"
+                  description: "name of the corresponding SSID (WiFi Name)"
+                bssid:
+                  type: "string"
+                  pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+                  description: "mac address of wireless network"
+                encryption:
+                  type: "string"
+                  default: "psk2+ccmp"
+                  pattern: "^(none|psk\\+ccmp|psk2\\+ccmp|psk-mixed\\+ccmp)$"
+                  description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+                password:
+                  type: "string"
+                  default: "pakedgewireless"
+                  pattern: "(^(.){8,63}$|^([a-fA-F]|\\d){64}$)"
+                  description: "this password is valid for any of the SSIDs using this security profile"
+                network_index:
+                  type: "integer"
+                  enum:
+                    - 0
+                isolate:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  uniqueItems: true
+                  default: "off"
+                  description: "true: clients won't be visible from other VLANs; false: client will be visible from other VLANs"
+              additionalProperties: false
+              required:
+                - "ssid"
+                - "status"
+                - "network_index"
+                - "password"
+                - "encryption"
+                - "bssid"
+                - "isolate"
+            minItems: 1
+            maxItems: 1
+          band5:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                status:
+                  type: "string"
+                  default: "off"
+                  enum:
+                    - "on"
+                    - "off"
+                  uniqueItems: true
+                ssid:
+                  type: "string"
+                  default: "Pakedgeguest_Main"
+                  description: "name of the corresponding SSID (WiFi Name)"
+                bssid:
+                  type: "string"
+                  pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+                  description: "mac address of wireless network"
+                encryption:
+                  type: "string"
+                  default: "psk2+ccmp"
+                  pattern: "^(none|psk\\+ccmp|psk2\\+ccmp|psk-mixed\\+ccmp)$"
+                  description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+                password:
+                  type: "string"
+                  default: "pakedgewireless"
+                  pattern: "(^(.){8,63}$|^([a-fA-F]|\\d){64}$)"
+                  description: "this password is valid for any of the SSIDs using this security profile"
+                network_index:
+                  type: "integer"
+                  enum:
+                    - 50
+                isolate:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  uniqueItems: true
+                  default: "off"
+                  description: "true: clients won't be visible from other VLANs; false: client will be visible from other VLANs"
+              additionalProperties: false
+              required:
+                - "ssid"
+                - "status"
+                - "network_index"
+                - "password"
+                - "encryption"
+                - "bssid"
+                - "isolate"
+            minItems: 1
+            maxItems: 1
+          dns:
+            type: "string"
+            default: "8.8.8.8"
+            format: "ipv4"
+          netmask:
+            type: "string"
+            default: "255.255.255.0"
+            format: "ipv4"
+          ip:
+            type: "string"
+            default: "192.168.200.1"
+            format: "ipv4"
+          dhcp_end:
+            type: "string"
+            default: "192.168.200.250"
+            format: "ipv4"
+          dhcp_start:
+            type: "string"
+            default: "192.168.200.100"
+            format: "ipv4"
+        required:
+          - "band24"
+          - "band5"
+          - "netmask"
+          - "ip"
+          - "dhcp_end"
+          - "dhcp_start"
+      private_network:
+        type: "object"
+        properties:
+          band24:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                status:
+                  type: "string"
+                  default: "off"
+                  enum:
+                    - "on"
+                    - "off"
+                ssid:
+                  type: "string"
+                  default: "Pakedge_Alt"
+                  description: "Represents different parameter according to operation mode. Access point & WDS root: name of the corresponding SSID (WiFi Name); WDS bridge & WDS repeater: SSID of adjacent WDS Root Access Point that device wants to connect"
+                bssid:
+                  type: "string"
+                  pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+                  description: "Represents different value according to operation mode. Access point & WDS root: mac address of wireless network. WDS bridge & WDS repeater: WDS Root Access Point BSSID"
+                encryption:
+                  type: "string"
+                  default: "psk2+ccmp"
+                  pattern: "^(none|psk\\+ccmp|psk2\\+ccmp|psk-mixed\\+ccmp)$"
+                  description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+                password:
+                  type: "string"
+                  default: "pakedgewireless"
+                  pattern: "(^(.){8,63}$|^([a-fA-F]|\\d){64}$)"
+                  description: "this password is valid for any of the SSIDs using this security profile"
+                hide:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  default: "off"
+                  description: "true: this SSIDs won't be broadcasted; false: this SSIDs will be broadcasted"
+                isolate:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  default: "off"
+                  description: "true: clients won't be visible from other VLANs; false: client will be visible from other VLANs"
+                vlan:
+                  type: "string"
+                  default: "1"
+                  pattern: "^0*([1-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|40[9][0-4])$"
+                  description: "There are 6 Pakedge Zones (VLANs) available - 1: Management Zone 2: Streaming Zone 3: Audio/Video Zone 4: Automation Zone 5: Data Zone 6: Guest Zone; When setting Guest Network SSID vlan  should be set to the Guest Zone and the client_isolaton flag should be set to true"
+                network_index:
+                  type: "integer"
+                  enum:
+                    - 0
+                    - 1
+                    - 2
+                    - 3
+              required:
+                - "ssid"
+                - "bssid"
+                - "password"
+                - "encryption"
+                - "hide"
+                - "isolate"
+                - "vlan"
+                - "status"
+                - "network_index"
+            minItems: 1
+            maxItems: 4
+          band5:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                status:
+                  type: "string"
+                  default: "off"
+                  enum:
+                    - "on"
+                    - "off"
+                ssid:
+                  type: "string"
+                  default: "Pakedge_Main"
+                  description: "Represents different parameter according to operation mode. Access point & WDS root: name of the corresponding SSID (WiFi Name); WDS bridge & WDS repeater: SSID of adjacent WDS Root Access Point that device wants to connect"
+                bssid:
+                  type: "string"
+                  pattern: "^([A-F0-9]{2}:){5}[A-F0-9]{2}$"
+                  description: "Represents different value according to operation mode. Access point & WDS root: mac address of wireless network. WDS bridge & WDS repeater: WDS Root Access Point BSSID"
+                encryption:
+                  type: "string"
+                  default: "psk2+ccmp"
+                  pattern: "^(none|psk\\+ccmp|psk2\\+ccmp|psk-mixed\\+ccmp)$"
+                  description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+                password:
+                  type: "string"
+                  default: "pakedgewireless"
+                  pattern: "(^(.){8,63}$|^([a-fA-F]|\\d){64}$)"
+                  description: "this password is valid for any of the SSIDs using this security profile"
+                hide:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  default: "off"
+                  description: "true: this SSIDs won't be broadcasted; false: this SSIDs will be broadcasted"
+                isolate:
+                  type: "string"
+                  enum:
+                    - "on"
+                    - "off"
+                  default: "off"
+                  description: "true: clients won't be visible from other VLANs; false: client will be visible from other VLANs"
+                vlan:
+                  type: "string"
+                  default: "1"
+                  pattern: "^0*([1-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|40[9][0-4])$"
+                  description: "There are 6 Pakedge Zones (VLANs) available - 1: Management Zone 2: Streaming Zone 3: Audio/Video Zone 4: Automation Zone 5: Data Zone 6: Guest Zone; When setting Guest Network SSID vlan  should be set to the Guest Zone and the client_isolaton flag should be set to true"
+                network_index:
+                  type: "integer"
+                  enum:
+                    - 50
+                    - 51
+                    - 52
+                    - 53
+              required:
+                - "ssid"
+                - "bssid"
+                - "password"
+                - "encryption"
+                - "hide"
+                - "isolate"
+                - "vlan"
+                - "status"
+                - "network_index"
+            minItems: 1
+            maxItems: 4
+        required:
+          - "band24"
+          - "band5"
+      radio:
+        anyOf:
+          - type: "object"
+            properties:
+              enabled:
+                type: "object"
+                properties:
+                  band24:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 2.4 GHz band is enabled/disabled"
+                  band5:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 5 GHz band is enabled/disabled"
+                required:
+                  - "band24"
+                  - "band5"
+              wireless_mode:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "b"
+                      - "g"
+                      - "bg"
+                      - "n"
+                      - "ng"
+                      - "ngb"
+                    description: "Full name of wireless mode: B-Only, G-Only, B/G-Mixed,N-Only, G/N-Mixed, B/G/N-Mixed"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "a"
+                      - "n"
+                      - "ana"
+                      - "ac"
+                      - "naac"
+                      - "anaac"
+                    description: "Full name of wireless mode: A-Only, N-Only, A/N-Mixed, AC-Only, N/AC-Mixed, A/N/AC-Mixed"
+                required:
+                  - "band24"
+                  - "band5"
+              channel_width:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                    description: "Available channel width: HT 20 MHz, HT 40 MHz"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                      - "HT80"
+                    description: "Available channel width: HT 20 MHz, HT 20/40 MHz, HT 40 MHz, VHT 20 MHz, VHT 40 MHz, VHT 80 MHz"
+                required:
+                  - "band24"
+                  - "band5"
+              bandsteering:
+                type: "string"
+                default: "off"
+                enum:
+                  - "on"
+                  - "off"
+              country_code:
+                type: "string"
+                default: "US"
+                enum:
+                  - "AL"
+                  - "AU"
+                  - "AT"
+                  - "BE"
+                  - "BG"
+                  - "CA"
+                  - "CN"
+                  - "HR"
+                  - "CY"
+                  - "CZ"
+                  - "DK"
+                  - "EE"
+                  - "FI"
+                  - "FR"
+                  - "DE"
+                  - "GR"
+                  - "HU"
+                  - "IS"
+                  - "IE"
+                  - "IL"
+                  - "IT"
+                  - "LV"
+                  - "LI"
+                  - "LT"
+                  - "LU"
+                  - "MT"
+                  - "ME"
+                  - "NL"
+                  - "AN"
+                  - "NZ"
+                  - "NO"
+                  - "PL"
+                  - "PT"
+                  - "RO"
+                  - "RU"
+                  - "RS"
+                  - "SK"
+                  - "SI"
+                  - "ES"
+                  - "SE"
+                  - "CH"
+                  - "TR"
+                  - "MK"
+                  - "GB"
+                  - "US"
+              available_country_codes:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "AL"
+                    - "AU"
+                    - "AT"
+                    - "BE"
+                    - "BG"
+                    - "CA"
+                    - "CN"
+                    - "HR"
+                    - "CY"
+                    - "CZ"
+                    - "DK"
+                    - "EE"
+                    - "FI"
+                    - "FR"
+                    - "DE"
+                    - "GR"
+                    - "HU"
+                    - "IS"
+                    - "IE"
+                    - "IL"
+                    - "IT"
+                    - "LV"
+                    - "LI"
+                    - "LT"
+                    - "LU"
+                    - "MT"
+                    - "ME"
+                    - "NL"
+                    - "AN"
+                    - "NZ"
+                    - "NO"
+                    - "PL"
+                    - "PT"
+                    - "RO"
+                    - "RU"
+                    - "RS"
+                    - "SK"
+                    - "SI"
+                    - "ES"
+                    - "SE"
+                    - "CH"
+                    - "TR"
+                    - "MK"
+                    - "GB"
+                    - "US"
+              available_countries:
+                type: "array"
+                items:
+                  enum:
+                    - "Albania"
+                    - "Australia"
+                    - "Austria"
+                    - "Belgium"
+                    - "Bulgaria"
+                    - "Canada"
+                    - "People's Republic of China"
+                    - "Croatia"
+                    - "Cyprus"
+                    - "Czech Republic"
+                    - "Denmark"
+                    - "Estonia"
+                    - "Finland"
+                    - "France"
+                    - "Germany"
+                    - "Greece"
+                    - "Hungary"
+                    - "Iceland"
+                    - "Ireland"
+                    - "Israel"
+                    - "Italy"
+                    - "Latvia"
+                    - "Liechtenstein"
+                    - "Lithuania"
+                    - "Luxembourg"
+                    - "Malta"
+                    - "Montenegro"
+                    - "Netherlands"
+                    - "Netherlands Antilles"
+                    - "New Zealand"
+                    - "Norway"
+                    - "Poland"
+                    - "Portugal"
+                    - "Romania"
+                    - "Russia"
+                    - "Serbia"
+                    - "Slovakia"
+                    - "Slovenia"
+                    - "Spain"
+                    - "Sweden"
+                    - "Switzerland"
+                    - "Turkey"
+                    - "The Former Yugoslav Republic of Macedonia"
+                    - "United Kingdom"
+                    - "United States"
+              channel:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation max value can be even 13."
+                  band5:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation and dfs option there is even more channels."
+                required:
+                  - "band24"
+                  - "band5"
+              available_channels:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 11
+                        - 12
+                        - 13
+                  band5:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 36
+                        - 40
+                        - 44
+                        - 48
+                        - 52
+                        - 56
+                        - 60
+                        - 64
+                        - 100
+                        - 104
+                        - 108
+                        - 112
+                        - 116
+                        - 120
+                        - 124
+                        - 128
+                        - 132
+                        - 136
+                        - 140
+                        - 144
+                        - 149
+                        - 153
+                        - 157
+                        - 161
+                        - 165
+                required:
+                  - "band24"
+                  - "band5"
+              channel_actual:
+                type: "object"
+                description: "If auto is selected here is number of channel which is choosed by auto."
+                properties:
+                  band24:
+                    type: "string"
+                  band5:
+                    type: "string"
+              operation_mode:
+                type: "object"
+                description: "Abbreviation of: Access Point, Client Bridge, WDS Root, WDS bridge, WDS Station, WDS Repeater."
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+              dfs:
+                type: "string"
+                enum:
+                  - "on"
+                  - "off"
+              available_txpowers:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "26 dBm (399 mW)"
+                        - "27 dBm (502 mW)"
+                        - "28 dBm (631 mW)"
+                        - "29 dBm (795 mW)"
+                        - "maximum"
+                  band5:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "26 dBm (399 mW)"
+                        - "27 dBm (502 mW)"
+                        - "28 dBm (631 mW)"
+                        - "29 dBm (795 mW)"
+                        - "maximum"
+              is_country_locked:
+                type: "boolean"
+            required:
+              - "wireless_mode"
+              - "channel"
+              - "operation_mode"
+              - "enabled"
+              - "dfs"
+              - "is_country_locked"
+          - type: "object"
+            properties:
+              enabled:
+                type: "object"
+                properties:
+                  band24:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 2.4 GHz band is enabled/disabled"
+                  band5:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 5 GHz band is enabled/disabled"
+                required:
+                  - "band24"
+                  - "band5"
+              wireless_mode:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "b"
+                      - "g"
+                      - "bg"
+                      - "n"
+                      - "ng"
+                      - "ngb"
+                    description: "Full name of wireless mode: B-Only, G-Only, B/G-Mixed,N-Only, G/N-Mixed, B/G/N-Mixed"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "a"
+                      - "n"
+                      - "ana"
+                      - "ac"
+                      - "naac"
+                      - "anaac"
+                    description: "Full name of wireless mode: A-Only, N-Only, A/N-Mixed, AC-Only, N/AC-Mixed, A/N/AC-Mixed"
+                required:
+                  - "band24"
+                  - "band5"
+              channel_width:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                    description: "Available channel width: HT 20 MHz, HT 40 MHz"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                      - "HT80"
+                    description: "Available channel width: HT 20 MHz, HT 20/40 MHz, HT 40 MHz, VHT 20 MHz, VHT 40 MHz, VHT 80 MHz"
+                required:
+                  - "band24"
+                  - "band5"
+              bandsteering:
+                type: "string"
+                default: "off"
+                enum:
+                  - "on"
+                  - "off"
+              country_code:
+                type: "string"
+                default: "US"
+                enum:
+                  - "AL"
+                  - "AU"
+                  - "AT"
+                  - "BE"
+                  - "BG"
+                  - "CA"
+                  - "CN"
+                  - "HR"
+                  - "CY"
+                  - "CZ"
+                  - "DK"
+                  - "EE"
+                  - "FI"
+                  - "FR"
+                  - "DE"
+                  - "GR"
+                  - "HU"
+                  - "IS"
+                  - "IE"
+                  - "IL"
+                  - "IT"
+                  - "LV"
+                  - "LI"
+                  - "LT"
+                  - "LU"
+                  - "MT"
+                  - "ME"
+                  - "NL"
+                  - "AN"
+                  - "NZ"
+                  - "NO"
+                  - "PL"
+                  - "PT"
+                  - "RO"
+                  - "RU"
+                  - "RS"
+                  - "SK"
+                  - "SI"
+                  - "ES"
+                  - "SE"
+                  - "CH"
+                  - "TR"
+                  - "MK"
+                  - "GB"
+                  - "US"
+              available_country_codes:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "AL"
+                    - "AU"
+                    - "AT"
+                    - "BE"
+                    - "BG"
+                    - "CA"
+                    - "CN"
+                    - "HR"
+                    - "CY"
+                    - "CZ"
+                    - "DK"
+                    - "EE"
+                    - "FI"
+                    - "FR"
+                    - "DE"
+                    - "GR"
+                    - "HU"
+                    - "IS"
+                    - "IE"
+                    - "IL"
+                    - "IT"
+                    - "LV"
+                    - "LI"
+                    - "LT"
+                    - "LU"
+                    - "MT"
+                    - "ME"
+                    - "NL"
+                    - "AN"
+                    - "NZ"
+                    - "NO"
+                    - "PL"
+                    - "PT"
+                    - "RO"
+                    - "RU"
+                    - "RS"
+                    - "SK"
+                    - "SI"
+                    - "ES"
+                    - "SE"
+                    - "CH"
+                    - "TR"
+                    - "MK"
+                    - "GB"
+                    - "US"
+              available_countries:
+                type: "array"
+                items:
+                  enum:
+                    - "Albania"
+                    - "Australia"
+                    - "Austria"
+                    - "Belgium"
+                    - "Bulgaria"
+                    - "Canada"
+                    - "People's Republic of China"
+                    - "Croatia"
+                    - "Cyprus"
+                    - "Czech Republic"
+                    - "Denmark"
+                    - "Estonia"
+                    - "Finland"
+                    - "France"
+                    - "Germany"
+                    - "Greece"
+                    - "Hungary"
+                    - "Iceland"
+                    - "Ireland"
+                    - "Israel"
+                    - "Italy"
+                    - "Latvia"
+                    - "Liechtenstein"
+                    - "Lithuania"
+                    - "Luxembourg"
+                    - "Malta"
+                    - "Montenegro"
+                    - "Netherlands"
+                    - "Netherlands Antilles"
+                    - "New Zealand"
+                    - "Norway"
+                    - "Poland"
+                    - "Portugal"
+                    - "Romania"
+                    - "Russia"
+                    - "Serbia"
+                    - "Slovakia"
+                    - "Slovenia"
+                    - "Spain"
+                    - "Sweden"
+                    - "Switzerland"
+                    - "Turkey"
+                    - "The Former Yugoslav Republic of Macedonia"
+                    - "United Kingdom"
+                    - "United States"
+              channel:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation max value can be even 13."
+                  band5:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation and dfs option there is even more channels."
+                required:
+                  - "band24"
+                  - "band5"
+              available_channels:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 11
+                        - 12
+                        - 13
+                  band5:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 36
+                        - 40
+                        - 44
+                        - 48
+                        - 52
+                        - 56
+                        - 60
+                        - 64
+                        - 100
+                        - 104
+                        - 108
+                        - 112
+                        - 116
+                        - 120
+                        - 124
+                        - 128
+                        - 132
+                        - 136
+                        - 140
+                        - 144
+                        - 149
+                        - 153
+                        - 157
+                        - 161
+                        - 165
+                required:
+                  - "band24"
+                  - "band5"
+              channel_actual:
+                type: "object"
+                description: "If auto is selected here is number of channel which is choosed by auto."
+                properties:
+                  band24:
+                    type: "string"
+                  band5:
+                    type: "string"
+              operation_mode:
+                type: "object"
+                description: "Abbreviation of: Access Point, Client Bridge, WDS Root, WDS bridge, WDS Station, WDS Repeater."
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+              dfs:
+                type: "string"
+                enum:
+                  - "on"
+                  - "off"
+              available_txpowers:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "1 dBm (2 mW)"
+                        - "2 dBm (2 mW)"
+                        - "3 dBm (2 mW)"
+                        - "4 dBm (3 mW)"
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "maximum"
+                  band5:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "1 dBm (2 mW)"
+                        - "2 dBm (2 mW)"
+                        - "3 dBm (2 mW)"
+                        - "4 dBm (3 mW)"
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "maximum"
+              is_country_locked:
+                type: "boolean"
+            required:
+              - "wireless_mode"
+              - "channel"
+              - "operation_mode"
+              - "enabled"
+              - "dfs"
+              - "is_country_locked"
+      advanced:
+        anyOf:
+          - type: "object"
+            properties:
+              advanced:
+                type: "object"
+                properties:
+                  multicast_ench:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enhancment for multicast on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enhancment for multicast on 5GHz band."
+                  transmit_power:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "auto"
+                        pattern: "^(([0-2]?[0-9])|([3]?[0-1]))$|^auto$|^Auto$|^AUTO$"
+                        description: "0 means auto, and maximum value depends on country regulatons."
+                      band5:
+                        type: "string"
+                        default: "auto"
+                        pattern: "^(([0-2]?[0-9])|([3]?[0-1]))$|^auto$|^Auto$|^AUTO$"
+                        description: "0 means auto, and maximum value depends on country regulatons."
+                  rssi_value:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "-94"
+                        pattern: "^-([6-8][0-9]|[9][0-4])$"
+                        description: "Limit of signal strength above which reject client."
+                      band5:
+                        type: "string"
+                        default: "-94"
+                        pattern: "^-([6-8][0-9]|[9][0-4])$"
+                        description: "Limit of signal strength above which reject client."
+                  rssi_reject:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "off"
+                        enum:
+                          - "on"
+                          - "off"
+                        description: "Enable/Disable RSSI Threshold on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        default: "off"
+                        enum:
+                          - "on"
+                          - "off"
+                        description: "Enable/Disable RSSI Threshold on 5GHz band."
+                  beacon_interval:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "100"
+                        pattern: "^0*([1-9]|[5-9][0-9]|[1-9][0-9]{2}|[1-2][0-9]{3}|3[0-4][0-9]{2}|3500)$"
+                        description: "Interval of sending beacons in miliseconds on 2.4GHz."
+                      band5:
+                        type: "string"
+                        default: "100"
+                        pattern: "^0*([1-9]|[5-9][0-9]|[1-9][0-9]{2}|[1-2][0-9]{3}|3[0-4][0-9]{2}|3500)$"
+                        description: "Interval of sending beacons in miliseconds on 5GHz."
+                  bss:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enable/Disable IEEE 802.11r on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enable/Disable IEEE 802.11r on 5GHz band."
+                  rts_cts:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "2347"
+                        pattern: "^0*([0-9]|[1-9][0-9]{1,2}|1[0-9]{3}|2[0-3][0-9]{2}|24[0-2][0-9]|243[0-7])$"
+                        description: "RTS/CTS packet size threshold in bytes on 2.4GHz."
+                      band5:
+                        type: "string"
+                        default: "2347"
+                        pattern: "^0*([0-9]|[1-9][0-9]{1,2}|1[0-9]{3}|2[0-3][0-9]{2}|24[0-2][0-9]|243[0-7])$"
+                        description: "RTS/CTS packet size threshold in bytes on 5GHz."
+                  band_status:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "on"
+                        description: "Status On/Off for 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "on"
+                        description: "Status On/Off for 5GHz band."
+                  protection_mode:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "none"
+                        enum:
+                          - "none"
+                          - "cts"
+                          - "cts+rts"
+                additionalProperties: false
+          - type: "object"
+            properties:
+              advanced:
+                type: "object"
+                properties:
+                  multicast_ench:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enhancment for multicast on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enhancment for multicast on 5GHz band."
+                  transmit_power:
+                    type: "array"
+                    items:
+                      type: "string"
+                      description: "0 means auto, and maximum value depends on country regulatons."
+                  rssi_value:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "-94"
+                        pattern: "^-([6-8][0-9]|[9][0-4])$"
+                        description: "Limit of signal strength above which reject client."
+                      band5:
+                        type: "string"
+                        default: "-94"
+                        pattern: "^-([6-8][0-9]|[9][0-4])$"
+                        description: "Limit of signal strength above which reject client."
+                  rssi_reject:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "off"
+                        enum:
+                          - "on"
+                          - "off"
+                        description: "Enable/Disable RSSI Threshold on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        default: "off"
+                        enum:
+                          - "on"
+                          - "off"
+                        description: "Enable/Disable RSSI Threshold on 5GHz band."
+                  beacon_interval:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "100"
+                        pattern: "^0*([1-9]|[5-9][0-9]|[1-9][0-9]{2}|[1-2][0-9]{3}|3[0-4][0-9]{2}|3500)$"
+                        description: "Interval of sending beacons in miliseconds on 2.4GHz."
+                      band5:
+                        type: "string"
+                        default: "100"
+                        pattern: "^0*([1-9]|[5-9][0-9]|[1-9][0-9]{2}|[1-2][0-9]{3}|3[0-4][0-9]{2}|3500)$"
+                        description: "Interval of sending beacons in miliseconds on 5GHz."
+                  bss:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enable/Disable IEEE 802.11r on 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "off"
+                        description: "Enable/Disable IEEE 802.11r on 5GHz band."
+                  rts_cts:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "2347"
+                        pattern: "^0*([0-9]|[1-9][0-9]{1,2}|1[0-9]{3}|2[0-3][0-9]{2}|24[0-2][0-9]|243[0-7])$"
+                        description: "RTS/CTS packet size threshold in bytes on 2.4GHz."
+                      band5:
+                        type: "string"
+                        default: "2347"
+                        pattern: "^0*([0-9]|[1-9][0-9]{1,2}|1[0-9]{3}|2[0-3][0-9]{2}|24[0-2][0-9]|243[0-7])$"
+                        description: "RTS/CTS packet size threshold in bytes on 5GHz."
+                  band_status:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "on"
+                        description: "Status On/Off for 2.4GHz band."
+                      band5:
+                        type: "string"
+                        enum:
+                          - "on"
+                          - "off"
+                        uniqueItems: true
+                        default: "on"
+                        description: "Status On/Off for 5GHz band."
+                  protection_mode:
+                    type: "object"
+                    properties:
+                      band24:
+                        type: "string"
+                        default: "none"
+                        enum:
+                          - "none"
+                          - "cts"
+                          - "cts+rts"
+                additionalProperties: false
+      statistics:
+        type: "object"
+        properties:
+          band24:
+            type: "object"
+            properties:
+              rx:
+                type: "integer"
+              tx:
+                type: "integer"
+            additionalProperties: false
+            required:
+              - "rx"
+              - "tx"
+          band5:
+            type: "object"
+            properties:
+              rx:
+                type: "integer"
+              tx:
+                type: "integer"
+            additionalProperties: false
+            required:
+              - "rx"
+              - "tx"
+        additionalProperties: false
+        required:
+          - "band24"
+          - "band5"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     radio:
+       enabled:
+         band24: true
+         band5: true
+       channel_width:
+         band24: "HT20"
+         band5: "HT40"
+       available_country_codes:
+         - "AL"
+         - "AU"
+         - "AT"
+         - "BE"
+         - "BG"
+         - "CA"
+         - "CN"
+         - "HR"
+         - "CY"
+         - "CZ"
+         - "DK"
+         - "EE"
+         - "FI"
+         - "FR"
+         - "DE"
+         - "GR"
+         - "HU"
+         - "IS"
+         - "IE"
+         - "IL"
+         - "IT"
+         - "LV"
+         - "LI"
+         - "LT"
+         - "LU"
+         - "MT"
+         - "ME"
+         - "NL"
+         - "AN"
+         - "NZ"
+         - "NO"
+         - "PL"
+         - "PT"
+         - "RO"
+         - "RU"
+         - "RS"
+         - "SK"
+         - "SI"
+         - "ES"
+         - "SE"
+         - "CH"
+         - "TR"
+         - "MK"
+         - "GB"
+         - "US"
+       channel_actual:
+         band5: "44"
+         band24: "6"
+       wireless_mode:
+         band24: "b"
+         band5: "ana"
+       is_country_locked: false
+       bandsteering: "on"
+       available_countries:
+         - "Albania"
+         - "Australia"
+         - "Austria"
+         - "Belgium"
+         - "Bulgaria"
+         - "Canada"
+         - "People's Republic of China"
+         - "Croatia"
+         - "Cyprus"
+         - "Czech Republic"
+         - "Denmark"
+         - "Estonia"
+         - "Finland"
+         - "France"
+         - "Germany"
+         - "Greece"
+         - "Hungary"
+         - "Iceland"
+         - "Ireland"
+         - "Israel"
+         - "Italy"
+         - "Latvia"
+         - "Liechtenstein"
+         - "Lithuania"
+         - "Luxembourg"
+         - "Malta"
+         - "Montenegro"
+         - "Netherlands"
+         - "Netherlands Antilles"
+         - "New Zealand"
+         - "Norway"
+         - "Poland"
+         - "Portugal"
+         - "Romania"
+         - "Russia"
+         - "Serbia"
+         - "Slovakia"
+         - "Slovenia"
+         - "Spain"
+         - "Sweden"
+         - "Switzerland"
+         - "Turkey"
+         - "The Former Yugoslav Republic of Macedonia"
+         - "United Kingdom"
+         - "United States"
+       operation_mode:
+         band24: "ap"
+         band5: "ap"
+       channel:
+         band24: "auto"
+         band5: "auto"
+       available_txpowers:
+         band24:
+           - "5 dBm (4 mW)"
+           - "6 dBm (4 mW)"
+           - "7 dBm (6 mW)"
+           - "8 dBm (7 mW)"
+           - "9 dBm (8 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (13 mW)"
+           - "12 dBm (16 mW)"
+           - "13 dBm (20 mW)"
+           - "14 dBm (26 mW)"
+           - "15 dBm (32 mW)"
+           - "16 dBm (40 mW)"
+           - "17 dBm (51 mW)"
+           - "maximum"
+         band5:
+           - "6 dBm (4 mW)"
+           - "7 dBm (6 mW)"
+           - "8 dBm (7 mW)"
+           - "9 dBm (8 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (13 mW)"
+           - "12 dBm (16 mW)"
+           - "13 dBm (20 mW)"
+           - "14 dBm (26 mW)"
+           - "15 dBm (32 mW)"
+           - "16 dBm (40 mW)"
+           - "17 dBm (51 mW)"
+           - "18 dBm (64 mW)"
+           - "19 dBm (80 mW)"
+           - "20 dBm (100 mW)"
+           - "21 dBm (126 mW)"
+           - "22 dBm (159 mW)"
+           - "23 dBm (200 mW)"
+           - "24 dBm (252 mW)"
+           - "25 dBm (317 mW)"
+           - "maximum"
+       country_code: "US"
+       available_channels:
+         band5:
+           - 36
+           - 40
+           - 44
+           - 48
+           - 52
+           - 56
+           - 60
+           - 64
+           - 100
+           - 104
+           - 108
+           - 112
+           - 116
+           - 120
+           - 124
+           - 128
+           - 132
+           - 136
+           - 140
+           - 149
+           - 153
+           - 157
+           - 161
+           - 165
+         band24:
+           - 1
+           - 2
+           - 3
+           - 4
+           - 5
+           - 6
+           - 7
+           - 8
+           - 9
+           - 10
+           - 11
+       dfs: "on"
+     private_network:
+       band5:
+         - password: "lakilaki"
+           ssid: "laki"
+           bssid: "90:A7:C1:3B:05:ED"
+           encryption: "psk2+ccmp"
+           status: "on"
+           isolate: "off"
+           vlan: "1"
+           hide: "off"
+           network_index: 50
+         - password: "pakedge123"
+           ssid: "test1"
+           bssid: "90:A7:C1:3B:05:EE"
+           encryption: "psk-mixed+ccmp"
+           status: "on"
+           isolate: "on"
+           vlan: "1"
+           hide: "on"
+           network_index: 51
+         - password: "123123123"
+           ssid: "ugasseni"
+           bssid: "00:00:00:00:00:00"
+           encryption: "psk2+ccmp"
+           status: "off"
+           isolate: "on"
+           vlan: "1"
+           hide: "on"
+           network_index: 52
+       band24:
+         - password: "lakilaki"
+           ssid: "laki"
+           bssid: "90:A7:C1:3B:05:E8"
+           encryption: "psk2+ccmp"
+           status: "on"
+           isolate: "off"
+           vlan: "1"
+           hide: "off"
+           network_index: 0
+     guest_network:
+       band24:
+         - password: "pakedgeguest"
+           ssid: "Pakedgeguest_Main"
+           bssid: "90:A7:C1:3B:05:EC"
+           encryption: "psk2+ccmp"
+           status: "on"
+           network_index: 0
+           isolate: "on"
+       band5:
+         - password: "pakedgeguest"
+           ssid: "Pakedgeguest_Main"
+           bssid: "90:A7:C1:3B:05:F1"
+           encryption: "psk2+ccmp"
+           status: "on"
+           network_index: 50
+           isolate: "off"
+       dns: "8.8.8.8"
+       netmask: "255.255.255.0"
+       dhcp_end: "192.168.200.200"
+       dhcp_start: "192.168.200.100"
+       ip: "192.168.200.1"
+     advanced:
+       multicast_ench:
+         band5: "on"
+         band24: "on"
+       transmit_power:
+         band5: "21"
+         band24: "maximum"
+       rssi_value:
+         band5: "-94"
+         band24: "-94"
+       rssi_reject:
+         band5: "off"
+         band24: "off"
+       beacon_interval:
+         band5: "100"
+         band24: "100"
+       rts_cts:
+         band5: "2346"
+         band24: "2346"
+       bss:
+         band5: "off"
+         band24: "off"
+       band_status:
+         band5: "on"
+         band24: "on"
+     statistics:
+       band24:
+         rx: 1000000
+         tx: 2000000
+       band5:
+         rx: 3000000
+         tx: 4000000
+   

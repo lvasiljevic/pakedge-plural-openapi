@@ -1,0 +1,45 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Current firmware status or explanation what went wrong in case of failure."
+    enum:
+      - ""
+      - "Failed to get current and remote firmware version!"
+      - "Device already has the latest firmware."
+      - "New firmware is available for download"
+    uniqueItems: true
+  response:
+    anyOf:
+      - type: "object"
+        properties:
+          version:
+            type: "string"
+            description: "Firmware version on the remote server."
+          available:
+            type: "string"
+            pattern: "^1$|^0$"
+            description: "Value \"1\"- if available, \"0\" if firmware is not available."
+        required:
+          - "version"
+          - "available"
+      - type: "string"
+        enum:
+          - ""
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: "Device already has the latest firmware."
+   response:
+     version: "1.00.0"
+     available: "0"
+   

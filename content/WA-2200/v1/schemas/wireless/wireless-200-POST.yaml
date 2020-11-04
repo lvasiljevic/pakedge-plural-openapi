@@ -1,0 +1,24 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "string"
+    default: ""
+    description: "Successful POST request return empty response."
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   response: ""
+   msg: ""
+   

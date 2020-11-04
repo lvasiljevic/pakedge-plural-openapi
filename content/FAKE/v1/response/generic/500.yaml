@@ -1,0 +1,5 @@
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/generic/500.yaml'
+description: Internal Server Error

@@ -1,0 +1,602 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      lan:
+        type: "object"
+        properties:
+          name:
+            type: "string"
+          uptime:
+            type: "integer"
+          rx_data:
+            type: "integer"
+          tx_data:
+            type: "integer"
+          up:
+            type: "boolean"
+          status:
+            type: "boolean"
+          macaddr:
+            type: "string"
+            pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+          ipv4:
+            type: "object"
+            properties:
+              proto:
+                type: "string"
+                enum:
+                  - "static"
+                description: "type of networking"
+              netmask:
+                type: "string"
+                format: "ipv4"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              dns:
+                type: "array"
+                items:
+                  type: "string"
+                  format: "ipv4"
+            additionalProperties: false
+          dhcp4server:
+            type: "object"
+            properties:
+              lease_time:
+                type: "integer"
+                maximum: 143999
+              status:
+                type: "boolean"
+              gateway:
+                type: "string"
+                format: "ipv4"
+              dns:
+                type: "array"
+                items:
+                  type: "string"
+                  format: "ipv4"
+              ranges:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    start:
+                      type: "string"
+                      format: "ipv4"
+                    id:
+                      type: "integer"
+                      maximum: 5
+                    end:
+                      type: "string"
+                      format: "ipv4"
+              reservations:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    ip_address:
+                      type: "string"
+                      format: "ipv4"
+                    macaddr:
+                      type: "string"
+                      pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+                    hostname:
+                      type: "string"
+                      pattern: "^[A-Za-z0-9][A-Za-z0-9-]{0,62}$"
+                    index:
+                      type: "integer"
+                  additionalProperties: false
+                  required:
+                    - "ip_address"
+                    - "macaddr"
+                    - "index"
+                    - "hostname"
+            additionalProperties: false
+        additionalProperties: false
+        required:
+          - "dhcp4server"
+          - "ipv4"
+          - "macaddr"
+          - "status"
+          - "tx_data"
+          - "rx_data"
+          - "uptime"
+          - "name"
+      wans:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            name:
+              type: "string"
+            index:
+              type: "number"
+            uptime:
+              type: "integer"
+            rx_data:
+              type: "integer"
+            tx_data:
+              type: "integer"
+            up:
+              type: "boolean"
+            status:
+              type: "boolean"
+            macaddr:
+              type: "string"
+              pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+            vlan:
+              type: "number"
+              minimum: 2
+              maximum: 4095
+            vlan_status:
+              type: "boolean"
+            ping:
+              type: "boolean"
+            default_route:
+              type: "boolean"
+            ipv4:
+              anyOf:
+                - type: "object"
+                  properties:
+                    proto:
+                      type: "string"
+                      enum:
+                        - "static"
+                      description: "type of networking"
+                    netmask:
+                      type: "string"
+                      format: "ipv4"
+                    ip_address:
+                      type: "string"
+                      format: "ipv4"
+                    dns:
+                      type: "array"
+                      items:
+                        type: "string"
+                        format: "ipv4"
+                    gateway:
+                      type: "string"
+                      format: "ipv4"
+                    mtu:
+                      type: "number"
+                - type: "object"
+                  properties:
+                    proto:
+                      type: "string"
+                      enum:
+                        - "dhcp"
+                      description: "type of networking"
+                    ip_address:
+                      type: "string"
+                      format: "ipv4"
+                    dns:
+                      type: "array"
+                      items:
+                        type: "string"
+                        format: "ipv4"
+                    gateway:
+                      type: "string"
+                      format: "ipv4"
+                    netmask:
+                      type: "string"
+                      format: "ipv4"
+                    mtu:
+                      type: "number"
+                - type: "object"
+                  properties:
+                    proto:
+                      type: "string"
+                      enum:
+                        - "pppoe"
+                      description: "type of networking"
+                    ip_address:
+                      type: "string"
+                      format: "ipv4"
+                    dns:
+                      type: "array"
+                      items:
+                        type: "string"
+                        format: "ipv4"
+                    gateway:
+                      type: "string"
+                      format: "ipv4"
+                    mtu_path:
+                      type: "boolean"
+                    mtu:
+                      type: "number"
+                    username:
+                      type: "string"
+                    password:
+                      type: "string"
+          required:
+            - "index"
+            - "uptime"
+            - "up"
+            - "ipv4"
+            - "macaddr"
+            - "status"
+            - "name"
+            - "rx_data"
+            - "tx_data"
+          additionalProperties: true
+      connections:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            ip_address:
+              type: "string"
+              format: "ipv4"
+            proto:
+              type: "string"
+              description: "protocol"
+            hostname:
+              type: "string"
+              description: "hostname of connected client"
+            rx_data:
+              type: "integer"
+              description: "rx data"
+            macaddr:
+              type: "string"
+              pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+              description: "mac address of wireless network"
+            lease_time:
+              type: "integer"
+              description: "lease time in seconds"
+            tx_data:
+              type: "integer"
+              description: "tx data"
+            interface:
+              type: "string"
+              description: "interface name"
+      ports:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              default: 1
+              description: "unique collection item id"
+              minimum: 1
+              maximum: 9
+            link:
+              type: "string"
+              enum:
+                - "up"
+                - "down"
+              description: "link can be up or down"
+            name:
+              type: "string"
+            enabled:
+              type: "boolean"
+            negotiation:
+              type: "object"
+              properties:
+                duplex:
+                  type: "string"
+                  enum:
+                    - "full"
+                    - "half"
+                    - "--"
+                speed:
+                  type: "string"
+                  enum:
+                    - "10"
+                    - "100"
+                    - "1000"
+                    - "--"
+                  description: "Negotiated or set speed expressed in Mbps"
+              additionalProperties: false
+              required:
+                - "speed"
+                - "duplex"
+            interfaces:
+              type: "object"
+              properties:
+                port_type:
+                  type: "string"
+                  enum:
+                    - "wan"
+                    - "lan"
+                vlans:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      vlan_id:
+                        type: "integer"
+                        minimum: 0
+                        maximum: 4092
+                      name:
+                        type: "string"
+                      tag:
+                        type: "string"
+                        enum:
+                          - "off"
+                          - "tagged"
+                          - "untagged"
+              additionalProperties: false
+              required:
+                - "port_type"
+                - "vlans"
+          additionalProperties: false
+          required:
+            - "interfaces"
+            - "negotiation"
+            - "name"
+            - "link"
+            - "id"
+            - "enabled"
+      natpolicies:
+        type: "object"
+        properties:
+          portforwards:
+            type: "object"
+            properties:
+              rules:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    index:
+                      type: "integer"
+                      description: "position index"
+                    int_port:
+                      type: "string"
+                      description: "port, or port range"
+                      pattern: "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(?:\\-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$"
+                    ext_port:
+                      type: "string"
+                      description: "port, or port range"
+                      pattern: "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(?:\\-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$"
+                    int_ipv4:
+                      type: "string"
+                      format: "ipv4"
+                    protocol:
+                      type: "string"
+                      enum:
+                        - "tcp"
+                        - "udp"
+                        - "tcp udp"
+                    name:
+                      type: "string"
+                    enabled:
+                      type: "boolean"
+                    int_iface:
+                      oneOf:
+                        - type: "string"
+                          enum:
+                            - "lan"
+                        - type: "string"
+                          pattern: "^(vlan)([0-9]+)$"
+                    ext_iface:
+                      type: "string"
+                      enum:
+                        - "wan"
+                        - "wan1"
+                        - "wan2"
+                    reflect:
+                      type: "boolean"
+                    snat_ipv4:
+                      oneOf:
+                        - type: "string"
+                          enum:
+                            - "disabled"
+                        - type: "string"
+                          format: "ipv4"
+                  additionalProperties: false
+                  required:
+                    - "index"
+                    - "int_port"
+                    - "ext_port"
+                    - "int_ipv4"
+                    - "protocol"
+                    - "enabled"
+                    - "ext_iface"
+                    - "int_iface"
+                    - "snat_ipv4"
+                    - "reflect"
+            additionalProperties: false
+            required:
+              - "rules"
+        additionalProperties: false
+        required:
+          - "portforwards"
+    required:
+      - "wans"
+      - "lan"
+      - "connections"
+      - "ports"
+      - "natpolicies"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     wans:
+       - rx_data: 62110985
+         index: 1
+         up: true
+         tx_data: 19294634
+         uptime: 323749
+         name: "wan"
+         status: true
+         macaddr: "90:A7:C1:97:BA:4A"
+         ipv4:
+           ip_address: "10.47.5.206"
+           netmask: "255.255.255.0"
+           proto: "dhcp"
+           dns:
+             - "8.8.8.8"
+           mtu: 1500
+           gateway: "10.47.5.1"
+       - rx_data: 62110985
+         index: 2
+         up: false
+         tx_data: 19294634
+         uptime: 0
+         name: "wan2"
+         status: true
+         macaddr: "90:A7:C1:97:BA:4b"
+         ipv4:
+           proto: "dhcp"
+           mtu: 1500
+     lan:
+       rx_data: 32598895
+       up: true
+       tx_data: 272201999
+       name: "lan"
+       dhcp4server:
+         dns:
+           - "192.168.1.1"
+         status: true
+         lease_time: 720
+         ranges:
+           - start: "192.168.1.100"
+             id: 1
+             end: "192.168.1.199"
+         gateway: "192.168.1.1"
+       status: true
+       macaddr: "90:A7:C1:97:BA:48"
+       uptime: 323752
+       ipv4:
+         ip_address: "192.168.1.1"
+         proto: "static"
+         netmask: "255.255.255.0"
+     ports:
+       - enabled: true
+         name: "wan2"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 555
+               name: "vlan555"
+           port_type: "wan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 1
+       - enabled: true
+         name: "lan2"
+         link: "up"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "untagged"
+             - vlan_id: 50
+               name: "Video"
+               tag: "tagged"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "off"
+           port_type: "lan"
+         negotiation:
+           speed: "1000"
+           duplex: "full"
+         id: 2
+       - enabled: true
+         name: "lan3"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "untagged"
+             - vlan_id: 50
+               name: "Video"
+               tag: "off"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "tagged"
+           port_type: "lan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 3
+       - enabled: true
+         name: "lan4"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "off"
+             - vlan_id: 50
+               name: "Video"
+               tag: "untagged"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "off"
+           port_type: "lan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 4
+       - enabled: true
+         name: "wan1"
+         link: "up"
+         interfaces:
+           vlans:
+             - vlan_id: 126
+               name: "vlan126"
+           port_type: "wan"
+         negotiation:
+           speed: "1000"
+           duplex: "full"
+         id: 5
+     connections:
+       - ip_address: "192.168.1.150"
+         proto: "dhcp"
+         hostname: "d4389c58f670"
+         rx_data: 70387
+         macaddr: "d4:38:9c:58:f6:70"
+         lease_time: 38171
+         tx_data: 28625
+         interface: "lan"
+     natpolicies:
+       portforwards:
+         rules:
+           - enabled: true
+             protocol: "tcp udp"
+             index: 1
+             snat_ipv4: "192.168.100.1"
+             ext_port: "8080"
+             int_iface: "lan"
+             name: "Testo"
+             ext_iface: "wan"
+             int_ipv4: "192.168.100.197"
+             reflect: false
+             int_port: "8080"
+           - enabled: true
+             protocol: "tcp udp"
+             index: 2
+             snat_ipv4: "disabled"
+             ext_port: "101-201"
+             int_iface: "lan"
+             name: "xTesto"
+             ext_iface: "wan"
+             int_ipv4: "192.168.100.198"
+             reflect: false
+             int_port: "301-401"
+   

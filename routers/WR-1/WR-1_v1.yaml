@@ -12,13 +12,75 @@ servers:
   - description: SwaggerHub API Auto Mocking
     url: https://localhost:3001/api/v1
 tags:
-  - name: auth
-    description: API for authentication
+  - name: traceroute
+    description: API for traceroute
+  - name: nslookup
+    description: API for nslookup
+  - name: ping
+    description: API for ping
+  - name: availablechannels
+    description: API for availablechannels
+  - name: vpncertificate
+    description: API for vpncertificate
+  - name: vpn
+    description: API for vpn
+  - name: upnp
+    description: API for upnp
+  - name: filesharing
+    description: API for filesharing
+  - name: dyndns
+    description: API for dyndns
+  - name: remotetunnels
+    description: API for remotetunnels
+  - name: deviceportal
+    description: API for deviceportal
+  - name: speedtest
+    description: API for speedtest
+  - name: onlineupgrade
+    description: API for onlineupgrade
+  - name: firmwareversion
+    description: API for firmwareversion
+  - name: remoteaccess
+    description: API for remoteaccess
+  - name: access
+    description: API for access
+  - name: metrics
+    description: API for metrics
+  - name: deviceinfo
+    description: API for deviceinfo
+  - name: configuration
+    description: API for configuration
+  - name: timezone
+    description: API for timezone
+  - name: location
+    description: API for location
+  - name: staticroutes
+    description: API for staticroutes
+  - name: dhcpreservation
+    description: API for dhcpreservation
+  - name: nat
+    description: API for nat
+  - name: rules
+    description: API for rules
+  - name: status
+    description: API for status
+  - name: speed
+    description: API for speed
+  - name: qos
+    description: API for qos
+  - name: wlanclients
+    description: API for wlanclients
+  - name: macfilter
+    description: API for macfilter
+  - name: wireless
+    description: API for wireless
   - name: leds
     description: API for leds
 paths:
   $ref: "./content/WR-1/v1/paths/WR-1_index.yaml"
 components:
+  parameters:
+    $ref: "./content/WR-1/v1/parameters/WR-1_index.yaml"
   securitySchemes:
     $ref: "./content/common/v1/security/bearer-auth.yaml"
   schemas:

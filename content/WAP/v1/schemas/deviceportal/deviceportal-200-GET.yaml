@@ -1,0 +1,64 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    oneOf:
+      - type: "object"
+        properties:
+          remoteAccess:
+            type: "string"
+            enum:
+              - "enabled"
+              - "disabled"
+            uniqueItems: true
+          remoteHost:
+            type: "string"
+            format: "hostname"
+          user:
+            type: "string"
+            description: "user name used to access remote host server"
+          remotePort:
+            type: "string"
+            description: "stringified integer used to show port used to access device on remote server"
+        additionalProperties: false
+      - type: "object"
+        properties:
+          remoteAccess:
+            type: "string"
+            enum:
+              - "enabled"
+              - "disabled"
+            uniqueItems: true
+          remoteHost:
+            type: "string"
+            enum:
+              - "N/A"
+          user:
+            type: "string"
+            description: "user name used to access remote host server"
+          remotePort:
+            type: "string"
+            description: "stringified integer used to show port used to access device on remote server"
+        additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     remoteHost: "lavatunnel.mybakpak.com"
+     remoteAccess: "enabled"
+     user: "lavat"
+     remotePort: "30678"
+   

@@ -1,0 +1,49 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Invalid type"
+      - "Wrong  arguments - missing object!"
+      - "Wrong  arguments - missing \"status\" key/value!"
+      - "Wrong  arguments - missing \"lease_time\" key/value!"
+      - "Wrong  arguments - missing \"ranges\" key/value!"
+      - "Wrong  arguments - \"ranges\" array is empty!"
+      - "Wrong  arguments - missing \"start\" key/value!"
+      - "Wrong  arguments - missing \"end\" key/value!"
+      - "Wrong  arguments - missing \"id\" key/value!"
+      - "Wrong  arguments - bad value for  \"start\" key!"
+      - "Wrong  arguments - bad value for  \"end\" key!"
+      - "Wrong  arguments - bad value for  \"id\" key!"
+      - "Wrong  arguments - bad value for  \"lease_time\" key!"
+      - "Wrong  arguments - bad value for  \"status\" key!"
+      - "Wrong  arguments - \"gateway\" key is not allowed!"
+      - "Wrong  arguments - missing \"dns\" key/value!"
+      - "Wrong  arguments - bad value for  \"gateway\" key!"
+      - "Wrong  arguments - bad value for  \"dns\" key!"
+      - "Failed to modify dhcp sever settings!"
+    uniqueItems: true
+  response:
+    type: "string"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Failed to modify dhcp sever settings!"
+   response: ""
+   

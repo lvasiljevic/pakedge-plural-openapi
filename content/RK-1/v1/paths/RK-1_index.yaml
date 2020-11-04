@@ -1,0 +1,65 @@
+/leds:
+  post:
+    tags:
+      - leds
+    $ref: "./leds/leds-POST.yaml"
+  get:
+    tags:
+      - leds
+    $ref: "./leds/leds-GET.yaml"
+/timezone:
+  post:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-POST.yaml"
+  get:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-GET.yaml"
+/deviceinfo:
+  get:
+    tags:
+      - deviceinfo
+    $ref: "./deviceinfo/deviceinfo-GET.yaml"
+/metrics:
+  get:
+    tags:
+      - metrics
+    $ref: "./metrics/metrics-GET.yaml"
+/configuration:
+  post:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-POST.yaml"
+  get:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-GET.yaml"
+/firmwareversion:
+  get:
+    tags:
+      - firmwareversion
+    $ref: "./firmwareversion/firmwareversion-GET.yaml"
+/remotetunnels:
+  post:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-POST.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-GET.yaml"
+/remotetunnels/{remotetunnelId}:
+  delete:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-DELETE.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-GET.yaml"
+/firmware:
+  put:
+    tags:
+      - firmware
+    $ref: "./firmware/firmware-PUT.yaml"

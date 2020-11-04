@@ -1,0 +1,17 @@
+type: "object"
+properties:
+  location:
+    type: "string"
+    maxLength: 32
+  description:
+    type: "string"
+    maxLength: 32
+  contact:
+    type: "string"
+    maxLength: 32
+
+example:
+   location: "Under the bridge"
+   contact: "lvasiljevci@control4.com"
+   description: "my basemaent"
+   

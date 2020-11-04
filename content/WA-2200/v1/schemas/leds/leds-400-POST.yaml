@@ -1,0 +1,24 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - ""
+      - "Can't restart leds"
+    description: "Error in setting configuration."
+  response:
+    type: "string"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Can't restart leds"
+   response: ""
+   

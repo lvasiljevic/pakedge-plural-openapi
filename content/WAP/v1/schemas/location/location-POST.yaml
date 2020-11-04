@@ -1,0 +1,9 @@
+type: "object"
+properties:
+  location:
+    type: "string"
+    maxLength: 32
+
+example:
+   location: "Under the bridge"
+   

@@ -1,0 +1,12 @@
+type: "object"
+properties:
+  status:
+    description: "Turn on/off leds on device"
+    type: "string"
+    enum:
+      - "on"
+      - "off"
+
+example:
+   status: "on"
+   

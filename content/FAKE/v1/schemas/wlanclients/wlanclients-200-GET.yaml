@@ -1,0 +1,83 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      band24:
+        type: "object"
+        patternProperties:
+          ^.*$:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                receive:
+                  type: "string"
+                send:
+                  type: "string"
+                MAC:
+                  type: "string"
+                rssi:
+                  type: "integer"
+              required:
+                - "receive"
+                - "send"
+                - "rssi"
+                - "MAC"
+        additionalProperties: true
+      band5:
+        type: "object"
+        patternProperties:
+          ^.*$:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                receive:
+                  type: "string"
+                send:
+                  type: "string"
+                MAC:
+                  type: "string"
+                rssi:
+                  type: "integer"
+              required:
+                - "receive"
+                - "send"
+                - "rssi"
+                - "MAC"
+        additionalProperties: true
+    required:
+      - "band24"
+      - "band5"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     band24:
+       dan2.4GWR1: []
+     band5:
+       B5GWR1:
+         - receive: "6Kb"
+           send: "8Kb"
+           rssi: -52
+           MAC: "ac:1f:74:68:12:3f"
+         - receive: "21Kb"
+           send: "12Kb"
+           rssi: -43
+           MAC: "2c:1f:23:1b:c4:94"
+   

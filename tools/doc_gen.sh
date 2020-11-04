@@ -130,6 +130,7 @@ gen_tamplate_files(){
 	fi
 
 	ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ${ENDPOINT_YAML}:)
+
 	if [ ! -z "${ENDPOINT_EXISTS}" ]; then
 		ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ./${API_FOLDER}/${API_FILE}-${METHOD}.yaml)
 		if [ -z "${ENDPOINT_EXISTS}" ]; then
@@ -222,14 +223,12 @@ gen_tamplate_files(){
 		fi
 
 		# Add generic response messagges
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/response/generic" ]; then
-			cp -rf templates/${API_VERSION}/response/generic content/${PLATFORM}/${API_VERSION}/response/generic
-		fi
+		mkdir -p content/${PLATFORM}/${API_VERSION}/response/generic
+		cp -rf templates/${API_VERSION}/response/generic/* content/${PLATFORM}/${API_VERSION}/response/generic
 
 		# Add generic schemas
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/schemas/generic" ]; then
-			cp -rf templates/${API_VERSION}/schemas/generic content/${PLATFORM}/${API_VERSION}/schemas/generic
-		fi
+		mkdir -p content/${PLATFORM}/${API_VERSION}/schemas/generic
+		cp -rf templates/${API_VERSION}/schemas/generic/* content/${PLATFORM}/${API_VERSION}/schemas/generic
 
 		# Add generic headers
 		if [ ! -d "${FOLDER_HEADERS}" ]; then

@@ -1,0 +1,27 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Wrong  arguments - missing \"discoveryMode\" key/value!"
+      - "Wrong  arguments - bad value for  \"discoveryMode\" key!"
+      - "Unable to change settings for discovery mode!"
+    uniqueItems: true
+  response:
+    type: "string"
+required:
+  - "status"
+  - "msg"
+
+example:
+   status: "success"
+   msg: ""
+   response: ""
+   

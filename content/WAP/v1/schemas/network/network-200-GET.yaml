@@ -1,0 +1,126 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      network_setting:
+        type: "string"
+        enum:
+          - "static"
+          - "dhcp"
+        description: "type of networking"
+      netmask:
+        type: "string"
+        format: "ipv4"
+      ip:
+        type: "string"
+        format: "ipv4"
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      gateway:
+        type: "string"
+        format: "ipv4"
+      stp_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      vlan_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      vlan_id:
+        type: "string"
+        description: "VLAN ID"
+        pattern: "^0*([1-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|40[9][0-4])$"
+      lan:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            iface:
+              enum:
+                - 1
+                - 2
+            mac:
+              type: "string"
+              pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+            rx:
+              type: "integer"
+              description: "count of bytes received"
+            tx:
+              type: "integer"
+              description: "count of bytes transmitted"
+            speed:
+              type: "string"
+              enum:
+                - "10MBPS"
+                - "100MBPS"
+                - "1000MBPS"
+            duplexMode:
+              type: "string"
+              enum:
+                - "FULL"
+                - "HALF"
+    additionalProperties: false
+    required:
+      - "network_setting"
+      - "vlan_status"
+      - "vlan_id"
+      - "stp_status"
+      - "gateway"
+      - "dns"
+      - "ip"
+      - "netmask"
+      - "lan"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     dns:
+       - "8.8.8.8"
+     network_setting: "dhcp"
+     netmask: "255.255.254.0"
+     vlan_id: "2"
+     stp_status: "off"
+     vlan_status: "off"
+     ip: "192.168.1.102"
+     gateway: "192.168.1.1"
+     lan:
+       - iface: 1
+         mac: "90:A7:C1:66:66:66"
+         rx: 666
+         tx: 777
+         speed: "1000MBPS"
+         duplexMode: "FULL"
+       - iface: 2
+         mac: "90:A7:C1:77:77:77"
+         rx: 888
+         tx: 999
+         speed: "100MBPS"
+         duplexMode: "HALF"
+   

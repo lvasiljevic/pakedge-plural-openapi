@@ -1,0 +1,27 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Failed to modify dhcp reservation!"
+    uniqueItems: true
+  response:
+    type: "string"
+    default: ""
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Failed to modify dhcp reservation!"
+   response: ""
+   

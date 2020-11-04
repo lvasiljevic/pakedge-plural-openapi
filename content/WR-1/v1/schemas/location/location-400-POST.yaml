@@ -1,0 +1,26 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - ""
+      - "Length of string must be less then 64"
+      - "Miss Location"
+    description: "Error in setting location."
+  response:
+    type: "string"
+    default: ""
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Miss Location"
+   response: ""
+   

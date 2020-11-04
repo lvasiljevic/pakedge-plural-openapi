@@ -1,0 +1,715 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      radio:
+        type: "object"
+        properties:
+          enabled:
+            type: "object"
+            properties:
+              band24:
+                type: "boolean"
+                default: true
+                description: "Option to check if entire 2.4 GHz band is enabled/disabled"
+              band5:
+                type: "boolean"
+                default: true
+                description: "Option to check if entire 5 GHz band is enabled/disabled"
+            required:
+              - "band24"
+              - "band5"
+          wireless_mode:
+            type: "object"
+            properties:
+              band24:
+                type: "string"
+                enum:
+                  - "b"
+                  - "g"
+                  - "bg"
+                  - "n"
+                  - "ng"
+                  - "ngb"
+                description: "Full name of wireless mode: B-Only, G-Only, B/G-Mixed,N-Only, G/N-Mixed, B/G/N-Mixed"
+              band5:
+                type: "string"
+                enum:
+                  - "a"
+                  - "n"
+                  - "ana"
+                  - "ac"
+                  - "naac"
+                  - "anaac"
+                description: "Full name of wireless mode: A-Only, N-Only, A/N-Mixed, AC-Only, N/AC-Mixed, A/N/AC-Mixed"
+            required:
+              - "band24"
+              - "band5"
+          channel_width:
+            type: "object"
+            properties:
+              band24:
+                type: "string"
+                enum:
+                  - "HT20"
+                  - "HT40"
+                description: "Available channel width: HT 20 MHz, HT 40 MHz"
+              band5:
+                type: "string"
+                enum:
+                  - "HT20"
+                  - "HT20_40"
+                  - "HT40"
+                  - "VHT20"
+                  - "VHT40"
+                  - "VHT80"
+                description: "Available channel width: HT 20 MHz, HT 20/40 MHz, HT 40 MHz, VHT 20 MHz, VHT 40 MHz, VHT 80 MHz"
+            required:
+              - "band24"
+              - "band5"
+          bandsteering:
+            type: "string"
+            default: "off"
+            enum:
+              - "on"
+              - "off"
+          country_code:
+            type: "string"
+            default: "US"
+            enum:
+              - "AL"
+              - "AU"
+              - "AT"
+              - "BE"
+              - "BG"
+              - "CA"
+              - "CN"
+              - "HR"
+              - "CY"
+              - "CZ"
+              - "DK"
+              - "EE"
+              - "FI"
+              - "FR"
+              - "DE"
+              - "GR"
+              - "HU"
+              - "IS"
+              - "IE"
+              - "IL"
+              - "IT"
+              - "JE"
+              - "LV"
+              - "LI"
+              - "LT"
+              - "LU"
+              - "MT"
+              - "ME"
+              - "NL"
+              - "AN"
+              - "NZ"
+              - "NO"
+              - "PL"
+              - "PT"
+              - "RO"
+              - "RU"
+              - "RS"
+              - "SK"
+              - "SI"
+              - "ES"
+              - "SE"
+              - "CH"
+              - "TR"
+              - "MK"
+              - "GB"
+              - "US"
+          available_country_codes:
+            type: "array"
+            items:
+              type: "string"
+              enum:
+                - "AL"
+                - "AU"
+                - "AT"
+                - "BE"
+                - "BG"
+                - "CA"
+                - "CN"
+                - "HR"
+                - "CY"
+                - "CZ"
+                - "DK"
+                - "EE"
+                - "FI"
+                - "FR"
+                - "DE"
+                - "GR"
+                - "HU"
+                - "IS"
+                - "IE"
+                - "IL"
+                - "IT"
+                - "JE"
+                - "LV"
+                - "LI"
+                - "LT"
+                - "LU"
+                - "MT"
+                - "ME"
+                - "NL"
+                - "AN"
+                - "NZ"
+                - "NO"
+                - "PL"
+                - "PT"
+                - "RO"
+                - "RU"
+                - "RS"
+                - "SK"
+                - "SI"
+                - "ES"
+                - "SE"
+                - "CH"
+                - "TR"
+                - "MK"
+                - "GB"
+                - "US"
+          available_countries:
+            type: "array"
+            items:
+              enum:
+                - "Albania"
+                - "Australia"
+                - "Austria"
+                - "Belgium"
+                - "Bulgaria"
+                - "Canada"
+                - "People's Republic of China"
+                - "Croatia"
+                - "Cyprus"
+                - "Czech Republic"
+                - "Denmark"
+                - "Estonia"
+                - "Finland"
+                - "France"
+                - "Germany"
+                - "Greece"
+                - "Hungary"
+                - "Iceland"
+                - "Ireland"
+                - "Israel"
+                - "Italy"
+                - "Jersey"
+                - "Latvia"
+                - "Liechtenstein"
+                - "Lithuania"
+                - "Luxembourg"
+                - "Malta"
+                - "Montenegro"
+                - "Netherlands"
+                - "Netherlands Antilles"
+                - "New Zealand"
+                - "Norway"
+                - "Poland"
+                - "Portugal"
+                - "Romania"
+                - "Russia"
+                - "Serbia"
+                - "Slovakia"
+                - "Slovenia"
+                - "Spain"
+                - "Sweden"
+                - "Switzerland"
+                - "Turkey"
+                - "North Macedonia"
+                - "United Kingdom"
+                - "United States"
+          available_txpowers:
+            type: "object"
+            properties:
+              band24:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "3 dBm (1 mW)"
+                    - "4 dBm (2 mW)"
+                    - "5 dBm (3 mW)"
+                    - "6 dBm (3 mW)"
+                    - "7 dBm (5 mW)"
+                    - "8 dBm (6 mW)"
+                    - "9 dBm (7 mW)"
+                    - "10 dBm (10 mW)"
+                    - "11 dBm (12 mW)"
+                    - "12 dBm (15 mW)"
+                    - "13 dBm (19 mW)"
+                    - "14 dBm (25 mW)"
+                    - "15 dBm (31 mW)"
+                    - "16 dBm (39 mW)"
+                    - "17 dBm (50 mW)"
+                    - "18 dBm (63 mW)"
+                    - "19 dBm (79 mW)"
+                    - "20 dBm (100 mW)"
+                    - "21 dBm (125 mW)"
+                    - "22 dBm (158 mW)"
+                    - "23 dBm (199 mW)"
+                    - "24 dBm (251 mW)"
+                    - "25 dBm (316 mW)"
+                    - "26 dBm (398 mW)"
+                    - "27 dBm (501 mW)"
+                    - "28 dBm (630 mW)"
+                    - "29 dBm (794 mW)"
+                    - "maximum"
+              band5:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "3 dBm (1 mW)"
+                    - "4 dBm (2 mW)"
+                    - "5 dBm (3 mW)"
+                    - "6 dBm (3 mW)"
+                    - "7 dBm (5 mW)"
+                    - "8 dBm (6 mW)"
+                    - "9 dBm (7 mW)"
+                    - "10 dBm (10 mW)"
+                    - "11 dBm (12 mW)"
+                    - "12 dBm (15 mW)"
+                    - "13 dBm (19 mW)"
+                    - "14 dBm (25 mW)"
+                    - "15 dBm (31 mW)"
+                    - "16 dBm (39 mW)"
+                    - "17 dBm (50 mW)"
+                    - "18 dBm (63 mW)"
+                    - "19 dBm (79 mW)"
+                    - "20 dBm (100 mW)"
+                    - "21 dBm (125 mW)"
+                    - "22 dBm (158 mW)"
+                    - "23 dBm (199 mW)"
+                    - "24 dBm (251 mW)"
+                    - "25 dBm (316 mW)"
+                    - "26 dBm (398 mW)"
+                    - "27 dBm (501 mW)"
+                    - "28 dBm (630 mW)"
+                    - "29 dBm (794 mW)"
+                    - "maximum"
+          dfs:
+            type: "string"
+            enum:
+              - "on"
+              - "off"
+            default: "off"
+          channel:
+            type: "object"
+            properties:
+              band24:
+                type: "string"
+                default: "auto"
+                description: "Possible channel depends on country regulation, below is the list of minimum supported channels."
+                enum:
+                  - "auto"
+                  - "1"
+                  - "2"
+                  - "3"
+                  - "4"
+                  - "5"
+                  - "6"
+                  - "7"
+                  - "8"
+                  - "9"
+                  - "10"
+                  - "11"
+                  - "12"
+                  - "13"
+              band5:
+                type: "string"
+                default: "auto"
+                description: "Possible channel depends on country regulation and dfs option, below is the list of minimum supported channels."
+                enum:
+                  - "auto"
+                  - "36"
+                  - "40"
+                  - "44"
+                  - "48"
+                  - "52"
+                  - "56"
+                  - "60"
+                  - "64"
+                  - "100"
+                  - "104"
+                  - "108"
+                  - "112"
+                  - "136"
+                  - "140"
+                  - "144"
+                  - "149"
+                  - "153"
+                  - "157"
+                  - "161"
+                  - "165"
+          available_channels:
+            type: "object"
+            properties:
+              band24:
+                type: "array"
+                items:
+                  type: "integer"
+                  enum:
+                    - 1
+                    - 2
+                    - 3
+                    - 4
+                    - 5
+                    - 6
+                    - 7
+                    - 8
+                    - 9
+                    - 10
+                    - 11
+                    - 12
+                    - 13
+              band5:
+                type: "array"
+                items:
+                  type: "integer"
+                  enum:
+                    - 36
+                    - 40
+                    - 44
+                    - 48
+                    - 52
+                    - 56
+                    - 60
+                    - 64
+                    - 100
+                    - 104
+                    - 108
+                    - 112
+                    - 116
+                    - 120
+                    - 124
+                    - 128
+                    - 132
+                    - 136
+                    - 140
+                    - 144
+                    - 149
+                    - 153
+                    - 157
+                    - 161
+                    - 165
+            required:
+              - "band24"
+              - "band5"
+          operation_mode:
+            type: "object"
+            properties:
+              band24:
+                type: "string"
+                enum:
+                  - "ap"
+                  - "wds_root"
+                  - "wds_bridge"
+                  - "wds_repeater"
+              band5:
+                type: "string"
+                enum:
+                  - "ap"
+                  - "wds_root"
+                  - "wds_bridge"
+                  - "wds_repeater"
+          is_country_locked:
+            type: "boolean"
+        required:
+          - "wireless_mode"
+          - "channel"
+          - "operation_mode"
+          - "enabled"
+          - "dfs"
+          - "is_country_locked"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     security_profiles:
+       - profile_name: "Pakedge Default"
+         profile_id: "1"
+         encryption: "psk2"
+         in_use: true
+         password: "pakedgewireless"
+       - profile_name: "Guest Default"
+         profile_id: "2"
+         encryption: "psk2"
+         in_use: true
+         password: "pakedgeguest"
+     radio:
+       enabled:
+         band5: true
+         band24: true
+       available_country_codes:
+         - "AL"
+         - "AU"
+         - "AT"
+         - "BE"
+         - "BG"
+         - "CA"
+         - "HR"
+         - "CY"
+         - "CZ"
+         - "DK"
+         - "EE"
+         - "FI"
+         - "FR"
+         - "DE"
+         - "GR"
+         - "HU"
+         - "IS"
+         - "IE"
+         - "IL"
+         - "IT"
+         - "JE"
+         - "LV"
+         - "LI"
+         - "LT"
+         - "LU"
+         - "MT"
+         - "ME"
+         - "NL"
+         - "AN"
+         - "NZ"
+         - "NO"
+         - "PL"
+         - "PT"
+         - "RO"
+         - "RU"
+         - "RS"
+         - "SK"
+         - "SI"
+         - "ES"
+         - "SE"
+         - "CH"
+         - "TR"
+         - "MK"
+         - "GB"
+         - "US"
+       available_channels:
+         band5:
+           - 36
+           - 40
+           - 44
+           - 48
+           - 52
+           - 56
+           - 60
+           - 64
+           - 100
+           - 104
+           - 108
+           - 112
+           - 136
+           - 140
+         band24:
+           - 1
+           - 2
+           - 3
+           - 4
+           - 5
+           - 6
+           - 7
+           - 8
+           - 9
+           - 10
+           - 11
+           - 12
+           - 13
+       wireless_mode:
+         band5: "anaac"
+         band24: "ng"
+       bandsteering: "off"
+       available_txpowers:
+         band24:
+           - "5 dBm (3 mW)"
+           - "6 dBm (3 mW)"
+           - "7 dBm (5 mW)"
+           - "8 dBm (6 mW)"
+           - "9 dBm (7 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (12 mW)"
+           - "12 dBm (15 mW)"
+           - "13 dBm (19 mW)"
+           - "14 dBm (25 mW)"
+           - "15 dBm (31 mW)"
+           - "16 dBm (39 mW)"
+           - "17 dBm (50 mW)"
+           - "18 dBm (63 mW)"
+           - "19 dBm (79 mW)"
+           - "maximum"
+         band5:
+           - "5 dBm (3 mW)"
+           - "6 dBm (3 mW)"
+           - "7 dBm (5 mW)"
+           - "8 dBm (6 mW)"
+           - "9 dBm (7 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (12 mW)"
+           - "12 dBm (15 mW)"
+           - "13 dBm (19 mW)"
+           - "14 dBm (25 mW)"
+           - "15 dBm (31 mW)"
+           - "16 dBm (39 mW)"
+           - "17 dBm (50 mW)"
+           - "18 dBm (63 mW)"
+           - "19 dBm (79 mW)"
+           - "20 dBm (100 mW)"
+           - "21 dBm (125 mW)"
+           - "22 dBm (158 mW)"
+           - "maximum"
+       available_countries:
+         - "Albania"
+         - "Australia"
+         - "Austria"
+         - "Belgium"
+         - "Bulgaria"
+         - "Canada"
+         - "Croatia"
+         - "Cyprus"
+         - "Czech Republic"
+         - "Denmark"
+         - "Estonia"
+         - "Finland"
+         - "France"
+         - "Germany"
+         - "Greece"
+         - "Hungary"
+         - "Iceland"
+         - "Ireland"
+         - "Israel"
+         - "Italy"
+         - "Jersey"
+         - "Latvia"
+         - "Liechtenstein"
+         - "Lithuania"
+         - "Luxembourg"
+         - "Malta"
+         - "Montenegro"
+         - "Netherlands"
+         - "Netherlands Antilles"
+         - "New Zealand"
+         - "Norway"
+         - "Poland"
+         - "Portugal"
+         - "Romania"
+         - "Russia"
+         - "Serbia"
+         - "Slovakia"
+         - "Slovenia"
+         - "Spain"
+         - "Sweden"
+         - "Switzerland"
+         - "Turkey"
+         - "North Macedonia"
+         - "United Kingdom"
+         - "United States"
+       operation_mode:
+         band5: "ap"
+         band24: "ap"
+       channel:
+         band5: "36"
+         band24: "1"
+       dfs: "on"
+       is_country_locked: false
+       country_code: "AL"
+       channel_width:
+         band5: "VHT20"
+         band24: "HT20"
+     statistics:
+       band5:
+         rx: 0
+         tx: 0
+       band24:
+         rx: 30639396
+         tx: 3374970
+     radius_profiles:
+       - profile_name: "Radius Profile"
+         profile_id: "1"
+         in_use: false
+         auth_servers:
+           - id: "1"
+             port: 1812
+             ip_address: "192.168.1.99"
+             shared_secret: "secret_passphrase"
+     private_network:
+       band5:
+         - ssid: "Pakedge5"
+           bssid: "90:A7:C1:B9:29:1B"
+           isolate: "off"
+           security_profile: "Pakedge Default"
+           network_index: 50
+           status: "on"
+           vlan: "1"
+           hide: "off"
+       band24:
+         - ssid: "Pakedge2.4"
+           bssid: "90:A7:C1:B9:29:12"
+           isolate: "off"
+           security_profile: "Pakedge Default"
+           network_index: 0
+           status: "on"
+           vlan: "1"
+           hide: "off"
+     guest_network:
+       band24:
+         - security_profile: "Guest Default"
+           ssid: "PakedgeGuest2.4"
+           status: "off"
+           network_index: 0
+       dns: "8.8.8.8"
+       band5:
+         - security_profile: "Guest Default"
+           ssid: "PakedgeGuest5"
+           status: "off"
+           network_index: 50
+       netmask: "255.255.255.0"
+       dhcp_end: "192.168.200.250"
+       dhcp_start: "192.168.200.100"
+       ip: "192.168.200.1"
+     advanced:
+       transmit_power:
+         band5: "16"
+         band24: "13"
+       rssi_value:
+         band5: "-94"
+         band24: "-94"
+       rssi_reject:
+         band5: "off"
+         band24: "off"
+       beacon_interval:
+         band5: "100"
+         band24: "100"
+       multicast_ench:
+         band5: "off"
+         band24: "off"
+       protection_mode:
+         band24: "none"
+       rts_cts:
+         band5: "2347"
+         band24: "2346"
+       bss:
+         band5: "off"
+         band24: "off"
+   

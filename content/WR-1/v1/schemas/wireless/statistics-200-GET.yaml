@@ -1,0 +1,64 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      statistics:
+        type: "object"
+        properties:
+          band24:
+            type: "object"
+            properties:
+              rx:
+                type: "integer"
+              tx:
+                type: "integer"
+            additionalProperties: false
+            required:
+              - "rx"
+              - "tx"
+          band5:
+            type: "object"
+            properties:
+              rx:
+                type: "integer"
+              tx:
+                type: "integer"
+            additionalProperties: false
+            required:
+              - "rx"
+              - "tx"
+        additionalProperties: false
+        required:
+          - "band24"
+          - "band5"
+    additionalProperties: false
+    required:
+      - "statistics"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     statistics:
+       band24:
+         rx: 1000000
+         tx: 2000000
+       band5:
+         rx: 3000000
+         tx: 4000000
+   

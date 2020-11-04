@@ -1,0 +1,88 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      lease_time:
+        type: "integer"
+        maximum: 143999
+      status:
+        type: "boolean"
+      gateway:
+        type: "string"
+        format: "ipv4"
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      ranges:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            start:
+              type: "string"
+              format: "ipv4"
+            id:
+              type: "integer"
+              maximum: 5
+            end:
+              type: "string"
+              format: "ipv4"
+      reservations:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            ip_address:
+              type: "string"
+              format: "ipv4"
+            macaddr:
+              type: "string"
+              pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+            hostname:
+              type: "string"
+              pattern: "^[A-Za-z0-9][A-Za-z0-9-]{0,62}$"
+            index:
+              type: "integer"
+          additionalProperties: false
+          required:
+            - "ip_address"
+            - "macaddr"
+            - "index"
+            - "hostname"
+    additionalProperties: false
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     status: true
+     lease_time: 3600
+     gateway: "192.168.1.1"
+     dns:
+       - "8.8.8.8"
+     ranges:
+       - start: "192.168.1.100"
+         end: "192.168.1.150"
+         id: 1
+     reservations: []
+   

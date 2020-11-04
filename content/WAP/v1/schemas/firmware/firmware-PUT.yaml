@@ -1,0 +1,16 @@
+type: "object"
+properties:
+  url:
+    description: "Link to firmware to download"
+    type: "string"
+  timeout:
+    type: "number"
+required:
+  - "url"
+  - "timeout"
+additionalProperties: false
+
+example:
+   url: "https://mybakpak.com/wap/wk-1/fimware.bin"
+   timeout: 24
+   

@@ -1,0 +1,154 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      index:
+        type: "number"
+      uptime:
+        type: "integer"
+      rx_data:
+        type: "integer"
+      tx_data:
+        type: "integer"
+      up:
+        type: "boolean"
+      status:
+        type: "boolean"
+      macaddr:
+        type: "string"
+        pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+      vlan:
+        type: "number"
+        minimum: 2
+        maximum: 4095
+      vlan_status:
+        type: "boolean"
+      ping:
+        type: "boolean"
+      default_route:
+        type: "boolean"
+      ipv4:
+        anyOf:
+          - type: "object"
+            properties:
+              proto:
+                type: "string"
+                enum:
+                  - "static"
+                description: "type of networking"
+              netmask:
+                type: "string"
+                format: "ipv4"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              dns:
+                type: "array"
+                items:
+                  type: "string"
+                  format: "ipv4"
+              gateway:
+                type: "string"
+                format: "ipv4"
+              mtu:
+                type: "number"
+          - type: "object"
+            properties:
+              proto:
+                type: "string"
+                enum:
+                  - "dhcp"
+                description: "type of networking"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              dns:
+                type: "array"
+                items:
+                  type: "string"
+                  format: "ipv4"
+              gateway:
+                type: "string"
+                format: "ipv4"
+              netmask:
+                type: "string"
+                format: "ipv4"
+              mtu:
+                type: "number"
+          - type: "object"
+            properties:
+              proto:
+                type: "string"
+                enum:
+                  - "pppoe"
+                description: "type of networking"
+              ip_address:
+                type: "string"
+                format: "ipv4"
+              dns:
+                type: "array"
+                items:
+                  type: "string"
+                  format: "ipv4"
+              gateway:
+                type: "string"
+                format: "ipv4"
+              mtu_path:
+                type: "boolean"
+              mtu:
+                type: "number"
+              username:
+                type: "string"
+              password:
+                type: "string"
+    required:
+      - "index"
+      - "uptime"
+      - "up"
+      - "ipv4"
+      - "macaddr"
+      - "status"
+      - "name"
+      - "rx_data"
+      - "tx_data"
+    additionalProperties: true
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     name: "wan2"
+     index: 2
+     status: true
+     rx_data: 527221
+     uptime: 24
+     up: true
+     default_route: true
+     vlan_status: false
+     ping: false
+     macaddr: "90:A7:C1:97:BA:4b"
+     ipv4:
+       proto: "pppoe"
+       dns: []
+       mtu_path: false
+       ip_address: "78.24.110.32"
+       mtu: 1500
+       password: "c4pppoe"
+       username: "control4"
+     tx_data: 118126
+   

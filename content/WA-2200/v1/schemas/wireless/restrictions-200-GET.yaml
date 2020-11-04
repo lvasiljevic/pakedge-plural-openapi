@@ -1,0 +1,716 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      encryption_restrictions:
+        type: "object"
+        properties:
+          band5:
+            type: "object"
+            properties:
+              a:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: true
+              naac:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: false
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              anaac:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              ana:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              ac:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: false
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              n:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: false
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+            additionalProperties: false
+            required:
+              - "a"
+              - "naac"
+              - "anaac"
+              - "ana"
+              - "ac"
+              - "n"
+          band24:
+            type: "object"
+            properties:
+              ng:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              b:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: true
+              bg:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: true
+              ngb:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+              g:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: true
+              n:
+                type: "object"
+                properties:
+                  psk-mixed+ccmp:
+                    type: "boolean"
+                    default: false
+                  psk2+ccmp:
+                    type: "boolean"
+                    default: true
+                  psk+ccmp:
+                    type: "boolean"
+                    default: false
+            additionalProperties: false
+            required:
+              - "ng"
+              - "b"
+              - "bg"
+              - "ngb"
+              - "g"
+              - "n"
+        additionalProperties: false
+        required:
+          - "band24"
+          - "band5"
+      mode_restrictions:
+        type: "object"
+        properties:
+          band5:
+            type: "object"
+            properties:
+              a:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+              naac:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+                    - "HT80"
+              anaac:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+                    - "HT80"
+              ana:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+              ac:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+                    - "HT80"
+              n:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+            additionalProperties: false
+            required:
+              - "a"
+              - "naac"
+              - "anaac"
+              - "ana"
+              - "ac"
+              - "n"
+          band24:
+            type: "object"
+            properties:
+              ng:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+              b:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+              bg:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+              ngb:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+              g:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+              n:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "HT20"
+                    - "HT40"
+            additionalProperties: false
+            required:
+              - "ng"
+              - "b"
+              - "bg"
+              - "ngb"
+              - "g"
+              - "n"
+        additionalProperties: false
+        required:
+          - "band24"
+          - "band5"
+      channel_restrictions:
+        type: "object"
+        properties:
+          band5:
+            type: "object"
+            properties:
+              HT20:
+                type: "object"
+                properties:
+                  36:
+                    type: "boolean"
+                  40:
+                    type: "boolean"
+                  44:
+                    type: "boolean"
+                  48:
+                    type: "boolean"
+                  52:
+                    type: "boolean"
+                  56:
+                    type: "boolean"
+                  60:
+                    type: "boolean"
+                  64:
+                    type: "boolean"
+                  100:
+                    type: "boolean"
+                  104:
+                    type: "boolean"
+                  108:
+                    type: "boolean"
+                  112:
+                    type: "boolean"
+                  116:
+                    type: "boolean"
+                  132:
+                    type: "boolean"
+                  136:
+                    type: "boolean"
+                  140:
+                    type: "boolean"
+                  144:
+                    type: "boolean"
+                  149:
+                    type: "boolean"
+                  153:
+                    type: "boolean"
+                  157:
+                    type: "boolean"
+                  161:
+                    type: "boolean"
+                  165:
+                    type: "boolean"
+                  auto:
+                    type: "boolean"
+              HT40:
+                type: "object"
+                properties:
+                  36:
+                    type: "boolean"
+                  40:
+                    type: "boolean"
+                  44:
+                    type: "boolean"
+                  48:
+                    type: "boolean"
+                  52:
+                    type: "boolean"
+                  56:
+                    type: "boolean"
+                  60:
+                    type: "boolean"
+                  64:
+                    type: "boolean"
+                  100:
+                    type: "boolean"
+                  104:
+                    type: "boolean"
+                  108:
+                    type: "boolean"
+                  112:
+                    type: "boolean"
+                  132:
+                    type: "boolean"
+                  136:
+                    type: "boolean"
+                  140:
+                    type: "boolean"
+                  144:
+                    type: "boolean"
+                  149:
+                    type: "boolean"
+                  153:
+                    type: "boolean"
+                  157:
+                    type: "boolean"
+                  161:
+                    type: "boolean"
+                  auto:
+                    type: "boolean"
+              HT80:
+                type: "object"
+                properties:
+                  36:
+                    type: "boolean"
+                  40:
+                    type: "boolean"
+                  44:
+                    type: "boolean"
+                  48:
+                    type: "boolean"
+                  52:
+                    type: "boolean"
+                  56:
+                    type: "boolean"
+                  60:
+                    type: "boolean"
+                  64:
+                    type: "boolean"
+                  100:
+                    type: "boolean"
+                  104:
+                    type: "boolean"
+                  108:
+                    type: "boolean"
+                  112:
+                    type: "boolean"
+                  149:
+                    type: "boolean"
+                  153:
+                    type: "boolean"
+                  157:
+                    type: "boolean"
+                  161:
+                    type: "boolean"
+                  auto:
+                    type: "boolean"
+            additionalProperties: false
+            required:
+              - "HT20"
+              - "HT40"
+              - "HT80"
+          band24:
+            type: "object"
+            properties:
+              HT20:
+                type: "object"
+                properties:
+                  1:
+                    type: "boolean"
+                  2:
+                    type: "boolean"
+                  3:
+                    type: "boolean"
+                  4:
+                    type: "boolean"
+                  5:
+                    type: "boolean"
+                  6:
+                    type: "boolean"
+                  7:
+                    type: "boolean"
+                  8:
+                    type: "boolean"
+                  9:
+                    type: "boolean"
+                  10:
+                    type: "boolean"
+                  11:
+                    type: "boolean"
+                  12:
+                    type: "boolean"
+                  13:
+                    type: "boolean"
+                  auto:
+                    type: "boolean"
+              HT40:
+                type: "object"
+                properties:
+                  1:
+                    type: "boolean"
+                  2:
+                    type: "boolean"
+                  3:
+                    type: "boolean"
+                  4:
+                    type: "boolean"
+                  5:
+                    type: "boolean"
+                  6:
+                    type: "boolean"
+                  7:
+                    type: "boolean"
+                  8:
+                    type: "boolean"
+                  9:
+                    type: "boolean"
+                  10:
+                    type: "boolean"
+                  11:
+                    type: "boolean"
+                  12:
+                    type: "boolean"
+                  13:
+                    type: "boolean"
+                  auto:
+                    type: "boolean"
+            additionalProperties: false
+            required:
+              - "HT20"
+              - "HT40"
+        additionalProperties: false
+        required:
+          - "band24"
+          - "band5"
+    additionalProperties: false
+    required:
+      - "encryption_restrictions"
+      - "mode_restrictions"
+      - "channel_restrictions"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     encryption_restrictions:
+       band5:
+         a:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: true
+         naac:
+           psk-mixed+ccmp: false
+           psk2+ccmp: true
+           psk+ccmp: false
+         anaac:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: false
+         ana:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: false
+         ac:
+           psk-mixed+ccmp: false
+           psk2+ccmp: true
+           psk+ccmp: false
+         n:
+           psk-mixed+ccmp: false
+           psk2+ccmp: true
+           psk+ccmp: false
+       band24:
+         ng:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: false
+         b:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: true
+         bg:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: true
+         ngb:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: false
+         g:
+           psk-mixed+ccmp: true
+           psk2+ccmp: true
+           psk+ccmp: true
+         n:
+           psk-mixed+ccmp: false
+           psk2+ccmp: true
+           psk+ccmp: false
+     mode_restrictions:
+       band5:
+         a:
+           - "HT20"
+         naac:
+           - "HT20"
+           - "HT40"
+           - "HT80"
+         anaac:
+           - "HT20"
+           - "HT40"
+           - "HT80"
+         ana:
+           - "HT20"
+           - "HT40"
+         ac:
+           - "HT20"
+           - "HT40"
+           - "HT80"
+         n:
+           - "HT20"
+           - "HT40"
+       band24:
+         ng:
+           - "HT20"
+           - "HT40"
+         b:
+           - "HT20"
+         bg:
+           - "HT20"
+         ngb:
+           - "HT20"
+           - "HT40"
+         g:
+           - "HT20"
+         n:
+           - "HT20"
+           - "HT40"
+     channel_restrictions:
+       band5:
+         HT40:
+           36: true
+           40: true
+           44: true
+           48: true
+           52: true
+           56: true
+           60: true
+           64: true
+           100: true
+           104: true
+           108: true
+           112: true
+           132: true
+           136: true
+           140: true
+           144: true
+           149: true
+           153: true
+           157: true
+           161: true
+           auto: true
+         HT80:
+           36: true
+           40: true
+           44: true
+           48: true
+           52: true
+           56: true
+           60: true
+           64: true
+           100: true
+           104: true
+           108: true
+           112: true
+           149: true
+           153: true
+           157: true
+           161: true
+           auto: true
+         HT20:
+           36: true
+           40: true
+           44: true
+           48: true
+           52: true
+           56: true
+           60: true
+           64: true
+           100: true
+           104: true
+           108: true
+           112: true
+           116: true
+           132: true
+           136: true
+           140: true
+           144: true
+           149: true
+           153: true
+           157: true
+           161: true
+           165: true
+           auto: true
+       band24:
+         HT40:
+           1: true
+           2: true
+           3: true
+           4: true
+           5: true
+           6: true
+           7: true
+           8: true
+           9: true
+           10: true
+           11: true
+           12: true
+           13: true
+           auto: true
+         HT20:
+           1: true
+           2: true
+           3: true
+           4: true
+           5: true
+           6: true
+           7: true
+           8: true
+           9: true
+           10: true
+           11: true
+           12: true
+           13: true
+           auto: true
+   

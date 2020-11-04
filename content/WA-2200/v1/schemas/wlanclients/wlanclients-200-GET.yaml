@@ -1,0 +1,107 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      band24:
+        type: "object"
+        patternProperties:
+          ^.*$:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                receive:
+                  type: "string"
+                send:
+                  type: "string"
+                MAC:
+                  type: "string"
+                rssi:
+                  type: "string"
+                os:
+                  type: "string"
+                hostname:
+                  type: "string"
+                ip:
+                  type: "string"
+              required:
+                - "receive"
+                - "send"
+                - "rssi"
+                - "MAC"
+                - "os"
+                - "hostname"
+                - "ip"
+        additionalProperties: true
+      band5:
+        type: "object"
+        patternProperties:
+          ^.*$:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                receive:
+                  type: "string"
+                send:
+                  type: "string"
+                MAC:
+                  type: "string"
+                rssi:
+                  type: "string"
+                os:
+                  type: "string"
+                hostname:
+                  type: "string"
+                ip:
+                  type: "string"
+              required:
+                - "receive"
+                - "send"
+                - "rssi"
+                - "MAC"
+                - "os"
+                - "hostname"
+                - "ip"
+        additionalProperties: true
+    required:
+      - "band24"
+      - "band5"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     band24:
+       BogdanRosandic2.4GWE1: []
+     band5:
+       BogdanRosandic5GWE1:
+         - receive: "6Kb"
+           os: "Apple iOS"
+           hostname: "sheryls-iPhone"
+           send: "8Kb"
+           rssi: "-52"
+           MAC: "ac:1f:74:68:12:3f"
+           ip: "192.168.1.109"
+         - receive: "21Kb"
+           os: "Apple iOS"
+           hostname: "Vukojes-iPad"
+           send: "12Kb"
+           rssi: "-43"
+           MAC: "2c:1f:23:1b:c4:94"
+           ip: "192.168.1.103"
+   

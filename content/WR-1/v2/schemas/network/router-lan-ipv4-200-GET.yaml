@@ -1,0 +1,48 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      proto:
+        type: "string"
+        enum:
+          - "static"
+        description: "type of networking"
+      netmask:
+        type: "string"
+        format: "ipv4"
+      ip_address:
+        type: "string"
+        format: "ipv4"
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+    additionalProperties: false
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     ip_address: "192.168.1.99"
+     proto: "static"
+     netmask: "255.255.255.0"
+   

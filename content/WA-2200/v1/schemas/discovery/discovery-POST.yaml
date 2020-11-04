@@ -1,0 +1,14 @@
+type: "object"
+properties:
+  discoveryMode:
+    type: "string"
+    enum:
+      - "AccessController"
+      - "WirelessTerminationPoint"
+    uniqueItems: true
+required:
+  - "discoveryMode"
+
+example:
+   discoveryMode: "AccessController"
+   

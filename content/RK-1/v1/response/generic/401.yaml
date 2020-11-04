@@ -1,0 +1,12 @@
+headers:
+  Cache-Control:
+    $ref: '../../headers/response/cache_control.yaml'
+  Pragma:
+    $ref: '../../headers/response/pragma.yaml'
+  WWW-Authenticate:
+    $ref: '../../headers/response/www-authenticate.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/generic/401.yaml'
+description: Access denied. Response sent in case of missing, bad or expired token. Try again with new token.

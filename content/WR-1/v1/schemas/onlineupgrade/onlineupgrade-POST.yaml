@@ -1,0 +1,12 @@
+type: "object"
+properties:
+  keep_settings:
+    type: "string"
+    pattern: "^true$|^false$"
+    description: "To keep or not to keep the configuration during the online upgrade."
+required:
+  - "keep_settings"
+
+example:
+   keep_settings: "true"
+   

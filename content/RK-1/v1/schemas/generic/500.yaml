@@ -1,0 +1,4 @@
+example:
+  msg: "Internal Server Error"
+  response: ''
+  status: error

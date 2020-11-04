@@ -1,0 +1,35 @@
+type: "object"
+properties:
+  remoteHost:
+    type: "string"
+    format: "hostname"
+    description: "remote host used to access device remotely"
+  remoteAccess:
+    type: "string"
+    enum:
+      - "enable"
+      - "disable"
+    uniqueItems: true
+  user:
+    type: "string"
+    description: "user name used to access remote host server"
+  remotePort:
+    type: "string"
+    description: "stringified integer used to show port used to access device on remote server"
+  remoteHostPort:
+    type: "string"
+    description: "stringified integer used to define the port to connect to remote server"
+required:
+  - "remoteAccess"
+  - "user"
+  - "remoteHost"
+  - "remotePort"
+  - "remoteHostPort"
+
+example:
+   user: "lavat"
+   remoteHostPort: "8923"
+   remoteHost: "lavatunnel.mybakpak.com"
+   remotePort: "39644"
+   remoteAccess: "enable"
+   

@@ -1,0 +1,37 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Wrong  arguments - missing \"remotePort\" key/value!"
+      - "Wrong  arguments - missing \"remoteHost\" key/value!"
+      - "Wrong  arguments - missing \"user\" key/value!"
+      - "Wrong  arguments - missing \"pass\" key/value!"
+      - "Wrong  arguments - missing \"remoteAccess\" key/value!"
+      - "Wrong  arguments - bad value for  \"remoteAccess\" key!"
+      - "Wrong  arguments - bad value for  \"remotePort\" key!"
+      - "Wrong  arguments - bad value for  \"pass\" key!"
+      - "Device portal is already set!"
+      - "Unable to establish tunnel in order to enable device portal!"
+      - "Device portal is already disabled!"
+      - "Unable to disable device portal!"
+      - "Bad arguments - remoteAccess must have \"diable\" or \"enable\" value."
+    uniqueItems: true
+  response:
+    type: "string"
+required:
+  - "status"
+  - "msg"
+
+example:
+   status: "success"
+   msg: ""
+   response: ""
+   

@@ -1,0 +1,29 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Wrong  arguments - missing id!"
+      - "Wrong  arguments - id should be uinteger!"
+      - "Failed to delete dhcp range!"
+    uniqueItems: true
+  response:
+    type: "string"
+    default: ""
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Failed to delete dhcp range!"
+   response: ""
+   
