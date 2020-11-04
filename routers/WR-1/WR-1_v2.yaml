@@ -15,16 +15,16 @@ tags:
   - name: network
     description: API for network
 paths:
-  $ref: "./content/PakedgeWR-1/v2/paths/PakedgeWR-1_index.yaml"
+  $ref: "./content/WR-1/v2/paths/WR-1_index.yaml"
 components:
   securitySchemes:
     $ref: "./content/common/v1/security/bearer-auth.yaml"
   schemas:
-    $ref: "./content/PakedgeWR-1/v2/schemas/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v2/schemas/WR-1_index.yaml"
   responses:
-    $ref: "./content/PakedgeWR-1/v2/response/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v2/response/WR-1_index.yaml"
   parameters:
-    $ref: "./content/PakedgeWR-1/v2/parameters/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v2/parameters/WR-1_index.yaml"
   requestBodies:
-    $ref: "./content/PakedgeWR-1/v2/request/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v2/request/WR-1_index.yaml"
 x-basePath: '{domain}/api/v{version}'

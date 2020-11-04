@@ -17,14 +17,14 @@ tags:
   - name: leds
     description: API for leds
 paths:
-  $ref: "./content/PakedgeWR-1/v1/paths/PakedgeWR-1_index.yaml"
+  $ref: "./content/WR-1/v1/paths/WR-1_index.yaml"
 components:
   securitySchemes:
     $ref: "./content/common/v1/security/bearer-auth.yaml"
   schemas:
-    $ref: "./content/PakedgeWR-1/v1/schemas/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v1/schemas/WR-1_index.yaml"
   responses:
-    $ref: "./content/PakedgeWR-1/v1/response/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v1/response/WR-1_index.yaml"
   requestBodies:
-    $ref: "./content/PakedgeWR-1/v1/request/PakedgeWR-1_index.yaml"
+    $ref: "./content/WR-1/v1/request/WR-1_index.yaml"
 
