@@ -1,0 +1,36 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Invalid type"
+      - "Invalid ip address"
+      - "Invalid netmask address"
+      - "Invalid proto"
+      - "Invalid dns address"
+      - "Miss requred argument"
+      - "Could not set proto"
+      - "Could not set IP address"
+      - "Could not set netmask"
+      - "Could not set dns"
+      - "Could not apply changes"
+    uniqueItems: true
+  response:
+    type: "string"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Could not set dns"
+   response: ""
+   

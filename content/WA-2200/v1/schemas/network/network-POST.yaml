@@ -1,0 +1,148 @@
+oneOf:
+  - type: "object"
+    properties:
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      stp_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      network_setting:
+        enum:
+          - "dhcp"
+      vlan_status:
+        type: "string"
+        enum:
+          - "off"
+      gateway:
+        type: "string"
+        format: "ipv4"
+    additionalProperties: false
+    required:
+      - "gateway"
+      - "dns"
+  - type: "object"
+    properties:
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      stp_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      network_setting:
+        type: "string"
+        enum:
+          - "dhcp"
+      gateway:
+        type: "string"
+        format: "ipv4"
+      vlan_status:
+        type: "string"
+        enum:
+          - "on"
+      vlan_id:
+        type: "string"
+        description: "VLAN ID"
+        pattern: "^0*([1-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|40[9][0-4])$"
+    additionalProperties: false
+    required:
+      - "vlan_id"
+      - "gateway"
+      - "dns"
+  - type: "object"
+    properties:
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      stp_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      network_setting:
+        type: "string"
+        enum:
+          - "static"
+      ip:
+        type: "string"
+        format: "ipv4"
+      netmask:
+        type: "string"
+        format: "ipv4"
+      gateway:
+        type: "string"
+        format: "ipv4"
+      vlan_status:
+        type: "string"
+        enum:
+          - "on"
+      vlan_id:
+        type: "string"
+        description: "VLAN ID"
+        pattern: "^0*([2-9]|[1-9][0-9]{1,2}|[1-3][0-9]{3}|40[0-8][0-9]|40[9][0-4])$"
+    additionalProperties: false
+    required:
+      - "vlan_id"
+      - "ip"
+      - "netmask"
+      - "gateway"
+      - "dns"
+  - type: "object"
+    properties:
+      dns:
+        type: "array"
+        items:
+          type: "string"
+          format: "ipv4"
+      stp_status:
+        type: "string"
+        enum:
+          - "on"
+          - "off"
+        uniqueItems: true
+      network_setting:
+        type: "string"
+        enum:
+          - "static"
+      ip:
+        type: "string"
+        format: "ipv4"
+      netmask:
+        type: "string"
+        format: "ipv4"
+      gateway:
+        type: "string"
+        format: "ipv4"
+      vlan_status:
+        type: "string"
+        enum:
+          - "off"
+    additionalProperties: false
+    required:
+      - "ip"
+      - "netmask"
+      - "gateway"
+      - "dns"
+
+example:
+   network_setting: "dhcp"
+   dns:
+     - "8.8.8.8"
+     - "192.168.1.1"
+   gateway: "192.168.1.1"
+   stp_status: "off"
+   vlan_status: "off"
+   

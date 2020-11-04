@@ -1,0 +1,22 @@
+description: |
+  Configure the wans settings.
+operationId: PUT_network-wans-wanId
+tags:
+  - network
+security:
+  - bearerAuth: []
+parameters:
+  - $ref: "../../parameters/path/wanid.yaml"
+requestBody:
+  $ref : "../../request/network/wans-wanid-PUT.yaml"
+responses:
+  '200':
+    $ref : "../../response/network/wans-wanid-200-PUT.yaml"
+  '400':
+    $ref : "../../response/network/wans-wanid-400-PUT.yaml"
+  '401':
+    $ref : "../../response/generic/401.yaml"
+  '404':
+    $ref : "../../response/generic/404.yaml"
+  '503':
+    $ref : "../../response/generic/503.yaml"

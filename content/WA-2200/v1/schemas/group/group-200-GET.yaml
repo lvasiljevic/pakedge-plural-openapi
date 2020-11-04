@@ -1,0 +1,33 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      services:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+            - "bakpak"
+          uniqueItems: true
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     services:
+       - "bakpak"
+   

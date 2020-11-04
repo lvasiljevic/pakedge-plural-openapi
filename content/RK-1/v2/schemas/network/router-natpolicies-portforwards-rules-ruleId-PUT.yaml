@@ -1,0 +1,62 @@
+type: "object"
+properties:
+  int_port:
+    type: "string"
+    description: "port, or port range"
+    pattern: "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(?:\\-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$"
+  ext_port:
+    type: "string"
+    description: "port, or port range"
+    pattern: "^([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])(?:\\-([0-9]{1,4}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5]))?$"
+  int_ipv4:
+    type: "string"
+    format: "ipv4"
+  protocol:
+    type: "string"
+    enum:
+      - "tcp"
+      - "udp"
+      - "tcp udp"
+  name:
+    type: "string"
+    pattern: "^.{0,32}$"
+  enabled:
+    type: "boolean"
+  int_iface:
+    oneOf:
+      - type: "string"
+        enum:
+          - "lan"
+      - type: "string"
+        pattern: "^(vlan)([0-9]+)$"
+  ext_iface:
+    type: "string"
+    enum:
+      - "wan"
+      - "wan1"
+      - "wan2"
+  reflect:
+    type: "boolean"
+  snat_ipv4:
+    oneOf:
+      - type: "string"
+        enum:
+          - "disabled"
+      - type: "string"
+        format: "ipv4"
+additionalProperties: false
+required:
+  - "int_port"
+  - "ext_port"
+  - "int_ipv4"
+  - "protocol"
+  - "enabled"
+
+example:
+   ext_port: "101-201"
+   int_port: "301-401"
+   int_ipv4: "192.168.1.198"
+   protocol: "tcp udp"
+   name: "xTesto"
+   enabled: true
+   

@@ -1,0 +1,64 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      mac:
+        type: "string"
+        pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+      serial_number:
+        type: "string"
+        maxLength: 64
+      uptime:
+        type: "string"
+        pattern: "^([1-9][0-9]{0,4}D:)?([01][0-9]|[2][0-3])h:[0-5][0-9]m:[0-5][0-9]s$"
+      firmware_version:
+        type: "string"
+        pattern: "^[0-9](\\.[0-9]([0-9])?){2}(\\.[1-9][0-9]{5})?$"
+      cpu:
+        type: "number"
+        description: "percent of cpu usage"
+        minimum: 0
+        maximum: 99.9
+      memFree:
+        type: "integer"
+        description: "free memory in bytes"
+      memUsed:
+        type: "integer"
+        description: "memory being used in bytes"
+    required:
+      - "mac"
+      - "serial_number"
+      - "uptime"
+      - "firmware_version"
+      - "cpu"
+      - "memFree"
+      - "memUsed"
+    additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+additionalProperties: false
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     mac: "90:a7:c1:09:10:9e"
+     serial_number: "WK-1-BT0615A10184"
+     uptime: "21h:16m:36s"
+     firmware_version: "1.32.0.100232"
+     cpu: 66
+     memFree: 165432
+     memUsed: 172999
+   

@@ -1,0 +1,10 @@
+headers:
+  Cache-Control:
+    $ref: '../../headers/response/cache_control.yaml'
+  Pragma:
+    $ref: '../../headers/response/pragma.yaml'
+content:
+  application/json:
+    schema:
+      $ref: '../../schemas/generic/404.yaml'
+description: Not Found

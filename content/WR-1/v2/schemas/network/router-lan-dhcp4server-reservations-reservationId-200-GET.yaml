@@ -1,0 +1,49 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    enum:
+      - "success"
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      ip_address:
+        type: "string"
+        format: "ipv4"
+      macaddr:
+        type: "string"
+        pattern: "^([A-Fa-f0-9]{2}:){5}[A-Fa-f0-9]{2}$"
+      hostname:
+        type: "string"
+        pattern: "^[A-Za-z0-9][A-Za-z0-9-]{0,62}$"
+      index:
+        type: "integer"
+    additionalProperties: false
+    required:
+      - "ip_address"
+      - "macaddr"
+      - "index"
+      - "hostname"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     ip_address: "192.168.2.185"
+     macaddr: "90:a7:c1:3b:05:e7"
+     hostname: "Livingroom-Access-point"
+     index: 1
+   

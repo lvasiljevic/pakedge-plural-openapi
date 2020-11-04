@@ -1,0 +1,17 @@
+description: Get the ipv4 configuration.
+operationId: GET_network-wans-wanId-ipv4
+tags:
+  - network
+security:
+  - bearerAuth: []
+parameters:
+  - $ref: "../../parameters/path/wanid.yaml"
+responses:
+  '200':
+    $ref: "../../response/network/wans-wanid-ipv4-200-GET.yaml"
+  '401':
+    $ref : "../../response/generic/401.yaml"
+  '404':
+    $ref : "../../response/generic/404.yaml"
+  '503':
+    $ref : "../../response/generic/503.yaml"

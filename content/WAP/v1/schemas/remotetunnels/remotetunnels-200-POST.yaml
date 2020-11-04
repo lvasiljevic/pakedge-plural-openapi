@@ -1,0 +1,49 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+    uniqueItems: true
+  response:
+    oneOf:
+      - type: "object"
+        properties:
+          remoteHost:
+            type: "string"
+            format: "hostname"
+            description: "remote host used to access device remotely"
+          tunnelId:
+            type: "integer"
+            description: "integer used to determine port to access remotely"
+          user:
+            type: "string"
+            description: "user name used to access remote host server"
+          remotePort:
+            type: "integer"
+            description: "integer used to show port used to access device on remote server"
+        required:
+          - "user"
+          - "remoteHost"
+          - "remotePort"
+          - "tunnelId"
+      - type: "string"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     remoteHost: "firmware.testing.ovrc.com"
+     tunnelId: 0
+     remotePort: 30678
+     user: "ovrc"
+   

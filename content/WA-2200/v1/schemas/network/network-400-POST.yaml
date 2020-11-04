@@ -1,0 +1,36 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    enum:
+      - "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - "Wrong stp argument"
+      - "Miss some argument"
+      - "Some IP has invalid format"
+      - "For static proto must have gateway"
+      - "Invalid gateway IP format"
+      - "Invalid dns IP format"
+      - "Wrong status argument"
+      - "vlan_id argument missing"
+      - "Missing dns"
+      - "Missing gateway"
+      - "Invalid network request"
+    uniqueItems: true
+  response:
+    type: "string"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Invalid network request"
+   response: ""
+   

@@ -1,0 +1,33 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    enum:
+      - "success"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      index:
+        type: "integer"
+        description: "position index"
+    required:
+      - "index"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     index: 2
+   

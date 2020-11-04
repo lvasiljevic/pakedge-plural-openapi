@@ -1,0 +1,54 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      remotetunnels:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            tunnelId:
+              type: "integer"
+              description: "integer used to determine tunnelId"
+            remoteHost:
+              type: "string"
+              format: "hostname"
+            user:
+              type: "string"
+              description: "user name used to access remote host server"
+            remotePort:
+              type: "integer"
+              description: "integer used to show port used to access device on remote server"
+            remoteHostPort:
+              type: "integer"
+              description: "integer used to show port used to access device on remote server"
+          additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     remotetunnels:
+       - remoteHost: "firmware.testing.ovrc.com"
+         tunnelId: 0
+         remotePort: 30678
+         user: "ovrc"
+       - remoteHost: "lavatunnel.mybakpak.com"
+         tunnelId: 1
+         remotePort: 30679
+         user: "lavat"
+   

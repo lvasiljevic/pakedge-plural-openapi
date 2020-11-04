@@ -1,0 +1,98 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "array"
+    items:
+      anyOf:
+        - type: "object"
+          properties:
+            profile_id:
+              type: "string"
+              default: "1"
+              description: "unique collection item id"
+              pattern: "\\b([1-9]|1[0-7])\\b"
+            profile_name:
+              type: "string"
+              default: "Pakedge Default"
+              minLength: 1
+              maxLength: 64
+              description: "name of the corresponding security profile"
+            encryption:
+              type: "string"
+              default: "none"
+              enum:
+                - "none"
+              description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+            in_use:
+              type: "boolean"
+              default: true
+              description: "true: one or more SSIDs are using this security profile; false: this security profile is not used by any of the SSISs"
+          required:
+            - "profile_id"
+            - "profile_name"
+            - "encryption"
+        - type: "object"
+          properties:
+            profile_id:
+              type: "string"
+              default: "1"
+              description: "unique collection item id"
+              pattern: "\\b([1-9]|1[0-7])\\b"
+            profile_name:
+              type: "string"
+              default: "Pakedge Default"
+              minLength: 1
+              maxLength: 64
+              description: "name of the corresponding security profile"
+            encryption:
+              type: "string"
+              default: "psk2"
+              enum:
+                - "psk"
+                - "psk2"
+                - "psk-mixed"
+              description: "WPA and WPA Enterprise are not valid choice with HT\\VHT mode"
+            password:
+              type: "string"
+              default: "pakedgewireless"
+              pattern: "(^(.){8,63}$|^([a-fA-F]|\\d){64}$)"
+              description: "this password is valid for any of the SSIDs using this security profile"
+            in_use:
+              type: "boolean"
+              default: true
+              description: "true: one or more SSIDs are using this security profile; false: this security profile is not used by any of the SSISs"
+          required:
+            - "profile_id"
+            - "profile_name"
+            - "encryption"
+            - "password"
+    minItems: 1
+    maxItems: 4
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     - profile_id: "1"
+       profile_name: "Pakedge Default"
+       encryption: "psk2"
+       password: "pakedgewireless"
+       in_use: true
+     - profile_id: "2"
+       profile_name: "Guest Default"
+       encryption: "none"
+       in_use: true
+   

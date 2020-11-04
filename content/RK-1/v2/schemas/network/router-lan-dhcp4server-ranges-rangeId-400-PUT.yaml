@@ -1,0 +1,32 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "error"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    description: "Message which explains why command is not executed successfully!"
+    enum:
+      - ""
+      - "Wrong  arguments - missing object!"
+      - "Wrong  arguments - missing \"start\" key/value!"
+      - "Wrong  arguments - missing \"id\" key/value!"
+      - "Wrong  arguments - bad value for  \"start\" key!"
+      - "Wrong  arguments - bad value for  \"end\" key!"
+      - "Failed to modify dhcp range!"
+    uniqueItems: true
+  response:
+    type: "string"
+    default: ""
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Failed to modify dhcp range!"
+   response: ""
+   

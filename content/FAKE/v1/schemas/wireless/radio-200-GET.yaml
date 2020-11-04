@@ -1,0 +1,1007 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      radio:
+        anyOf:
+          - type: "object"
+            properties:
+              enabled:
+                type: "object"
+                properties:
+                  band24:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 2.4 GHz band is enabled/disabled"
+                  band5:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 5 GHz band is enabled/disabled"
+                required:
+                  - "band24"
+                  - "band5"
+              wireless_mode:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "b"
+                      - "g"
+                      - "bg"
+                      - "n"
+                      - "ng"
+                      - "ngb"
+                    description: "Full name of wireless mode: B-Only, G-Only, B/G-Mixed,N-Only, G/N-Mixed, B/G/N-Mixed"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "a"
+                      - "n"
+                      - "ana"
+                      - "ac"
+                      - "naac"
+                      - "anaac"
+                    description: "Full name of wireless mode: A-Only, N-Only, A/N-Mixed, AC-Only, N/AC-Mixed, A/N/AC-Mixed"
+                required:
+                  - "band24"
+                  - "band5"
+              channel_width:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                    description: "Available channel width: HT 20 MHz, HT 40 MHz"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                      - "HT80"
+                    description: "Available channel width: HT 20 MHz, HT 20/40 MHz, HT 40 MHz, VHT 20 MHz, VHT 40 MHz, VHT 80 MHz"
+                required:
+                  - "band24"
+                  - "band5"
+              bandsteering:
+                type: "string"
+                default: "off"
+                enum:
+                  - "on"
+                  - "off"
+              country_code:
+                type: "string"
+                default: "US"
+                enum:
+                  - "AL"
+                  - "AU"
+                  - "AT"
+                  - "BE"
+                  - "BG"
+                  - "CA"
+                  - "CN"
+                  - "HR"
+                  - "CY"
+                  - "CZ"
+                  - "DK"
+                  - "EE"
+                  - "FI"
+                  - "FR"
+                  - "DE"
+                  - "GR"
+                  - "HU"
+                  - "IS"
+                  - "IE"
+                  - "IL"
+                  - "IT"
+                  - "LV"
+                  - "LI"
+                  - "LT"
+                  - "LU"
+                  - "MT"
+                  - "ME"
+                  - "NL"
+                  - "AN"
+                  - "NZ"
+                  - "NO"
+                  - "PL"
+                  - "PT"
+                  - "RO"
+                  - "RU"
+                  - "RS"
+                  - "SK"
+                  - "SI"
+                  - "ES"
+                  - "SE"
+                  - "CH"
+                  - "TR"
+                  - "MK"
+                  - "GB"
+                  - "US"
+              available_country_codes:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "AL"
+                    - "AU"
+                    - "AT"
+                    - "BE"
+                    - "BG"
+                    - "CA"
+                    - "CN"
+                    - "HR"
+                    - "CY"
+                    - "CZ"
+                    - "DK"
+                    - "EE"
+                    - "FI"
+                    - "FR"
+                    - "DE"
+                    - "GR"
+                    - "HU"
+                    - "IS"
+                    - "IE"
+                    - "IL"
+                    - "IT"
+                    - "LV"
+                    - "LI"
+                    - "LT"
+                    - "LU"
+                    - "MT"
+                    - "ME"
+                    - "NL"
+                    - "AN"
+                    - "NZ"
+                    - "NO"
+                    - "PL"
+                    - "PT"
+                    - "RO"
+                    - "RU"
+                    - "RS"
+                    - "SK"
+                    - "SI"
+                    - "ES"
+                    - "SE"
+                    - "CH"
+                    - "TR"
+                    - "MK"
+                    - "GB"
+                    - "US"
+              available_countries:
+                type: "array"
+                items:
+                  enum:
+                    - "Albania"
+                    - "Australia"
+                    - "Austria"
+                    - "Belgium"
+                    - "Bulgaria"
+                    - "Canada"
+                    - "People's Republic of China"
+                    - "Croatia"
+                    - "Cyprus"
+                    - "Czech Republic"
+                    - "Denmark"
+                    - "Estonia"
+                    - "Finland"
+                    - "France"
+                    - "Germany"
+                    - "Greece"
+                    - "Hungary"
+                    - "Iceland"
+                    - "Ireland"
+                    - "Israel"
+                    - "Italy"
+                    - "Latvia"
+                    - "Liechtenstein"
+                    - "Lithuania"
+                    - "Luxembourg"
+                    - "Malta"
+                    - "Montenegro"
+                    - "Netherlands"
+                    - "Netherlands Antilles"
+                    - "New Zealand"
+                    - "Norway"
+                    - "Poland"
+                    - "Portugal"
+                    - "Romania"
+                    - "Russia"
+                    - "Serbia"
+                    - "Slovakia"
+                    - "Slovenia"
+                    - "Spain"
+                    - "Sweden"
+                    - "Switzerland"
+                    - "Turkey"
+                    - "The Former Yugoslav Republic of Macedonia"
+                    - "United Kingdom"
+                    - "United States"
+              channel:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation max value can be even 13."
+                  band5:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation and dfs option there is even more channels."
+                required:
+                  - "band24"
+                  - "band5"
+              available_channels:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 11
+                        - 12
+                        - 13
+                  band5:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 36
+                        - 40
+                        - 44
+                        - 48
+                        - 52
+                        - 56
+                        - 60
+                        - 64
+                        - 100
+                        - 104
+                        - 108
+                        - 112
+                        - 116
+                        - 120
+                        - 124
+                        - 128
+                        - 132
+                        - 136
+                        - 140
+                        - 144
+                        - 149
+                        - 153
+                        - 157
+                        - 161
+                        - 165
+                required:
+                  - "band24"
+                  - "band5"
+              channel_actual:
+                type: "object"
+                description: "If auto is selected here is number of channel which is choosed by auto."
+                properties:
+                  band24:
+                    type: "string"
+                  band5:
+                    type: "string"
+              operation_mode:
+                type: "object"
+                description: "Abbreviation of: Access Point, Client Bridge, WDS Root, WDS bridge, WDS Station, WDS Repeater."
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+              dfs:
+                type: "string"
+                enum:
+                  - "on"
+                  - "off"
+              available_txpowers:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "26 dBm (399 mW)"
+                        - "27 dBm (502 mW)"
+                        - "28 dBm (631 mW)"
+                        - "29 dBm (795 mW)"
+                        - "maximum"
+                  band5:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "26 dBm (399 mW)"
+                        - "27 dBm (502 mW)"
+                        - "28 dBm (631 mW)"
+                        - "29 dBm (795 mW)"
+                        - "maximum"
+              is_country_locked:
+                type: "boolean"
+            required:
+              - "wireless_mode"
+              - "channel"
+              - "operation_mode"
+              - "enabled"
+              - "dfs"
+              - "is_country_locked"
+          - type: "object"
+            properties:
+              enabled:
+                type: "object"
+                properties:
+                  band24:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 2.4 GHz band is enabled/disabled"
+                  band5:
+                    type: "boolean"
+                    default: true
+                    description: "Option to check if entire 5 GHz band is enabled/disabled"
+                required:
+                  - "band24"
+                  - "band5"
+              wireless_mode:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "b"
+                      - "g"
+                      - "bg"
+                      - "n"
+                      - "ng"
+                      - "ngb"
+                    description: "Full name of wireless mode: B-Only, G-Only, B/G-Mixed,N-Only, G/N-Mixed, B/G/N-Mixed"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "a"
+                      - "n"
+                      - "ana"
+                      - "ac"
+                      - "naac"
+                      - "anaac"
+                    description: "Full name of wireless mode: A-Only, N-Only, A/N-Mixed, AC-Only, N/AC-Mixed, A/N/AC-Mixed"
+                required:
+                  - "band24"
+                  - "band5"
+              channel_width:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                    description: "Available channel width: HT 20 MHz, HT 40 MHz"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "HT20"
+                      - "HT40"
+                      - "HT80"
+                    description: "Available channel width: HT 20 MHz, HT 20/40 MHz, HT 40 MHz, VHT 20 MHz, VHT 40 MHz, VHT 80 MHz"
+                required:
+                  - "band24"
+                  - "band5"
+              bandsteering:
+                type: "string"
+                default: "off"
+                enum:
+                  - "on"
+                  - "off"
+              country_code:
+                type: "string"
+                default: "US"
+                enum:
+                  - "AL"
+                  - "AU"
+                  - "AT"
+                  - "BE"
+                  - "BG"
+                  - "CA"
+                  - "CN"
+                  - "HR"
+                  - "CY"
+                  - "CZ"
+                  - "DK"
+                  - "EE"
+                  - "FI"
+                  - "FR"
+                  - "DE"
+                  - "GR"
+                  - "HU"
+                  - "IS"
+                  - "IE"
+                  - "IL"
+                  - "IT"
+                  - "LV"
+                  - "LI"
+                  - "LT"
+                  - "LU"
+                  - "MT"
+                  - "ME"
+                  - "NL"
+                  - "AN"
+                  - "NZ"
+                  - "NO"
+                  - "PL"
+                  - "PT"
+                  - "RO"
+                  - "RU"
+                  - "RS"
+                  - "SK"
+                  - "SI"
+                  - "ES"
+                  - "SE"
+                  - "CH"
+                  - "TR"
+                  - "MK"
+                  - "GB"
+                  - "US"
+              available_country_codes:
+                type: "array"
+                items:
+                  type: "string"
+                  enum:
+                    - "AL"
+                    - "AU"
+                    - "AT"
+                    - "BE"
+                    - "BG"
+                    - "CA"
+                    - "CN"
+                    - "HR"
+                    - "CY"
+                    - "CZ"
+                    - "DK"
+                    - "EE"
+                    - "FI"
+                    - "FR"
+                    - "DE"
+                    - "GR"
+                    - "HU"
+                    - "IS"
+                    - "IE"
+                    - "IL"
+                    - "IT"
+                    - "LV"
+                    - "LI"
+                    - "LT"
+                    - "LU"
+                    - "MT"
+                    - "ME"
+                    - "NL"
+                    - "AN"
+                    - "NZ"
+                    - "NO"
+                    - "PL"
+                    - "PT"
+                    - "RO"
+                    - "RU"
+                    - "RS"
+                    - "SK"
+                    - "SI"
+                    - "ES"
+                    - "SE"
+                    - "CH"
+                    - "TR"
+                    - "MK"
+                    - "GB"
+                    - "US"
+              available_countries:
+                type: "array"
+                items:
+                  enum:
+                    - "Albania"
+                    - "Australia"
+                    - "Austria"
+                    - "Belgium"
+                    - "Bulgaria"
+                    - "Canada"
+                    - "People's Republic of China"
+                    - "Croatia"
+                    - "Cyprus"
+                    - "Czech Republic"
+                    - "Denmark"
+                    - "Estonia"
+                    - "Finland"
+                    - "France"
+                    - "Germany"
+                    - "Greece"
+                    - "Hungary"
+                    - "Iceland"
+                    - "Ireland"
+                    - "Israel"
+                    - "Italy"
+                    - "Latvia"
+                    - "Liechtenstein"
+                    - "Lithuania"
+                    - "Luxembourg"
+                    - "Malta"
+                    - "Montenegro"
+                    - "Netherlands"
+                    - "Netherlands Antilles"
+                    - "New Zealand"
+                    - "Norway"
+                    - "Poland"
+                    - "Portugal"
+                    - "Romania"
+                    - "Russia"
+                    - "Serbia"
+                    - "Slovakia"
+                    - "Slovenia"
+                    - "Spain"
+                    - "Sweden"
+                    - "Switzerland"
+                    - "Turkey"
+                    - "The Former Yugoslav Republic of Macedonia"
+                    - "United Kingdom"
+                    - "United States"
+              channel:
+                type: "object"
+                properties:
+                  band24:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation max value can be even 13."
+                  band5:
+                    type: "string"
+                    default: "auto"
+                    description: "0 is auto and depends on country regulation and dfs option there is even more channels."
+                required:
+                  - "band24"
+                  - "band5"
+              available_channels:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 1
+                        - 2
+                        - 3
+                        - 4
+                        - 5
+                        - 6
+                        - 7
+                        - 8
+                        - 9
+                        - 10
+                        - 11
+                        - 12
+                        - 13
+                  band5:
+                    type: "array"
+                    items:
+                      type: "integer"
+                      enum:
+                        - 36
+                        - 40
+                        - 44
+                        - 48
+                        - 52
+                        - 56
+                        - 60
+                        - 64
+                        - 100
+                        - 104
+                        - 108
+                        - 112
+                        - 116
+                        - 120
+                        - 124
+                        - 128
+                        - 132
+                        - 136
+                        - 140
+                        - 144
+                        - 149
+                        - 153
+                        - 157
+                        - 161
+                        - 165
+                required:
+                  - "band24"
+                  - "band5"
+              channel_actual:
+                type: "object"
+                description: "If auto is selected here is number of channel which is choosed by auto."
+                properties:
+                  band24:
+                    type: "string"
+                  band5:
+                    type: "string"
+              operation_mode:
+                type: "object"
+                description: "Abbreviation of: Access Point, Client Bridge, WDS Root, WDS bridge, WDS Station, WDS Repeater."
+                properties:
+                  band24:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+                  band5:
+                    type: "string"
+                    enum:
+                      - "ap"
+                      - "wds_root"
+                      - "wds_bridge"
+                      - "wds_repeater"
+              dfs:
+                type: "string"
+                enum:
+                  - "on"
+                  - "off"
+              available_txpowers:
+                type: "object"
+                properties:
+                  band24:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "1 dBm (2 mW)"
+                        - "2 dBm (2 mW)"
+                        - "3 dBm (2 mW)"
+                        - "4 dBm (3 mW)"
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "maximum"
+                  band5:
+                    type: "array"
+                    items:
+                      type: "string"
+                      enum:
+                        - "1 dBm (2 mW)"
+                        - "2 dBm (2 mW)"
+                        - "3 dBm (2 mW)"
+                        - "4 dBm (3 mW)"
+                        - "5 dBm (4 mW)"
+                        - "6 dBm (4 mW)"
+                        - "7 dBm (6 mW)"
+                        - "8 dBm (7 mW)"
+                        - "9 dBm (8 mW)"
+                        - "10 dBm (10 mW)"
+                        - "11 dBm (13 mW)"
+                        - "12 dBm (16 mW)"
+                        - "13 dBm (20 mW)"
+                        - "14 dBm (26 mW)"
+                        - "15 dBm (32 mW)"
+                        - "16 dBm (40 mW)"
+                        - "17 dBm (51 mW)"
+                        - "18 dBm (64 mW)"
+                        - "19 dBm (80 mW)"
+                        - "20 dBm (100 mW)"
+                        - "21 dBm (126 mW)"
+                        - "22 dBm (159 mW)"
+                        - "23 dBm (200 mW)"
+                        - "24 dBm (252 mW)"
+                        - "25 dBm (317 mW)"
+                        - "maximum"
+              is_country_locked:
+                type: "boolean"
+            required:
+              - "wireless_mode"
+              - "channel"
+              - "operation_mode"
+              - "enabled"
+              - "dfs"
+              - "is_country_locked"
+    required:
+      - "radio"
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     radio:
+       enabled:
+         band24: true
+         band5: true
+       available_country_codes:
+         - "AL"
+         - "AU"
+         - "AT"
+         - "BE"
+         - "BG"
+         - "CA"
+         - "CN"
+         - "HR"
+         - "CY"
+         - "CZ"
+         - "DK"
+         - "EE"
+         - "FI"
+         - "FR"
+         - "DE"
+         - "GR"
+         - "HU"
+         - "IS"
+         - "IE"
+         - "IL"
+         - "IT"
+         - "LV"
+         - "LI"
+         - "LT"
+         - "LU"
+         - "MT"
+         - "ME"
+         - "NL"
+         - "AN"
+         - "NZ"
+         - "NO"
+         - "PL"
+         - "PT"
+         - "RO"
+         - "RU"
+         - "RS"
+         - "SK"
+         - "SI"
+         - "ES"
+         - "SE"
+         - "CH"
+         - "TR"
+         - "MK"
+         - "GB"
+         - "US"
+       wireless_mode:
+         band24: "b"
+         band5: "ana"
+       bandsteering: "off"
+       available_txpowers:
+         band24:
+           - "1 dBm (2 mW)"
+           - "2 dBm (2 mW)"
+           - "3 dBm (2 mW)"
+           - "4 dBm (3 mW)"
+           - "5 dBm (4 mW)"
+           - "6 dBm (4 mW)"
+           - "7 dBm (6 mW)"
+           - "8 dBm (7 mW)"
+           - "9 dBm (8 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (13 mW)"
+           - "12 dBm (16 mW)"
+           - "13 dBm (20 mW)"
+           - "14 dBm (26 mW)"
+           - "15 dBm (32 mW)"
+           - "16 dBm (40 mW)"
+           - "17 dBm (51 mW)"
+           - "18 dBm (64 mW)"
+           - "19 dBm (80 mW)"
+           - "20 dBm (100 mW)"
+           - "21 dBm (126 mW)"
+           - "22 dBm (159 mW)"
+           - "23 dBm (200 mW)"
+           - "24 dBm (252 mW)"
+           - "25 dBm (317 mW)"
+           - "maximum"
+         band5:
+           - "1 dBm (2 mW)"
+           - "2 dBm (2 mW)"
+           - "3 dBm (2 mW)"
+           - "4 dBm (3 mW)"
+           - "5 dBm (4 mW)"
+           - "6 dBm (4 mW)"
+           - "7 dBm (6 mW)"
+           - "8 dBm (7 mW)"
+           - "9 dBm (8 mW)"
+           - "10 dBm (10 mW)"
+           - "11 dBm (13 mW)"
+           - "12 dBm (16 mW)"
+           - "13 dBm (20 mW)"
+           - "14 dBm (26 mW)"
+           - "15 dBm (32 mW)"
+           - "16 dBm (40 mW)"
+           - "17 dBm (51 mW)"
+           - "18 dBm (64 mW)"
+           - "19 dBm (80 mW)"
+           - "20 dBm (100 mW)"
+           - "21 dBm (126 mW)"
+           - "22 dBm (159 mW)"
+           - "23 dBm (200 mW)"
+           - "24 dBm (252 mW)"
+           - "25 dBm (317 mW)"
+           - "maximum"
+       available_countries:
+         - "Albania"
+         - "Australia"
+         - "Austria"
+         - "Belgium"
+         - "Bulgaria"
+         - "Canada"
+         - "People's Republic of China"
+         - "Croatia"
+         - "Cyprus"
+         - "Czech Republic"
+         - "Denmark"
+         - "Estonia"
+         - "Finland"
+         - "France"
+         - "Germany"
+         - "Greece"
+         - "Hungary"
+         - "Iceland"
+         - "Ireland"
+         - "Israel"
+         - "Italy"
+         - "Latvia"
+         - "Liechtenstein"
+         - "Lithuania"
+         - "Luxembourg"
+         - "Malta"
+         - "Montenegro"
+         - "Netherlands"
+         - "Netherlands Antilles"
+         - "New Zealand"
+         - "Norway"
+         - "Poland"
+         - "Portugal"
+         - "Romania"
+         - "Russia"
+         - "Serbia"
+         - "Slovakia"
+         - "Slovenia"
+         - "Spain"
+         - "Sweden"
+         - "Switzerland"
+         - "Turkey"
+         - "The Former Yugoslav Republic of Macedonia"
+         - "United Kingdom"
+         - "United States"
+       operation_mode:
+         band24: "ap"
+         band5: "ap"
+       channel:
+         band24: "1"
+         band5: "36"
+       dfs: "on"
+       is_country_locked: false
+       available_channels:
+         band5:
+           - 36
+           - 40
+           - 44
+           - 48
+           - 52
+           - 56
+           - 60
+           - 64
+           - 100
+           - 104
+           - 108
+           - 112
+           - 116
+           - 120
+           - 124
+           - 128
+           - 132
+           - 136
+           - 140
+           - 149
+           - 153
+           - 157
+           - 161
+           - 165
+         band24:
+           - 1
+           - 2
+           - 3
+           - 4
+           - 5
+           - 6
+           - 7
+           - 8
+           - 9
+           - 10
+           - 11
+       channel_width:
+         band24: "HT20"
+         band5: "HT40"
+   

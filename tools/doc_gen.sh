@@ -65,7 +65,15 @@ process_api(){
 			else
 				if [[ ${ENDPOINT_SEG[INDEX]} == ":"* ]]; then
 					TMP=$(echo ${ENDPOINT_SEG[INDEX]}| cut -d ':' -f2)
-					API_FILE_SEG=${ENDPOINT_SEG[INDEX - 1]::-1}${TMP}
+					TMP="$(tr '[:lower:]' '[:upper:]' <<< ${TMP:0:1})${TMP:1}"
+
+					IS_URI_PLURAL=${ENDPOINT_SEG[INDEX - 1]: -1}
+					if [ "${IS_URI_PLURAL}" = 's' ]; then
+						API_FILE_SEG=${ENDPOINT_SEG[INDEX - 1]::-1}${TMP}
+					else
+						API_FILE_SEG=${ENDPOINT_SEG[INDEX - 1]}${TMP}
+					fi
+
 					ENDPOINT_SEG[INDEX]='{'${API_FILE_SEG}'}'
 					ID_PARAMETER=true
 					ID_PARAMETER_NAME=${API_FILE_SEG}
@@ -122,6 +130,7 @@ gen_tamplate_files(){
 	fi
 
 	ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ${ENDPOINT_YAML}:)
+
 	if [ ! -z "${ENDPOINT_EXISTS}" ]; then
 		ENDPOINT_EXISTS=$(cat ${INDEX_PATHS_YAML} | grep -F ./${API_FOLDER}/${API_FILE}-${METHOD}.yaml)
 		if [ -z "${ENDPOINT_EXISTS}" ]; then
@@ -214,14 +223,12 @@ gen_tamplate_files(){
 		fi
 
 		# Add generic response messagges
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/response/errors" ]; then
-			cp -rf templates/${API_VERSION}/response/errors content/${PLATFORM}/${API_VERSION}/response/errors
-		fi
+		mkdir -p content/${PLATFORM}/${API_VERSION}/response/generic
+		cp -rf templates/${API_VERSION}/response/generic/* content/${PLATFORM}/${API_VERSION}/response/generic
 
 		# Add generic schemas
-		if [ ! -d "content/${PLATFORM}/${API_VERSION}/schemas/errors" ]; then
-			cp -rf templates/${API_VERSION}/schemas/errors content/${PLATFORM}/${API_VERSION}/schemas/errors
-		fi
+		mkdir -p content/${PLATFORM}/${API_VERSION}/schemas/generic
+		cp -rf templates/${API_VERSION}/schemas/generic/* content/${PLATFORM}/${API_VERSION}/schemas/generic
 
 		# Add generic headers
 		if [ ! -d "${FOLDER_HEADERS}" ]; then
@@ -259,9 +266,17 @@ gen_tamplate_files(){
 			fi
 
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-GET-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
-				sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
-				sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} get res 200)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_200}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_200}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_200}"
+					cp -rf "templates/${API_VERSION}/schemas/template-GET-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
+					sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+					sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				fi
+				
 			fi
 
 		elif [ "${METHOD}" = "DELETE" ]; then
@@ -300,9 +315,16 @@ gen_tamplate_files(){
 			fi
 			# 200 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-DELETE-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
-				sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
-				sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} delete res 200)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_200}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_200}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_200}"
+					cp -rf "templates/${API_VERSION}/schemas/template-DELETE-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
+					sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+					sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				fi
 			fi
 			# 400 RESPONSE
 			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_400}" ]; then
@@ -312,9 +334,19 @@ gen_tamplate_files(){
 			fi
 			# 400 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_400}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-DELETE-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
-				sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
-				sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} delete res 400)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_400}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_400}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_400}"
+					cp -rf "templates/${API_VERSION}/schemas/template-DELETE-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
+					sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+					sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+				fi
+
+
 			fi
 
 		elif [ "${METHOD}" = "POST" ]; then
@@ -367,7 +399,14 @@ gen_tamplate_files(){
 
 			#REQUEST SCHEMAS
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_BASE}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-POST-1.yaml" "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} post req)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_BASE}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_BASE}"
+					cp -rf "templates/${API_VERSION}/schemas/template-POST-1.yaml" "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				fi
 			fi
 
 			# 200 RESPONSE
@@ -379,9 +418,16 @@ gen_tamplate_files(){
 
 			# 200 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-POST-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
-				sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
-				sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} post res 200)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_200}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_200}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_200}"
+					cp -rf "templates/${API_VERSION}/schemas/template-POST-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
+					sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+					sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				fi
 			fi
 			# 400 RESPONSE
 			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_400}" ]; then
@@ -391,9 +437,16 @@ gen_tamplate_files(){
 			fi
 			# 400 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_400}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-POST-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
-				sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
-				sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} post res 400)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_400}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_400}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_400}"
+					cp -rf "templates/${API_VERSION}/schemas/template-POST-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
+					sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+					sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+				fi
 			fi
 
 		elif [ "${METHOD}" = "PUT" ]; then
@@ -446,7 +499,14 @@ gen_tamplate_files(){
 
 			#REQUEST SCHEMAS
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_BASE}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-PUT-1.yaml" "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} put req)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_BASE}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_BASE}"
+					cp -rf "templates/${API_VERSION}/schemas/template-PUT-1.yaml" "${FOLDER_SCHEMAS}/${API_FILE_BASE}"
+				fi
 			fi
 
 			# 200 RESPONSE
@@ -458,9 +518,16 @@ gen_tamplate_files(){
 
 			# 200 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_200}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-PUT-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
-				sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
-				sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} put res 200)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_200}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_200}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_200}"
+					cp -rf "templates/${API_VERSION}/schemas/template-PUT-200.yaml" "${FOLDER_SCHEMAS}/${API_FILE_200}"
+					sed -i 's^response: XXXX^response: '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+					sed -i 's^description: Tamplate schema for endpoint XXXX.^description: Tamplate schema for endpoint '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_200}
+				fi
 			fi
 			# 400 RESPONSE
 			if [ ! -f "${FOLDER_RESPONSE}/${API_FILE_400}" ]; then
@@ -470,9 +537,16 @@ gen_tamplate_files(){
 			fi
 			# 400 SCHEMA
 			if [ ! -f "${FOLDER_SCHEMAS}/${API_FILE_400}" ]; then
-				cp -rf "templates/${API_VERSION}/schemas/template-PUT-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
-				sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
-				sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+				TMP=$(node tools/doc_old.js ${PLATFORM} ${VERSION} ${ENDPOINT_YAML} put res 400)
+				if [ ! -z "${TMP}" ]; then
+					echo "OLD SCHEMA ${API_FILE_400}"
+					echo "${TMP}" >> "${FOLDER_SCHEMAS}/${API_FILE_400}"
+				else
+					echo "GENERIC SCHEMA ${API_FILE_400}"
+					cp -rf "templates/${API_VERSION}/schemas/template-PUT-400.yaml" "${FOLDER_SCHEMAS}/${API_FILE_400}"
+					sed -i 's^Can not do XXXX^Can not do '${ENDPOINT_YAML}'^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+					sed -i 's^description: Error in setting XXXX.^description: Error in setting '${ENDPOINT_YAML}'.^' ${FOLDER_SCHEMAS}/${API_FILE_400}
+				fi
 			fi
 		fi
 

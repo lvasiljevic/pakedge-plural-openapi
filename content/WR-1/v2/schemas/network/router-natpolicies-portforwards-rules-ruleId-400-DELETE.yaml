@@ -1,0 +1,29 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    enum:
+      - "error"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    enum:
+      - "Failed to delete port forwarding rule!"
+    uniqueItems: true
+    description: "standard Pakedge status code"
+  response:
+    type: "string"
+    enum:
+      - ""
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "error"
+   msg: "Failed to delete port forwarding rule!"
+   response: ""
+   

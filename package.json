@@ -22,11 +22,15 @@
   "homepage": "https://github.com/lvasiljevic/pakedge-plural-openapi#readme",
   "dependencies": {
     "@openapitools/openapi-generator-cli": "^2.0.3",
+    "ajv": "^6.12.6",
     "bootprint": "^4.0.4",
     "bootprint-openapi": "^4.0.4",
+    "eol": "^0.9.1",
     "html-inline": "^1.2.0",
+    "json-to-pretty-yaml": "^1.2.2",
     "json2yaml": "^1.1.0",
     "merge-yaml-cli": "^1.1.2",
+    "raml-parser": "^0.8.18",
     "swagger-cli": "^4.0.4"
   }
 }

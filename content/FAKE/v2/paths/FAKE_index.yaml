@@ -1,0 +1,151 @@
+/network:
+  get:
+    tags:
+      - network
+    $ref: "./network/network-GET.yaml"
+/network/router/lan:
+  put:
+    tags:
+      - network
+    $ref: "./network/router-lan-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-GET.yaml"
+/network/router/lan/ipv4:
+  put:
+    tags:
+      - network
+    $ref: "./network/router-lan-ipv4-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-ipv4-GET.yaml"
+/network/router/lan/dhcp4server:
+  put:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-GET.yaml"
+/network/wans:
+  get:
+    tags:
+      - network
+    $ref: "./network/wans-GET.yaml"
+/network/router/lan/dhcp4server/ranges:
+  post:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-ranges-POST.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-ranges-GET.yaml"
+/network/router/lan/dhcp4server/ranges/{rangeId}:
+  put:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-ranges-rangeId-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-ranges-rangeId-GET.yaml"
+/network/router/lan/dhcp4server/reservations/{reservationId}:
+  delete:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-reservations-reservationId-DELETE.yaml"
+  put:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-reservations-reservationId-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-reservations-reservationId-GET.yaml"
+/network/router/lan/dhcp4server/reservations:
+  post:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-reservations-POST.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-lan-dhcp4server-reservations-GET.yaml"
+/network/wans/{wanId}/ipv4:
+  put:
+    tags:
+      - network
+    $ref: "./network/wans-wanId-ipv4-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/wans-wanId-ipv4-GET.yaml"
+/network/wans/{wanId}:
+  put:
+    tags:
+      - network
+    $ref: "./network/wans-wanId-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/wans-wanId-GET.yaml"
+/network/router/connections:
+  get:
+    tags:
+      - network
+    $ref: "./network/router-connections-GET.yaml"
+/network/ports:
+  get:
+    tags:
+      - network
+    $ref: "./network/ports-GET.yaml"
+/network/ports/{portId}:
+  get:
+    tags:
+      - network
+    $ref: "./network/ports-portId-GET.yaml"
+/network/router/natpolicies:
+  get:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-GET.yaml"
+/network/router/natpolicies/portforwards:
+  get:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-GET.yaml"
+/network/router/natpolicies/portforwards/ports:
+  get:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-ports-GET.yaml"
+/network/router/natpolicies/portforwards/rules:
+  put:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-PUT.yaml"
+  post:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-POST.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-GET.yaml"
+/network/router/natpolicies/portforwards/rules/{ruleId}:
+  delete:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-ruleId-DELETE.yaml"
+  put:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-ruleId-PUT.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/router-natpolicies-portforwards-rules-ruleId-GET.yaml"

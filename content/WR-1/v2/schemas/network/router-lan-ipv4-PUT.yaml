@@ -1,0 +1,21 @@
+type: "object"
+properties:
+  proto:
+    type: "string"
+    enum:
+      - "static"
+      - "dhcp"
+    description: "type of networking"
+  netmask:
+    type: "string"
+    format: "ipv4"
+  ip_address:
+    type: "string"
+    format: "ipv4"
+additionalProperties: false
+
+example:
+   ip_address: "192.168.1.99"
+   proto: "static"
+   netmask: "255.255.255.0"
+   

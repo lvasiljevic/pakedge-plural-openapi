@@ -1,0 +1,17 @@
+description: |
+        Configure the leds settings.
+requestBody:
+   $ref : "../../request/leds/leds-POST.yaml"
+security:
+  - bearerAuth: []
+responses:
+  '200':
+    $ref : "../../response/leds/leds-200-POST.yaml"
+  '400':
+    $ref : "../../response/leds/leds-400-POST.yaml"
+  '401':
+    $ref : "../../response/generic/401.yaml"
+  '404':
+    $ref : "../../response/generic/404.yaml"
+  '503':
+    $ref : "../../response/generic/503.yaml"

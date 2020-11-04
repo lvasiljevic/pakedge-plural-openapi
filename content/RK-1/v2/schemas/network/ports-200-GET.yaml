@@ -1,0 +1,189 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    pattern: "^success$|^error$"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "standard Pakedge msg"
+  response:
+    type: "object"
+    properties:
+      ports:
+        type: "array"
+        items:
+          type: "object"
+          properties:
+            id:
+              type: "integer"
+              default: 1
+              description: "unique collection item id"
+              minimum: 1
+              maximum: 9
+            link:
+              type: "string"
+              enum:
+                - "up"
+                - "down"
+              description: "link can be up or down"
+            name:
+              type: "string"
+            enabled:
+              type: "boolean"
+            negotiation:
+              type: "object"
+              properties:
+                duplex:
+                  type: "string"
+                  enum:
+                    - "full"
+                    - "half"
+                    - "--"
+                speed:
+                  type: "string"
+                  enum:
+                    - "10"
+                    - "100"
+                    - "1000"
+                    - "--"
+                  description: "Negotiated or set speed expressed in Mbps"
+              additionalProperties: false
+              required:
+                - "speed"
+                - "duplex"
+            interfaces:
+              type: "object"
+              properties:
+                port_type:
+                  type: "string"
+                  enum:
+                    - "wan"
+                    - "lan"
+                vlans:
+                  type: "array"
+                  items:
+                    type: "object"
+                    properties:
+                      vlan_id:
+                        type: "integer"
+                        minimum: 0
+                        maximum: 4092
+                      name:
+                        type: "string"
+                      tag:
+                        type: "string"
+                        enum:
+                          - "off"
+                          - "tagged"
+                          - "untagged"
+              additionalProperties: false
+              required:
+                - "port_type"
+                - "vlans"
+          additionalProperties: false
+          required:
+            - "interfaces"
+            - "negotiation"
+            - "name"
+            - "link"
+            - "id"
+            - "enabled"
+    additionalProperties: false
+    required:
+      - "ports"
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     ports:
+       - enabled: true
+         name: "wan2"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 555
+               name: "vlan555"
+           port_type: "wan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 1
+       - enabled: true
+         name: "lan2"
+         link: "up"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "untagged"
+             - vlan_id: 50
+               name: "Video"
+               tag: "tagged"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "off"
+           port_type: "lan"
+         negotiation:
+           speed: "1000"
+           duplex: "full"
+         id: 2
+       - enabled: true
+         name: "lan3"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "untagged"
+             - vlan_id: 50
+               name: "Video"
+               tag: "off"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "tagged"
+           port_type: "lan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 3
+       - enabled: true
+         name: "lan4"
+         link: "down"
+         interfaces:
+           vlans:
+             - vlan_id: 0
+               name: "vlan0"
+               tag: "off"
+             - vlan_id: 50
+               name: "Video"
+               tag: "untagged"
+             - vlan_id: 125
+               name: "Automation"
+               tag: "off"
+           port_type: "lan"
+         negotiation:
+           speed: "--"
+           duplex: "--"
+         id: 4
+       - enabled: true
+         name: "wan1"
+         link: "up"
+         interfaces:
+           vlans:
+             - vlan_id: 126
+               name: "vlan126"
+           port_type: "wan"
+         negotiation:
+           speed: "1000"
+           duplex: "full"
+         id: 5
+   

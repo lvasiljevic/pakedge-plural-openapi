@@ -1,0 +1,215 @@
+/wireless:
+  post:
+    tags:
+      - wireless
+    $ref: "./wireless/wireless-POST.yaml"
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/wireless-GET.yaml"
+/wireless/radio:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/radio-GET.yaml"
+/wireless/advanced:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/advanced-GET.yaml"
+/wireless/guest_network:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/guest_network-GET.yaml"
+/wireless/private_network:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/private_network-GET.yaml"
+/wireless/statistics:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/statistics-GET.yaml"
+/wireless/restrictions:
+  get:
+    tags:
+      - wireless
+    $ref: "./wireless/restrictions-GET.yaml"
+/macfilter:
+  put:
+    tags:
+      - macfilter
+    $ref: "./macfilter/macfilter-PUT.yaml"
+  get:
+    tags:
+      - macfilter
+    $ref: "./macfilter/macfilter-GET.yaml"
+/wlanclients:
+  get:
+    tags:
+      - wlanclients
+    $ref: "./wlanclients/wlanclients-GET.yaml"
+/stp:
+  post:
+    tags:
+      - stp
+    $ref: "./stp/stp-POST.yaml"
+  get:
+    tags:
+      - stp
+    $ref: "./stp/stp-GET.yaml"
+/vlan:
+  post:
+    tags:
+      - vlan
+    $ref: "./vlan/vlan-POST.yaml"
+  get:
+    tags:
+      - vlan
+    $ref: "./vlan/vlan-GET.yaml"
+/lan:
+  post:
+    tags:
+      - lan
+    $ref: "./lan/lan-POST.yaml"
+  get:
+    tags:
+      - lan
+    $ref: "./lan/lan-GET.yaml"
+/network:
+  post:
+    tags:
+      - network
+    $ref: "./network/network-POST.yaml"
+  get:
+    tags:
+      - network
+    $ref: "./network/network-GET.yaml"
+/location:
+  post:
+    tags:
+      - location
+    $ref: "./location/location-POST.yaml"
+  get:
+    tags:
+      - location
+    $ref: "./location/location-GET.yaml"
+/timezone:
+  post:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-POST.yaml"
+  get:
+    tags:
+      - timezone
+    $ref: "./timezone/timezone-GET.yaml"
+/configuration:
+  post:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-POST.yaml"
+  get:
+    tags:
+      - configuration
+    $ref: "./configuration/configuration-GET.yaml"
+/deviceinfo:
+  get:
+    tags:
+      - deviceinfo
+    $ref: "./deviceinfo/deviceinfo-GET.yaml"
+/metrics:
+  get:
+    tags:
+      - metrics
+    $ref: "./metrics/metrics-GET.yaml"
+/firmwareversion:
+  get:
+    tags:
+      - firmwareversion
+    $ref: "./firmwareversion/firmwareversion-GET.yaml"
+/onlineupgrade:
+  post:
+    tags:
+      - onlineupgrade
+    $ref: "./onlineupgrade/onlineupgrade-POST.yaml"
+  get:
+    tags:
+      - onlineupgrade
+    $ref: "./onlineupgrade/onlineupgrade-GET.yaml"
+/leds:
+  post:
+    tags:
+      - leds
+    $ref: "./leds/leds-POST.yaml"
+  get:
+    tags:
+      - leds
+    $ref: "./leds/leds-GET.yaml"
+/deviceportal:
+  post:
+    tags:
+      - deviceportal
+    $ref: "./deviceportal/deviceportal-POST.yaml"
+  get:
+    tags:
+      - deviceportal
+    $ref: "./deviceportal/deviceportal-GET.yaml"
+/remotetunnels:
+  post:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-POST.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnels-GET.yaml"
+/remotetunnels/{remotetunnelId}:
+  delete:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-DELETE.yaml"
+  get:
+    tags:
+      - remotetunnels
+    $ref: "./remotetunnels/remotetunnelId-GET.yaml"
+/discovery:
+  post:
+    tags:
+      - discovery
+    $ref: "./discovery/discovery-POST.yaml"
+  get:
+    tags:
+      - discovery
+    $ref: "./discovery/discovery-GET.yaml"
+/discovery/waps:
+  get:
+    tags:
+      - discovery
+    $ref: "./discovery/waps-GET.yaml"
+/group:
+  get:
+    tags:
+      - group
+    $ref: "./group/group-GET.yaml"
+/group/bakpak:
+  get:
+    tags:
+      - group
+    $ref: "./group/bakpak-GET.yaml"
+/availablechannels:
+  post:
+    tags:
+      - availablechannels
+    $ref: "./availablechannels/availablechannels-POST.yaml"
+/group/bakpak/unblock:
+  post:
+    tags:
+      - group
+    $ref: "./group/bakpak-unblock-POST.yaml"
+/firmware:
+  put:
+    tags:
+      - firmware
+    $ref: "./firmware/firmware-PUT.yaml"

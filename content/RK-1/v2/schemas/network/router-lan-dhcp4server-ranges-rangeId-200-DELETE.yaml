@@ -1,0 +1,29 @@
+type: "object"
+properties:
+  status:
+    type: "string"
+    default: "success"
+    description: "standard Pakedge status code"
+  msg:
+    type: "string"
+    default: ""
+    description: "Message which explains why command is not executed successfully!"
+    uniqueItems: true
+  response:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        maximum: 5
+additionalProperties: false
+required:
+  - "status"
+  - "msg"
+  - "response"
+
+example:
+   status: "success"
+   msg: ""
+   response:
+     id: 1
+   
